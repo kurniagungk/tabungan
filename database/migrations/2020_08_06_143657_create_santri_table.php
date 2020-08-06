@@ -25,6 +25,8 @@ class CreateSantriTable extends Migration
             $table->string('telepon');
             $table->string('status');
             $table->string('foto');
+            $table->string('password');
+            $table->bigInteger('saldo');
             $table->timestamps();
         });
     }
