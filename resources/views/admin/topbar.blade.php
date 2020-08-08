@@ -42,9 +42,9 @@
 
         <!-- for title corporate -->
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="https://kelasinggris.id" id="userDropdown" target="blank">
+            <a class="nav-link dropdown-toggle" href="https://alkahfisomalangu.id" id="userDropdown" target="blank">
                 <p>
-                    <center>KELASINGGRIS.ID</center>
+                    <center>alkahfisomalangu.id</center>
                 </p>
                 <!-- <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> -->
             </a>
