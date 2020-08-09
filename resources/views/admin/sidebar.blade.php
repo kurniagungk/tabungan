@@ -28,7 +28,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/nasabah">
             <i class="fas fa-fw fa-folder"></i>
             <span>Data Nasabah</span></a>
     </li>
@@ -42,25 +42,17 @@
         <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                <a class="collapse-item" href="buttons.html">Setor</a>
-                <a class="collapse-item" href="cards.html">Tarik</a>
+                <a class="collapse-item" href="/setor">Setor</a>
+                <a class="collapse-item" href="/tarik">Tarik</a>
             </div>
         </div>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Mitra</span>
-        </a>
-        <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                <a class="collapse-item" href="buttons.html">Koperasi</a>
-                <a class="collapse-item" href="cards.html">Warnet</a>
-            </div>
-        </div>
+        <a class="nav-link" href="/nasabah">
+            <i class="fas fa-fw fa-store"></i>
+            <span>Mitra</span></a>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -74,6 +66,7 @@
                 <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                 <a class="collapse-item" href="buttons.html">Jurnal Umum</a>
                 <a class="collapse-item" href="cards.html">Jurnal Mitra</a>
+                <a class="collapse-item" href="cards.html">Mutasi Nasabah</a>
             </div>
         </div>
     </li>

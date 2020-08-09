@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="container-header">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-xl col-lg">
             <!-- <div class="card"> -->

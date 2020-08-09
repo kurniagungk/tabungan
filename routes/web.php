@@ -20,3 +20,20 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('test');
 });
+
+// route::prefix('tabungan')->group(function () {
+//     Route::get('/', 'tabungan@index');
+//     Route::get('/create', 'tabungan@create');  
+// });
+
+Route::get('/nasabah', function () {
+    return view('livewire.nasabah.index');
+});
+
+Route::get('/setor', function () {
+    return view('livewire.setor.index');
+});
+
+Route::get('/tarik', function () {
+    return view('livewire.tarik.index');
+});
