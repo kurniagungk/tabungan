@@ -31,7 +31,6 @@
             <div class="row">
                 <div class="col-xl-4 col-lg-5">
                     <div class="card shadow mb-4">
-
                         <div class="card-body">
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-5 col-form-label">Rekening : </label>
@@ -58,7 +57,7 @@
                                     <span class="icon text-white-50">
                                         <i class="fas fa-upload"></i>
                                     </span>
-                                    <span class="text">Tarik</span>
+                                    <span class="text">Setor</span>
                                 </a>
                             </center>
 
