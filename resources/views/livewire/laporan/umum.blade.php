@@ -27,14 +27,90 @@
                     <div class="col-xl-8 col-lg-7">
                         <div class="card shadow mb-8">
                             <div class="card-body">
-                                <div class="input-group mb-3">
+
+                                <!-- <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="fas fa-calendar-alt"></i>
                                         </span>
                                     </div>
                                     <input type="number" class="form-control" autocomplete="off" placeholder="Periode . . .">
-                                </div>
+                                </div> -->
+
+
+                                <form class="form-inline">
+                                    <div class="form-group mb-2">
+                                        <label class="sr-only">Email</label>
+                                        <input type="text" class="form-control-plaintext" value="Periode">
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <label class="sr-only">Password</label>
+                                        <input type="date" class="form-control" id="inputPassword2" placeholder="Awal">
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2">
+
+                                        <label class="sr-only">Password</label>
+                                        <input type="date" class="form-control" id="inputPassword2" placeholder="Ahir">
+                                    </div>
+                                </form>
+
+                                <form class="form-inline">
+                                    <div class="form-group mb-2">
+                                        <label for="staticEmail2" class="sr-only">Jenis Transaksi</label>
+                                        <input type="text" readonly class="form-control-plaintext" value="Jenis Transaksi">
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadioInline1">Semua</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadioInline2">Setor</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInline3" name="customRadioInline1" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadioInline3">Tarik</label>
+                                    </div>
+                                </form>
+                                <form class="form-inline">
+                                    <div class="form-group mb-2">
+                                        <label for="staticEmail2" class="sr-only">Mitra</label>
+                                        <input type="text" readonly class="form-control-plaintext" value="Mitra">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <select id="inputState" class="form-control">
+                                            <option selected>Semua </option>
+                                            <option>Koperasi</option>
+                                            <option>Warnet</option>
+                                        </select>
+                                    </div>
+                                </form>
+                                <form class="form-inline">
+                                    <div class="form-group mb-2">
+                                        <label for="staticEmail2" class="sr-only">Sekolah</label>
+                                        <input type="text" readonly class="form-control-plaintext" value="Sekolah">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <select id="inputState" class="form-control">
+                                            <option selected>Semua </option>
+                                            <option>SMK</option>
+                                            <option>SMA</option>
+                                            <option>SMP</option>
+
+                                        </select>
+                                    </div>
+                                </form>
+                                <br>
+                                <form>
+                                    <center>
+                                        <a class="btn btn-info btn-icon-split" href="#">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-filter"></i>
+                                            </span>
+                                            <span class="text">Filter</span>
+                                        </a>
+                                    </center>
+                                </form>
 
                             </div>
                         </div>
@@ -47,14 +123,24 @@
                                     <label for="staticEmail" class="col-sm-5 col-form-label">Periode : </label>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-7 col-form-label">Setor : </label>
+                                    <label for="staticEmail" class="col-sm-7 col-form-label">Total Setor : </label>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-7 col-form-label">Tarik : </label>
+                                    <label for="staticEmail" class="col-sm-7 col-form-label">Total Tarik : </label>
                                 </div>
                                 <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-7 col-form-label">Saldo : </label>
                                 </div>
+                                <form>
+                                    <center>
+                                        <a class="btn btn-warning btn-icon-split" href="#">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-download"></i>
+                                            </span>
+                                            <span class="text">Export</span>
+                                        </a>
+                                    </center>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -66,7 +152,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th>ID Transaksi</th>
                                 <th>Tanggal</th>
                                 <th>Rekening</th>
                                 <th>Nama</th>
@@ -78,7 +164,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
+                                <td>TR-0001</td>
                                 <td>12-11-2020 15.20</td>
                                 <td>NB-001</td>
                                 <td>Abdul</td>
@@ -88,7 +174,7 @@
                                 <td>50.000</td>
                             </tr>
                             <tr>
-                                <td>2</td>
+                                <td>TR-0002</td>
                                 <td>12-11-2020 10:15</td>
                                 <td>NB-001</td>
                                 <td>Abdul</td>

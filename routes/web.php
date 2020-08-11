@@ -42,6 +42,10 @@ Route::get('/mitra', function () {
     return view('livewire.mitra.index');
 });
 
+Route::get('/tarikmitra', function () {
+    return view('livewire.mitra.tariksaldo');
+});
+
 Route::get('/laporanumum', function () {
     return view('livewire.laporan.umum');
 });

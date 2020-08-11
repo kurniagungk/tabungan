@@ -33,6 +33,9 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-5 col-form-label">ID. Transaksi : </label>
+                            </div>
+                            <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-5 col-form-label">Rekening : </label>
                             </div>
                             <div class="form-group row">
