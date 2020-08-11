@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 // route::prefix('tabungan')->group(function () {
 //     Route::get('/', 'tabungan@index');
-//     Route::get('/create', 'tabungan@create');  
+//     Route::get('/create', 'tabungan@create');
 // });
 
 Route::get('/nasabah', function () {
@@ -36,4 +36,20 @@ Route::get('/setor', function () {
 
 Route::get('/tarik', function () {
     return view('livewire.tarik.index');
+});
+
+Route::get('/mitra', function () {
+    return view('livewire.mitra.index');
+});
+
+Route::get('/laporanumum', function () {
+    return view('livewire.laporan.umum');
+});
+
+Route::get('/laporanmitra', function () {
+    return view('livewire.laporan.mitra');
+});
+
+Route::get('/laporanmutasi', function () {
+    return view('livewire.laporan.mutasi');
 });

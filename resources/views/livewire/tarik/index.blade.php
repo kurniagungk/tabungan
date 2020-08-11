@@ -13,21 +13,23 @@
                 </a>
             </div>
         </div>
+        <!-- search -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" autofocus placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
         <!-- Card Body -->
         <div class="card-body">
             <div class="row">
                 <div class="col-xl-4 col-lg-5">
                     <div class="card shadow mb-4">
-                        <div class="card-header py-2">
-                            <h6 class="m-0 font-weight text-primary">
-                                <center><button type="button" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModal">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-user"></i>
-                                        </span>
-                                        <span class="text">Input Nasabah</span>
-                                    </button></center>
-                            </h6>
-                        </div>
+
                         <div class="card-body">
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-5 col-form-label">Rekening : </label>
@@ -41,8 +43,11 @@
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-7 col-form-label">Saldo : </label>
                             </div>
-                            <div class="form-group row">
-                                <input type="search" class="form-control form-control-sm" placeholder="Rp. " aria-controls="dataTable">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Rp.</span>
+                                </div>
+                                <input type="number" class="form-control" autocomplete="off">
                             </div>
                             <center>
                                 <a class="btn btn-warning btn-icon-split" href="#">

@@ -50,7 +50,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="/nasabah">
+        <a class="nav-link" href="/mitra">
             <i class="fas fa-fw fa-store"></i>
             <span>Mitra</span></a>
     </li>
@@ -64,9 +64,9 @@
         <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                <a class="collapse-item" href="buttons.html">Jurnal Umum</a>
-                <a class="collapse-item" href="cards.html">Jurnal Mitra</a>
-                <a class="collapse-item" href="cards.html">Mutasi Nasabah</a>
+                <a class="collapse-item" href="laporanumum">Jurnal Umum</a>
+                <a class="collapse-item" href="laporanmitra">Jurnal Mitra</a>
+                <a class="collapse-item" href="laporanmutasi">Mutasi Nasabah</a>
             </div>
         </div>
     </li>
