@@ -34,9 +34,8 @@ Route::get('/setor', function () {
     return view('livewire.setor.index');
 });
 
-Route::get('/tarik', function () {
-    return view('livewire.tarik.index');
-});
+Route::livewire('/setor', 'setor.index');
+
 
 Route::get('/mitra', function () {
     return view('livewire.mitra.index');

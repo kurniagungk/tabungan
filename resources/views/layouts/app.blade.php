@@ -20,8 +20,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{url('/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
-    @livewireStyles
     @yield('css')
+    @livewireStyles
 
 
 </head>
