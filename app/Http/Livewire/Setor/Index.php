@@ -49,6 +49,13 @@ class Index extends Component
             'jumlah' => $this->jumlah,
             'jenis' => 1,
         ]);
+
+        $jumlah = $this->santri->saldo + $this->jumlah;
+
+
+
+        $this->santri->update(['saldo' => $jumlah]);
+
         $this->reset('setor');
         session()->flash('pesan', 'setor berhasil dilakukan');
     }
