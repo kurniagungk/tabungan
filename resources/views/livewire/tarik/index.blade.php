@@ -3,7 +3,7 @@
         <!-- Card Header - Dropdown -->
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Setor Dana</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Tarik Dana</h6>
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -110,11 +110,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td> Saldo Awal </td>
+                                        <td> - </td>
+                                        <td> - </td>
+                                        <td>{{$saldo}}</td>
+                                    </tr>
                                     @foreach($transaksi as $t)
                                     <tr>
-                                        <td>{{$loop->index}}</td>
-                                        <td>{{$t->created_at}}</td>
-                                        <td>{{$t->jumlah}}</td>
+                                        <td>{{$loop->index +2}}</td>
+
+                                        <td>{{$t['tanggal']}}</td>
+                                        <td>{{$t['setor']}}</td>
+                                        <td>{{$t['tarik']}}</td>
+                                        <td>{{$t['total']}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -135,19 +145,25 @@
 
     @push('scripts')
     <script type="text/javascript">
-        window.livewire.on('cari', () => {
-            document.getElementById("jumlah").focus();
-        })
-        window.livewire.on('succes', () => {
-            $('#cek').modal('hide')
+        document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("cari").focus();
-        })
-        window.livewire.on('cek', () => {
-            $('#cek').modal('show');
-        })
 
-        $('#cek').on('shown.bs.modal', function() {
-            $('#paswordcek').trigger('focus')
+            window.livewire.on('cari', () => {
+                document.getElementById("jumlah").focus();
+            });
+
+            window.livewire.on('succes', () => {
+                $('#cek').modal('hide')
+                document.getElementById("cari").focus();
+            });
+
+            window.livewire.on('cek', () => {
+                $('#cek').modal('show');
+            });
+
+            $('#cek').on('shown.bs.modal', function() {
+                $('#paswordcek').trigger('focus')
+            });
         })
     </script>
     @endpush

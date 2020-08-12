@@ -105,11 +105,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td> Saldo Awal </td>
+                                        <td> - </td>
+                                        <td> - </td>
+                                        <td>{{$saldo}}</td>
+                                    </tr>
                                     @foreach($transaksi as $t)
                                     <tr>
-                                        <td>{{$loop->index}}</td>
-                                        <td>{{$t->created_at}}</td>
-                                        <td>{{$t->jumlah}}</td>
+                                        <td>{{$loop->index +2}}</td>
+
+                                        <td>{{$t['tanggal']}}</td>
+                                        <td>{{$t['setor']}}</td>
+                                        <td>{{$t['tarik']}}</td>
+                                        <td>{{$t['total']}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -125,36 +135,18 @@
     </div>
 </div>
 
-<div class="modal" tabindex="-1" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Masukan Password</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Ok</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 @push('scripts')
 <script type="text/javascript">
-    window.livewire.on('cari', () => {
-        document.getElementById("jumlah").focus();
-    })
-    window.livewire.on('setor', () => {
+    document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("cari").focus();
+        window.livewire.on('cari', () => {
+            document.getElementById("jumlah").focus();
+        });
+
+        window.livewire.on('setor', () => {
+            document.getElementById("cari").focus();
+        });
     })
 </script>
 @endpush

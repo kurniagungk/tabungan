@@ -15,6 +15,8 @@ class Index extends Component
     public $santri;
     public $jumlah;
     public $transaksi;
+    public $dataTransaksi;
+    public $saldo;
 
 
 
@@ -30,12 +32,63 @@ class Index extends Component
         if ($santri) {
             //get transaksi santri
 
-            $trasaksi = Transaksi::where('santri_id', $santri->id)->get();
+            $transaksi = Transaksi::where('santri_id', $santri->id)->take(10)->get();
+
+            $total = 0;
+
+            foreach ($transaksi as $t) {
+
+                $tarik = 0;
+                $setor = 0;
+
+                if ($t->jenis == 'setor') {
+                    $setor = $t->jumlah;
+                }
+                if ($t->jenis == 'tarik') {
+                    $tarik = $t->jumlah;
+                }
+
+                $total += $setor - $tarik;
+            }
+
+            $data = array();
+            $saldoAwal = $santri->saldo - $total;
+
+
+            $this->saldo = $saldoAwal;
+
+            foreach ($transaksi as $t) {
+
+                $tarik = 0;
+                $setor = 0;
+
+                if ($t->jenis == 'setor') {
+                    $setor = $t->jumlah;
+                }
+                if ($t->jenis == 'tarik') {
+                    $tarik = $t->jumlah;
+                }
+
+
+                $saldoAwal += $setor - $tarik;
+
+                $dataS = array();
+                $dataS['tanggal'] = $t->created_at;
+                $dataS['jenis'] = $t->jenis;
+                $dataS['setor'] = $setor;
+                $dataS['tarik'] = $tarik;
+                $dataS['total'] = $saldoAwal;
+
+
+                $data[] = $dataS;
+            }
+
 
 
             //menambah variable ke public
+            $total = end($data);
 
-            $this->transaksi = $trasaksi;
+            $this->transaksi = $data;
             $this->santri = $santri;
 
             //membuka setor
@@ -59,7 +112,7 @@ class Index extends Component
 
         $this->santri->update(['saldo' => $jumlah]);
 
-        $this->reset('setor');
+        $this->reset();
         $this->emit('setor');
         session()->flash('pesan', 'setor berhasil dilakukan');
     }
