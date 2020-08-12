@@ -17,6 +17,8 @@ class Index extends Component
     public $transaksi;
 
 
+
+
     public function cari()
     {
         $this->reset('setor');

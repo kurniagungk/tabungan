@@ -30,11 +30,9 @@ Route::get('/nasabah', function () {
     return view('livewire.nasabah.index');
 });
 
-Route::get('/setor', function () {
-    return view('livewire.setor.index');
-});
 
 Route::livewire('/setor', 'setor.index');
+Route::livewire('/tarik', 'tarik.index');
 
 
 Route::get('/mitra', function () {

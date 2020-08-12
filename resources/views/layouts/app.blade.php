@@ -22,6 +22,7 @@
 
     @yield('css')
     @livewireStyles
+    @livewireScripts
 
 
 </head>
@@ -92,7 +93,7 @@
 
 
     <!-- Custom scripts for all pages-->
-    @livewireScripts
+
 
     <script src="{{url('/js/sb-admin-2.min.js')}}"></script>
 
