@@ -29,14 +29,16 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <div class="input-group">
-                                <input wire:model.lazy="search" type="text" class="form-control " autofocus placeholder="Search for..." autocomplete="new-password">
-                                <div class="input-group-append">
-                                    <button wire:click='cari' class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
+                            <form wire:submit.prevent="cari">
+                                <div class="input-group">
+                                    <input wire:model.lazy="search" autofocus type="text" id="cari" class="form-control " placeholder="Search for...">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="sumbit">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -64,21 +66,26 @@
                                 <label for="staticEmail" class="col-sm-8 col-form-label">{{$santri->saldo}}</label>
                             </div>
 
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Rp.</span>
-                                </div>
-                                <input wire:model.lazy="jumlah" type="number" class="form-control" autocomplete="off">
-                            </div>
+                            <form wire:submit.prevent="setor">
 
-                            <center>
-                                <button wire:click="setor" class="btn btn-success btn-icon-split" href="#">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-upload"></i>
-                                    </span>
-                                    <span class="text">Setor</span>
-                                </button>
-                            </center>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Rp.</span>
+                                    </div>
+                                    <input wire:model.lazy="jumlah" type="number" class="form-control" id="jumlah" autocomplete="off">
+                                </div>
+
+                                <center>
+                                    <button class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="text">Setor</span>
+                                    </button>
+                                </center>
+
+                            </form>
 
                         </div>
                     </div>
@@ -140,3 +147,14 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script type="text/javascript">
+    window.livewire.on('cari', () => {
+        document.getElementById("jumlah").focus();
+    })
+    window.livewire.on('setor', () => {
+        document.getElementById("cari").focus();
+    })
+</script>
+@endpush

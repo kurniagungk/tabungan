@@ -38,6 +38,7 @@ class Index extends Component
 
             //membuka setor
             $this->setor = true;
+            $this->emit('cari');
         }
     }
 
@@ -57,6 +58,7 @@ class Index extends Component
         $this->santri->update(['saldo' => $jumlah]);
 
         $this->reset('setor');
+        $this->emit('setor');
         session()->flash('pesan', 'setor berhasil dilakukan');
     }
 
