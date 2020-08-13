@@ -65,6 +65,10 @@
                                 <label for="staticEmail" class="col-sm-4 col-form-label">Saldo : </label>
                                 <label for="staticEmail" class="col-sm-8 col-form-label">{{$santri->saldo}}</label>
                             </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-4 col-form-label">ID.Trx : </label>
+                                <label for="staticEmail" class="col-sm-8 col-form-label"></label>
+                            </div>
 
                             <form wire:submit.prevent="setor">
 

@@ -16,9 +16,6 @@
         <!-- Card Body -->
         <div class="card-body">
             <div class="row">
-
-
-
                 <div class="col-xl-12 col-lg-12">
 
                     @if (session()->has('pesan'))
@@ -65,6 +62,10 @@
                                 <label for="staticEmail" class="col-sm-4 col-form-label">Saldo : </label>
                                 <label for="staticEmail" class="col-sm-8 col-form-label">{{$santri->saldo}}</label>
                             </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-4 col-form-label">ID.Trx : </label>
+                                <label for="staticEmail" class="col-sm-8 col-form-label"></label>
+                            </div>
 
                             <form wire:submit.prevent="cek">
 
@@ -82,11 +83,11 @@
                                 </div>
 
                                 <center>
-                                    <button class="btn btn-success btn-icon-split">
+                                    <button class="btn btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
-                                            <i class="fas fa-upload"></i>
+                                            <i class="fas fa-Download"></i>
                                         </span>
-                                        <span class="text">Setor</span>
+                                        <span class="text">Tarik</span>
                                     </button>
                                 </center>
 
