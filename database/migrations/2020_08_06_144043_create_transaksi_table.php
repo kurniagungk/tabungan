@@ -14,7 +14,7 @@ class CreateTransaksiTable extends Migration
     public function up()
     {
         Schema::create('transaksi', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->uuid('santri_id');
             $table->uuid('mitra_id')->nullable();
             $table->enum('jenis', ['setor', 'tarik', 'bayar']);

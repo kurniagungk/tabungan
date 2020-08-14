@@ -1,7 +1,5 @@
-@extends('layouts.dashboard')
-
-@section('content')
 <div class="row">
+
     <div class="col-xl col-lg">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
@@ -47,7 +45,8 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>ID Mitra</th>
+                                <th>No</th>
+                                <th>Email</th>
                                 <th>Nama</th>
                                 <th>Saldo</th>
                                 <th>
@@ -56,10 +55,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse ($mitra as $m)
                             <tr>
-                                <td>M-001</td>
-                                <td>Koperasi</td>
-                                <td>Rp. 100.000</td>
+                                <td>{{$loop->index +1}}</td>
+                                <td>{{$m->email}}</td>
+                                <td>{{$m->name}}</td>
+                                <td>{{$m->saldo}}</td>
                                 <td>
                                     <center>
                                         <a href="#" class="btn btn-success btn-circle btn-sm">
@@ -70,7 +71,14 @@
                                             <i class="fas fa-trash"></i>
                                         </a></center>
                                 </td>
+
                             </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5"></td>
+                            </tr>
+                            @endforelse
+
 
 
                         </tbody>
@@ -80,4 +88,3 @@
         </div>
     </div>
 </div>
-@endsection
