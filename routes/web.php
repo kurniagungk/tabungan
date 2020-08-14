@@ -36,6 +36,7 @@ Route::livewire('/tarik', 'tarik.index');
 
 
 Route::livewire('/mitra', 'mitra.index');
+Route::livewire('/mitra/tarik', 'mitra.tariksaldo');
 
 
 

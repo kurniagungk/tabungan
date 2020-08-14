@@ -59,7 +59,7 @@
                             <tr>
                                 <td>{{$loop->index +1}}</td>
                                 <td>{{$m->email}}</td>
-                                <td>{{$m->name}}</td>
+                                <td>{{$m->nama}}</td>
                                 <td>{{$m->saldo}}</td>
                                 <td>
                                     <center>

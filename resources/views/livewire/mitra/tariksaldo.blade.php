@@ -1,6 +1,3 @@
-@extends('layouts.dashboard')
-
-@section('content')
 <div class="row">
     <div class="col-xl col-lg">
         <div class="card shadow mb-4">
@@ -22,58 +19,69 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <form class="form-inline">
-                    <div class="form-group mb-2">
-                        <label class="sr-only">Email</label>
-                        <input type="text" class="form-control-plaintext" value="ID. Transaksi">
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label class="sr-only">Password</label>
-                        <input type="text" class="form-control" readonly id="inputPassword2" placeholder="TR-001">
-                    </div>
-                </form>
 
-                <form class="form-inline">
-                    <div class="form-group mb-2">
-                        <label for="staticEmail2" class="sr-only">Mitra</label>
-                        <input type="text" readonly class="form-control-plaintext" value="Nama Mitra">
+                <div>
+                    @if (session()->has('pesan'))
+                    <div class="alert alert-success">
+                        {{ session('pesan') }}
                     </div>
-                    <div class="form-group col-md-4">
-                        <select id="inputState" class="form-control">
-                            <option selected>Semua </option>
-                            <option>Koperasi</option>
-                            <option>Warnet</option>
+                    @endif
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="staticEmail2" class="col-sm-2 col-form-label">Mitra</label>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <select wire:model="mitraId" id="inputState" class="form-control @error('mitraId') is-invalid @enderror">
+                            <option value=""> -Pilih Salah Satu- </option>
+                            @foreach($mitra as $m)
+                            <option value="{{$m->id}}"> {{$m->nama}} </option>
+                            @endforeach
+
                         </select>
+                        @error('mitraId')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
-                </form>
-                <div class="my-2"></div>
-                <form class="form-inline">
-                    <div class="form-group mb-2">
-                        <label class="sr-only">Email</label>
-                        <input type="text" class="form-control-plaintext" value="Jumlah">
-                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Jumlah</label>
                     <div class="form-group mx-sm-3 mb-2">
-                        <label class="sr-only">Password</label>
-                        <input type="text" class="form-control" id="inputPassword2" placeholder="Rp.">
+                        <input wire:model="jumlah" type="text" class="form-control @error('jumlah') is-invalid @enderror" id="inputPassword2" placeholder="Rp.">
                     </div>
-                </form>
-                <form class="form-inline">
-                    <div class="form-group mb-2">
-                        <label class="sr-only">Email</label>
-                        <input type="text" class="form-control-plaintext" value="Keperluan">
+                    @error('jumlah')
+                    <div class="invalid-feedback">
+                        {{ $message }}
                     </div>
+                    @enderror
+                </div>
+
+
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Keterangan</label>
                     <div class="form-group mx-sm-3 mb-2">
-                        <label class="sr-only">Password</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea wire:model="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
-                </form>
+                    @error('keterangan')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+
                 <center>
-                    <a class="btn btn-warning btn-icon-split" href="#">
+                    <button wire:click="tarik" class="btn btn-warning btn-icon-split" type="button">
                         <span class="icon text-white-50">
                             <i class="fas fa-download"></i>
                         </span>
                         <span class="text">Tarik Dana</span>
-                    </a>
+                    </button>
                     <div class="my-2"></div>
                 </center>
                 <br>
@@ -87,20 +95,19 @@
                                 <th>Nama Mitra</th>
                                 <th>Jumlah</th>
                                 <th>Keperluan</th>
-                                <th>Saldo</th>
                                 <th>
                                     <center>Action</center>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse ($jurnal as $j)
                             <tr>
-                                <td>TR-001</td>
-                                <td>23-09-2020 11.50</td>
-                                <td>Koperasi</td>
-                                <td>Rp. 100.000</td>
-                                <td>Setor Ndalem</td>
-                                <td>Rp. 1.000.000</td>
+                                <td>{{substr($j->id,0,8)}}</td>
+                                <td>{{$j->created_at}}</td>
+                                <td>{{$j->mitra->nama}}</td>
+                                <td>{{$j->jumlah}}</td>
+                                <td>{{$j->keterangan}}</td>
                                 <td>
                                     <center>
                                         <a href="#" class="btn btn-success btn-circle btn-sm">
@@ -112,6 +119,12 @@
                                         </a></center>
                                 </td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td colspan="6" class="text-center">Tidak ada data</td>
+                            </tr>
+
+                            @endforelse
 
 
                         </tbody>
@@ -121,4 +134,3 @@
         </div>
     </div>
 </div>
-@endsection

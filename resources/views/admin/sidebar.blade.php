@@ -56,8 +56,8 @@
         </a>
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="mitra">Tambah</a>
-                <a class="collapse-item" href="tarikmitra">Tarik Saldo</a>
+                <a class="collapse-item" href="/mitra">Tambah</a>
+                <a class="collapse-item" href="/mitra/tarik">Tarik Saldo</a>
                 <a class="collapse-item" href="mitrapay">Transaksi di Mitra</a>
             </div>
         </div>

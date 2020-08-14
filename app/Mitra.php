@@ -11,4 +11,6 @@ class Mitra extends Model
     protected $fillable = [
         'nama',
     ];
+
+    protected $keyType = 'string';
 }
