@@ -41,6 +41,10 @@ Route::livewire('/mitra/tarik', 'mitra.tariksaldo');
 
 
 
+Route::get('/mitra/create', function () {
+    return view('livewire.mitra.create');
+});
+
 Route::get('/tarikmitra', function () {
     return view('livewire.mitra.tariksaldo');
 });
