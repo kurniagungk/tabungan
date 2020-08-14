@@ -35,15 +35,12 @@ Route::livewire('/setor', 'setor.index');
 Route::livewire('/tarik', 'tarik.index');
 
 
-Route::livewire('/mitra', 'mitra.index');
+Route::livewire('/mitra', 'mitra.index')->name("mitra.index");
 Route::livewire('/mitra/tarik', 'mitra.tariksaldo');
+Route::livewire('/mitra/create', 'mitra.create')->name('mitra.create');
 
 
 
-
-Route::get('/mitra/create', function () {
-    return view('livewire.mitra.create');
-});
 
 Route::get('/tarikmitra', function () {
     return view('livewire.mitra.tariksaldo');

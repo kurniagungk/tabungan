@@ -20,7 +20,13 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <a class="btn btn-primary btn-icon-split" href="/mitra/create">
+                @if (session()->has('pesan'))
+                <div class="alert alert-success">
+                    {{ session('pesan') }}
+                </div>
+                @endif
+
+                <a class="btn btn-primary btn-icon-split" href="{{route('mitra.create')}}">
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>

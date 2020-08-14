@@ -15,11 +15,11 @@ class CreateMitraTable extends Migration
     {
         Schema::create('mitra', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
+            $table->string('nama');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->bigInteger('saldo');
+            $table->bigInteger('saldo')->nullable();
             $table->timestamps();
         });
     }

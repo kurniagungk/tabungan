@@ -9,7 +9,7 @@ class Mitra extends Model
     protected $table = 'mitra';
 
     protected $fillable = [
-        'nama',
+        'id', 'nama', 'email', 'password', 'saldo'
     ];
 
     protected $keyType = 'string';
