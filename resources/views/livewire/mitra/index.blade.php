@@ -73,9 +73,16 @@
                                             <i class="fas fa-edit"></i>
                                         </a>
 
-                                        <a href="#" class="btn btn-danger btn-circle btn-sm">
+                                        @if($confirming == $m->id)
+                                        <button wire:click="kill('{{ $m->id }}')" type="button" class="btn btn-danger btn-sm">Sure?</button>
+
+                                        @else
+                                        <button wire:click="confirmDelete( '{{ $m->id }}' )" type="button" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
-                                        </a></center>
+                                        </button>
+                                        @endif
+
+                                    </center>
                                 </td>
 
                             </tr>
