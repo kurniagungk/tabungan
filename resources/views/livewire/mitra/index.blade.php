@@ -69,7 +69,7 @@
                                 <td>{{$m->saldo}}</td>
                                 <td>
                                     <center>
-                                        <a href="#" class="btn btn-success btn-circle btn-sm">
+                                        <a href="{{route('mitra.edit', $m->id)}}" class="btn btn-success btn-circle btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
 
