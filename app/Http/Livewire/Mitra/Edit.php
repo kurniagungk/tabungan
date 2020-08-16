@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Mitra;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 
@@ -29,12 +28,9 @@ class Edit extends Component
     public function update()
     {
 
-        $validatedData = Validator::make(
-            ['email' => $this->email],
-            ['email' => Rule::unique('mitra')->ignore($this->mitraId)],
-        )->validate();
 
         $this->validate([
+            'email' => ['required', Rule::unique('mitra')->ignore($this->mitraId, 'email')],
             'nama' => 'required|min:6',
             'password' => 'required|min:6',
             'repassword' => 'required|same:password',
