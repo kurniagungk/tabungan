@@ -58,6 +58,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            foreach($nasabah as $n)
+                            <tr>
+                                <td><img src="{{asset('public/'.$t->photo)   }}" width="50px" class="img-thumbnail" alt="..."></td>
+                            </tr>
+                            @endforeach
+
                             <tr>
                                 <td>.jpg</td>
                                 <td>NSB 1000</td>

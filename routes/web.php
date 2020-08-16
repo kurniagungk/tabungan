@@ -41,6 +41,10 @@ Route::livewire('/mitra/create', 'mitra.create')->name('mitra.create');
 Route::livewire('/mitra/{mitra}/edit', 'mitra.edit')->name('mitra.edit');
 
 
+Route::livewire('/nasabah/create', 'nasabah.create')->name('nasabah.create');
+Route::livewire('/nasabah', 'nasabah.index')->name('nasabah.index');
+
+
 
 
 Route::get('/tarikmitra', function () {
