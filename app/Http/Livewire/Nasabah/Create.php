@@ -122,13 +122,14 @@ class Create extends Component
             'kecamatan_id' => $this->kecamatan,
             'desa_id' => $this->desa,
             'pasword' => $this->pasword,
+            'saldo' => 0,
             'status' => 1,
         );
 
 
         Nasabah::create($data);
 
-        session()->flash('success', 'Data Santri successfully add.');
+        session()->flash('pesan', 'Data Nasabah Berhasil Ditambahkan.');
 
         return redirect()->route('nasabah.index');
     }

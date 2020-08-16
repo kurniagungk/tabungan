@@ -25,6 +25,7 @@ class CreateNasabahTable extends Migration
             $table->string('telepon');
             $table->string('status');
             $table->string('foto');
+            $table->string('saldo');
             $table->string('pasword');
             $table->string('provinsi_id', 2);
             $table->string('kabupaten_id', 5);

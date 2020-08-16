@@ -1,6 +1,3 @@
-@extends('layouts.dashboard')
-
-@section('content')
 <div class="row">
     <div class="col-xl col-lg">
         <div class="card shadow mb-4">
@@ -22,7 +19,7 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <a class="btn btn-primary btn-icon-split" href="#">
+                <a class="btn btn-primary btn-icon-split" href="{{route('nasabah.create')}}">
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
@@ -43,14 +40,20 @@
                 <div class="my-2"></div>
                 <br>
 
+                @if (session()->has('pesan'))
+                <div class="alert alert-success">
+                    {{ session('pesan') }}
+                </div>
+                @endif
+
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th style="width:20px">Image</th>
-                                <th>Rekening</th>
+                                <th style="width:100px">Image</th>
+                                <th>Nis</th>
                                 <th>Nama</th>
-                                <th>Sekolah</th>
+                                <th>Alamat</th>
                                 <th>Saldo</th>
                                 <th>
                                     <center>Action</center>
@@ -58,30 +61,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            foreach($nasabah as $n)
+                            @foreach($nasabah as $n)
                             <tr>
-                                <td><img src="{{asset('public/'.$t->photo)   }}" width="50px" class="img-thumbnail" alt="..."></td>
-                            </tr>
-                            @endforeach
-
-                            <tr>
-                                <td>.jpg</td>
-                                <td>NSB 1000</td>
-                                <td>Abdul</td>
-                                <td>SMP</td>
-                                <td>Rp. 100.000</td>
+                                <td>
+                                    <img src="{{asset('storage/'.$n->foto)   }}" width="100px" class="img-thumbnail" alt="...">
+                                </td>
+                                <td>{{$n->nis}}</td>
+                                <td>{{$n->nama}}</td>
+                                <td>
+                                    {{$n->desa->nama}},
+                                    {{$n->kecamatan->nama}},
+                                    {{$n->kabupaten->nama}},
+                                    {{$n->provinsi->nama}}
+                                </td>
+                                <td>{{$n->saldo}}</td>
                                 <td>
                                     <center>
-                                        <a href="#" class="btn btn-success btn-circle btn-sm">
+                                        <a href="{{route('nasabah.edit', $n->id)}}" class="btn btn-success btn-circle btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
 
-                                        <a href="#" class="btn btn-danger btn-circle btn-sm">
+                                        @if($confirming == $n->id)
+                                        <button wire:click="kill('{{ $n->id }}')" type="button" class="btn btn-danger btn-sm">Sure?</button>
+
+                                        @else
+                                        <button wire:click="confirmDelete( '{{ $n->id }}' )" type="button" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
-                                        </a></center>
+                                        </button>
+
+
+                                        @endif
+
+                                    </center>
                                 </td>
                             </tr>
-
+                            @endforeach
 
                         </tbody>
                     </table>
@@ -90,4 +104,3 @@
         </div>
     </div>
 </div>
-@endsection

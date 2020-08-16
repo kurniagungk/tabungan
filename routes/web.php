@@ -43,6 +43,7 @@ Route::livewire('/mitra/{mitra}/edit', 'mitra.edit')->name('mitra.edit');
 
 Route::livewire('/nasabah/create', 'nasabah.create')->name('nasabah.create');
 Route::livewire('/nasabah', 'nasabah.index')->name('nasabah.index');
+Route::livewire('/nasabah/{nasabah}/edit', 'nasabah.edit')->name('nasabah.edit');
 
 
 

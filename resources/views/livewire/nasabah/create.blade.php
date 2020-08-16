@@ -23,7 +23,7 @@
                 <form class="form-horizontal" wire:submit.prevent="store" enctype="multipart/form-data">
 
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">NIS</label>
+                        <label class="col-md-3 col-form-label">NIS</label>
                         <div class="col-md-9">
                             <input wire:model="nis" class="form-control @error('nis') is-invalid @enderror" id="no_induk" type="text" placeholder="Nomor Induk Pondok . . .">
 
@@ -36,7 +36,7 @@
 
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Nama Lengkap</label>
+                        <label class="col-md-3 col-form-label">Nama Lengkap</label>
                         <div class="col-md-9">
                             <input wire:model="nama" class="form-control @error('nama') is-invalid @enderror" type="text" name="nama" placeholder=". . ."><span class="help-block">* Sesuai ijazah</span>
                             @error('nama')
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="date-input">tempat Lahir</label>
+                        <label class="col-md-3 col-form-label">tempat Lahir</label>
                         <div class="col-md-9">
                             <input wire:model="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="text-input" name="tempat_lahir" placeholder="date">
                             @error('tempat_lahir')
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="date-input">Tanggal Lahir</label>
+                        <label class="col-md-3 col-form-label">Tanggal Lahir</label>
                         <div class="col-md-9">
                             <input wire:model="tanggal_lahir" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="date-input" type="date" name="tgl_lahir" placeholder="date">
                             @error('tanggal_lahir')
@@ -162,7 +162,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Orang Tua / Wali</label>
+                        <label class="col-md-3 col-form-label">Orang Tua / Wali</label>
                         <div class="col-md-9">
                             <input wire:model="nama_wali" class="form-control @error('nama_wali') is-invalid @enderror" id="text-input" type="text" name="nama_wali" placeholder="Ex. Ahmad . . .">
                             @error('nama_wali')
@@ -174,7 +174,7 @@
 
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">No Telp / Hp</label>
+                        <label class="col-md-3 col-form-label">No Telp / Hp</label>
                         <div class="col-md-9">
                             <input wire:model="telepon" class="form-control @error('telepon') is-invalid @enderror" id="text-input" type="text" name="telepon" placeholder="08128888xxxx">
                             @error('telepon')
@@ -185,7 +185,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Pasword</label>
+                        <label class="col-md-3 col-form-label">Pasword</label>
                         <div class="col-md-9">
                             <input wire:model="pasword" class="form-control @error('pasword') is-invalid @enderror" id="text-input" type="text">
                             @error('pasword')
@@ -196,7 +196,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="file-input">Pas Foto</label>
+                        <label class="col-md-3 col-form-label">Pas Foto</label>
                         <div class="col-md-9">
                             <input wire:model="photo" type="file" name="foto" class="form-control-file @error('photo') is-invalid @enderror"><span class="help-block">* Ukuran (3x4) Format .jpg</span>
                             <br>

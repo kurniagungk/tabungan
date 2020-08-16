@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Tarik;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
-use App\Santri, App\Transaksi;
+use App\Nasabah, App\Transaksi;
 
 class Index extends Component
 {
@@ -27,7 +27,7 @@ class Index extends Component
         $this->reset('tarik');
 
         //get santri
-        $santri = Santri::where('nis', $this->search)->first();
+        $santri = Nasabah::where('nis', $this->search)->first();
         //
 
         if ($santri) {

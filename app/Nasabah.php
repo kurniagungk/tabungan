@@ -26,7 +26,8 @@ class Nasabah extends Model
         'kabupaten_id',
         'kecamatan_id',
         'desa_id',
-        'pasword'
+        'pasword',
+        'saldo'
     ];
 
 

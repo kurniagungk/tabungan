@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Setor;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
-use App\Santri, App\Transaksi;
+use App\Nasabah, App\Transaksi;
 
 
 class Index extends Component
@@ -26,7 +26,7 @@ class Index extends Component
         $this->reset('setor');
 
         //get santri
-        $santri = Santri::where('nis', $this->search)->first();
+        $santri = Nasabah::where('nis', $this->search)->first();
         //
 
         if ($santri) {
