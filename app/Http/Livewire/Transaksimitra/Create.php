@@ -6,6 +6,7 @@ use Livewire\Component;
 
 class Create extends Component
 {
+    public $nis;
     public function render()
     {
         return view('livewire.transaksimitra.create');

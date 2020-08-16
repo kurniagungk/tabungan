@@ -46,6 +46,9 @@ Route::livewire('/nasabah', 'nasabah.index')->name('nasabah.index');
 Route::livewire('/nasabah/{nasabah}/edit', 'nasabah.edit')->name('nasabah.edit');
 
 
+Route::livewire('/mitrapay', 'transaksimitra.create')->name('mitrapay')->layout('layouts.pembayaran');;
+
+
 
 
 Route::get('/tarikmitra', function () {
@@ -62,8 +65,4 @@ Route::get('/laporanmitra', function () {
 
 Route::get('/laporanmutasi', function () {
     return view('livewire.laporan.mutasi');
-});
-
-Route::get('/mitrapay', function () {
-    return view('livewire.transaksimitra.create');
 });
