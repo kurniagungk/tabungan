@@ -121,10 +121,12 @@ class Create extends Component
             'kabupaten_id' => $this->kabupaten,
             'kecamatan_id' => $this->kecamatan,
             'desa_id' => $this->desa,
-            'pasword' => $this->pasword,
+            'password' => $this->pasword,
             'saldo' => 0,
             'status' => 1,
         );
+
+
 
 
         Nasabah::create($data);

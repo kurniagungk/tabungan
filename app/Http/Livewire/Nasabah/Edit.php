@@ -55,7 +55,7 @@ class Edit extends Component
         $this->kabupaten = $nasabah->kabupaten_id;
         $this->kecamatan =  $nasabah->kecamatan_id;
         $this->desa =  $nasabah->desa_id;
-        $this->pasword =  $nasabah->pasword;
+        $this->pasword =  $nasabah->password;
         $this->data();
     }
 
@@ -171,7 +171,7 @@ class Edit extends Component
         $nasabah->kabupaten_id = $this->kabupaten;
         $nasabah->kecamatan_id = $this->kecamatan;
         $nasabah->desa_id = $this->desa;
-        $nasabah->pasword = $this->pasword;
+        $nasabah->password = $this->pasword;
 
 
         $nasabah->save();
