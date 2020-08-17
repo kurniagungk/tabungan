@@ -11,36 +11,28 @@
                             <h1 class="h4 text-gray-900 mb-4">Payment - KOPERASI</h1>
                         </div>
                         <form class="user">
-                            <div class="form-group row">
-                                <div class="col-sm-12 mb-12 mb-sm-0">
-                                    <input wire.midel.lazy="nis" autofocus type="text" class="form-control form-control-user" id="exampleInputPassword" placeholder="Nis Santri">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Nama</label>
-                                <div class="col-sm-5">
-                                    <input type="text" readonly class="form-control-plaintext">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="staticEmail" class="col-sm-5 col-form-label">Saldo</label>
-                                <div class="col-sm-5">
-                                    <input type="text" readonly class="form-control-plaintext">
-                                </div>
-                            </div>
-
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp.</span>
                                 </div>
-                                <input type="number" class="form-control form-control-user">
+                                <input type="number" autofocus class="form-control form-control-user">
                             </div>
                             <br><br>
                             <div class="form-group row">
                                 <div class="col-sm-12 mb-12 mb-sm-0">
-                                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="User">
+                                    <input wire.midel.lazy="nis" type="text" class="form-control form-control-user" id="exampleInputPassword" placeholder="NIS Santri">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Nama : </label>
+                                <div class="col-sm-5">
+                                    <input type="text" readonly class="form-control-plaintext">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 mb-12 mb-sm-0">
+                                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="PIN">
                                 </div>
                             </div>
                             <br>

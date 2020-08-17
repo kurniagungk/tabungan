@@ -219,7 +219,7 @@
             </div>
             <div class="card-footer">
                 <button class="btn btn-sm btn-success" type="submit"> Simpan</button>
-                <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
+                <a href='/nasabah'><button href="nasabah" class="btn btn-sm btn-danger" type="reset"> Cencel</button></a>
                 </form>
             </div>
 

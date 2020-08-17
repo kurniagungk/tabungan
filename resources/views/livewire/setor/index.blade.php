@@ -57,10 +57,10 @@
                                 <label for="staticEmail" class="col-sm-4 col-form-label">Nama : </label>
                                 <label for="staticEmail" class="col-sm-8 col-form-label">{{$santri->nama}}</label>
                             </div>
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-4 col-form-label">Sekolah : </label>
                                 <label for="staticEmail" class="col-sm-8 col-form-label">{{$santri->sekolah}}</label>
-                            </div>
+                            </div> -->
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-4 col-form-label">Saldo : </label>
                                 <label for="staticEmail" class="col-sm-8 col-form-label">{{$santri->saldo}}</label>

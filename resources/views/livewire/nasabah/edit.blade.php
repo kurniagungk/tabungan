@@ -164,8 +164,8 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Orang Tua / Wali</label>
                         <div class="col-md-9">
-                            <input wire:model="nama_wali" class="form-control @error('nama_wali') is-invalid @enderror" id="text-input" type="text" name="nama_wali" placeholder="Ex. Ahmad . . .">
-                            @error('nama_wali')
+                            <input wire:model="wali" class="form-control @error('wali') is-invalid @enderror" id="text-input" type="text" name="wali" placeholder="Ex. Ahmad . . .">
+                            @error('wali')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -227,7 +227,7 @@
             </div>
             <div class="card-footer">
                 <button class="btn btn-sm btn-success" type="submit"> Simpan</button>
-                <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
+                <a href='/nasabah'><button href="nasabah" class="btn btn-sm btn-danger" type="reset"> Cencel</button></a>
                 </form>
             </div>
 
