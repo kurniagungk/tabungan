@@ -67,7 +67,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-4 col-form-label">ID.Trx : </label>
-                                <label for="staticEmail" class="col-sm-8 col-form-label"></label>
+                                <label for="staticEmail" class="col-sm-8 col-form-label">{{substr($transaksi_id,0,8)}}</label>
                             </div>
 
                             <form wire:submit.prevent="setor">

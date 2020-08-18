@@ -1,7 +1,7 @@
 <div wire:ignore.self class="modal" tabindex="-1" id="cek">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="tarik" wire:submit.prevent="cekPasword">
+            <form wire:submit.prevent="cekPasword">
                 <div class="modal-header">
                     <h5 class="modal-title">Masukan Password</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

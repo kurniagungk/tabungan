@@ -17,6 +17,7 @@ class Index extends Component
     public $pasword;
     public $dataTrasaksi;
     public $saldo;
+    public $transaksi_id;
 
 
     protected $listeners = ['tarik' => 'tarik'];
@@ -33,7 +34,7 @@ class Index extends Component
         if ($santri) {
             //get transaksi santri
 
-            $transaksi = Transaksi::where('santri_id', $santri->id)->get();
+            $transaksi = Transaksi::where('santri_id', $santri->id)->take(9)->get();
 
             $total = 0;
 
@@ -91,6 +92,7 @@ class Index extends Component
 
             $this->transaksi = $data;
             $this->santri = $santri;
+            $this->transaksi_id = Str::uuid()->toString();
 
             //membuka setor
             $this->tarik = true;

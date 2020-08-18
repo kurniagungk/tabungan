@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Tarik;
 
 use Livewire\Component;
-use App\Santri;
+use App\Nasabah;
 
 
 class Modal extends Component
@@ -19,18 +19,18 @@ class Modal extends Component
     public function cek($search)
     {
 
-        $santri = Santri::select('password')->where('nis', $search)->first();
+        $santri = Nasabah::select('password')->where('nis', $search)->first();
         $this->santri = $santri->password;
     }
 
     public function cekPasword()
     {
 
-        if (!$this->password == $this->santri) {
-            $this->addError('password', 'pasword salah');
-        } else {
+        if ($this->password == $this->santri) {
             $this->reset();
             $this->emit('tarik');
+        } else {
+            $this->addError('password', 'pasword salah');
         }
     }
 

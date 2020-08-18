@@ -16,13 +16,16 @@ class Index extends Component
     public $jumlah;
     public $transaksi;
     public $dataTransaksi;
+    public $transaksi_id;
     public $saldo;
+
 
 
 
 
     public function cari()
     {
+
         $this->reset('setor');
 
         //get santri
@@ -90,6 +93,7 @@ class Index extends Component
 
             $this->transaksi = $data;
             $this->santri = $santri;
+            $this->transaksi_id = Str::uuid()->toString();
 
             //membuka setor
             $this->setor = true;
@@ -100,7 +104,7 @@ class Index extends Component
     public function setor()
     {
         $trasaksi = Transaksi::create([
-            'id' => Str::uuid(),
+            'id' => $this->transaksi_id,
             'santri_id' => $this->santri->id,
             'jumlah' => $this->jumlah,
             'jenis' => 1,
