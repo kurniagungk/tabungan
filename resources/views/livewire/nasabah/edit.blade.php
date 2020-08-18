@@ -20,7 +20,7 @@
             <!-- Card Body -->
             <div class="card-body">
 
-                <form class="form-horizontal" wire:submit.prevent="update" enctype="multipart/form-data">
+                <form wire:submit.prevent="update">
 
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">NIS</label>
@@ -187,7 +187,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Pasword</label>
                         <div class="col-md-9">
-                            <input wire:model="pasword" class="form-control @error('pasword') is-invalid @enderror" id="text-input" type="password">
+                            <input wire:model="pasword" class="form-control @error('pasword') is-invalid @enderror" id="text-input" type="number">
                             @error('pasword')
                             <div class="invalid-feedback">
                                 {{ $message }}

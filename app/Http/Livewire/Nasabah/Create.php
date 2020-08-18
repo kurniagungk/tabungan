@@ -99,7 +99,7 @@ class Create extends Component
             'kabupaten' => 'required',
             'kecamatan' => 'required',
             'desa' => 'required',
-            'pasword' => 'required'
+            'pasword' => 'required|min:6'
 
         ], $messages);
 

@@ -187,7 +187,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Pasword</label>
                         <div class="col-md-9">
-                            <input wire:model="pasword" class="form-control @error('pasword') is-invalid @enderror" id="text-input" type="text">
+                            <input wire:model="pasword" class="form-control @error('pasword') is-invalid @enderror" id="text-input" type="number">
                             @error('pasword')
                             <div class="invalid-feedback">
                                 {{ $message }}

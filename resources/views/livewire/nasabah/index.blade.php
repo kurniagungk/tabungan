@@ -25,6 +25,7 @@
                     </span>
                     <span class="text">Add Data</span>
                 </a>
+                <!--
                 <a class="btn btn-success btn-icon-split" href="#">
                     <span class="icon text-white-50">
                         <i class="fas fa-upload"></i>
@@ -37,22 +38,53 @@
                     </span>
                     <span class="text">Export</span>
                 </a>
+                -->
                 <div class="my-2"></div>
+
                 <br>
+
 
                 @if (session()->has('pesan'))
                 <div class="alert alert-success">
                     {{ session('pesan') }}
                 </div>
                 @endif
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <select wire:model="perpage" class="form-control" id="exampleFormControlSelect1">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                            <input wire:model="search" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+
+                </div>
+
 
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th style="width:100px">Image</th>
-                                <th>Nis</th>
-                                <th>Nama</th>
+                                <th> <a wire:click.prevent="sortBy('nis')" role="button">Nis <i class="fas fa-arrows-alt-v" @if($sortField=='no_induk' ) style="color:red" @endif></i></a>
+                                </th>
+                                <th><a wire:click.prevent="sortBy('nama')" role="button">Nama <i class="fas fa-arrows-alt-v" @if($sortField=='nama' ) style="color:red" @endif></i></a>
+                                </th>
                                 <th>Alamat</th>
                                 <th>Saldo</th>
                                 <th>
@@ -63,6 +95,7 @@
                         <tbody>
                             @foreach($nasabah as $n)
                             <tr>
+                                <td>{{$loop->index +1}}</td>
                                 <td>
                                     <img src="{{asset('storage/'.$n->foto)   }}" width="100px" class="img-thumbnail" alt="...">
                                 </td>
@@ -99,6 +132,7 @@
 
                         </tbody>
                     </table>
+                    {{ $nasabah->links() }}
                 </div>
             </div>
         </div>
