@@ -66,3 +66,11 @@ Route::get('/laporanmitra', function () {
 Route::get('/laporanmutasi', function () {
     return view('livewire.laporan.mutasi');
 });
+
+Route::get('/mitrapay', function () {
+    return view('livewire.transaksimitra.create');
+});
+
+Route::get('/mitrahistory', function () {
+    return view('livewire.transaksimitra.index');
+});
