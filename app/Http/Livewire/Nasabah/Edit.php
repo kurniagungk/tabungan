@@ -136,7 +136,7 @@ class Edit extends Component
             'kabupaten' => 'required',
             'kecamatan' => 'required',
             'desa' => 'required',
-            'pasword' => 'required'
+            'pasword' => 'required|min:6|max:6'
 
         ], $messages);
 
