@@ -4,9 +4,67 @@ namespace App\Http\Livewire\Transaksimitra;
 
 use Livewire\Component;
 
+use App\Nasabah;
+use App\Transaksi;
+use Illuminate\Support\Str;
+
 class Create extends Component
 {
     public $nis;
+    public $jumlah;
+    public $nasabah;
+    public $password;
+
+
+
+    public function updatingNis($value)
+    {
+        $nasabah = Nasabah::where('nis', $value)->first();
+
+
+
+        if ($nasabah) {
+            $this->nasabah = $nasabah;
+            $this->resetErrorBag();
+            $this->emit('nasabah');
+        } else {
+            $this->addError('nis', 'Nasabah tidak ditemukan');
+            $this->reset('nasabah');
+        }
+    }
+
+    public function bayar()
+    {
+        $nasabah = $this->nasabah;
+
+        if (is_null($nasabah))
+            $this->reset('nis');
+
+
+        $this->validate([
+            'nis' => 'required|',
+            'jumlah' => 'required|integer',
+            'password' => 'required|integer',
+        ]);
+
+        if ($this->password == $nasabah->password) {
+            Transaksi::create([
+                'id' => Str::uuid(),
+                'santri_id' => $nasabah->id,
+                'mitra_id' => '',
+                'jumlah' => $this->jumlah
+            ]);
+            session()->flash('message', 'Pembayaran berhasil');
+            $this->reset();
+            $this->emit('berhasil');
+        } else {
+            $this->reset('password');
+            $this->addError('password', 'password salah');
+            $this->emit('nasabah');
+        }
+    }
+
+
     public function render()
     {
         return view('livewire.transaksimitra.create');
