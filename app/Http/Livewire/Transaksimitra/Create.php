@@ -48,13 +48,18 @@ class Create extends Component
         ]);
 
         if ($this->password == $nasabah->password) {
+
+            $sisa = $nasabah->saldo - $this->jumlah;
+
+            $nasabah->update(['saldo' => $sisa]);
+
             Transaksi::create([
                 'id' => Str::uuid(),
                 'santri_id' => $nasabah->id,
                 'mitra_id' => '',
                 'jumlah' => $this->jumlah
             ]);
-            session()->flash('message', 'Pembayaran berhasil');
+            session()->flash('message', 'Pembayaran berhasil, sisa saldo Rp. ' . $nasabah->saldo);
             $this->reset();
             $this->emit('berhasil');
         } else {
