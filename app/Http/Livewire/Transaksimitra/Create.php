@@ -57,7 +57,8 @@ class Create extends Component
                 'id' => Str::uuid(),
                 'santri_id' => $nasabah->id,
                 'mitra_id' => '',
-                'jumlah' => $this->jumlah
+                'jumlah' => $this->jumlah,
+                'jenis' => 'tarik'
             ]);
             session()->flash('message', 'Pembayaran berhasil, sisa saldo Rp. ' . $nasabah->saldo);
             $this->reset();

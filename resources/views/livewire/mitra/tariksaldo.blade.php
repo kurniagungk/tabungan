@@ -101,6 +101,7 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @forelse ($jurnal as $j)
                             <tr>
                                 <td>{{substr($j->id,0,8)}}</td>

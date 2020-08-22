@@ -49,15 +49,16 @@ Route::livewire('/nasabah/{nasabah}/edit', 'nasabah.edit')->name('nasabah.edit')
 Route::livewire('/mitrapay', 'transaksimitra.create')->name('mitrapay')->layout('layouts.pembayaran');
 
 
+Route::livewire('/laporanumum', 'laporan.umum')->name('laporan.umum');
+
+
 
 
 Route::get('/tarikmitra', function () {
     return view('livewire.mitra.tariksaldo');
 });
 
-Route::get('/laporanumum', function () {
-    return view('livewire.laporan.umum');
-});
+
 
 Route::get('/laporanmitra', function () {
     return view('livewire.laporan.mitra');
