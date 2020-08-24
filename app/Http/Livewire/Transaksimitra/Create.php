@@ -56,7 +56,7 @@ class Create extends Component
             Transaksi::create([
                 'id' => Str::uuid(),
                 'santri_id' => $nasabah->id,
-                'mitra_id' => '',
+                'mitra_id' => '2',
                 'jumlah' => $this->jumlah,
                 'jenis' => 'tarik'
             ]);

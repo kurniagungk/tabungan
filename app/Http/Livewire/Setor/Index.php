@@ -107,6 +107,7 @@ class Index extends Component
             'id' => $this->transaksi_id,
             'santri_id' => $this->santri->id,
             'jumlah' => $this->jumlah,
+            'mitra_id' => '1',
             'jenis' => 1,
         ]);
 

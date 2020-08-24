@@ -134,6 +134,7 @@ class Index extends Component
             'id' => Str::uuid(),
             'santri_id' => $this->santri->id,
             'jumlah' => $this->jumlah,
+            'mitra_id' => '1',
             'jenis' => 2,
         ]);
 

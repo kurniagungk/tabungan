@@ -17,7 +17,7 @@ class CreateTransaksiTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('santri_id');
             $table->uuid('mitra_id')->nullable();
-            $table->enum('jenis', ['setor', 'tarik', 'bayar']);
+            $table->enum('jenis', ['setor', 'tarik']);
             $table->bigInteger('jumlah');
             $table->timestamps();
         });
