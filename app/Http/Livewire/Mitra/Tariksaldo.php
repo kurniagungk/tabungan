@@ -28,6 +28,11 @@ class Tariksaldo extends Component
             'jumlah' => $this->jumlah,
             'keterangan' => $this->keterangan
         ]);
+
+        $mitra = Mitra::find(2);
+        $mitra->saldo -= $this->jumlah;
+        $mitra->save();
+
         session()->flash('pesan', 'berhasil melakukan penarikan saldo');
         $this->reset();
     }
