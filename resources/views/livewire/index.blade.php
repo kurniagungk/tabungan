@@ -99,7 +99,7 @@
             <div class="row">
 
                 <!-- Area Chart -->
-                <div class="col-xl-8 col-lg-7">
+                <div class="col-xl-6 col-lg-6">
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -121,14 +121,14 @@
                         <!-- Card Body -->
                         <div class="card-body">
                             <div class="chart-area">
-                                <canvas id="myAreaChart"></canvas>
+                                <canvas id="pemasukanChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Pie Chart -->
-                <div class="col-xl-4 col-lg-5">
+                <div class="col-xl-6 col-lg-6">
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -149,7 +149,7 @@
                         <!-- Card Body -->
                         <div class="card-body">
                             <div class="chart-pie pt-4 pb-2">
-                                <canvas id="myPieChart"></canvas>
+
                             </div>
                             <div class="mt-4 text-center small">
                                 <span class="mr-2">
@@ -180,4 +180,48 @@
             <!-- </div> -->
             <!-- </div> -->
         </div>
+
     </div>
+</div>
+
+@push('scripts')
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+
+
+        var data = <?= json_encode($dataChart["total"]); ?>;
+        var tanggal = <?= json_encode($dataChart["tanggal"]); ?>;
+
+        var ctx = document.getElementById('pemasukanChart');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: tanggal,
+                datasets: [{
+                    label: '# of Votes',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+    })
+</script>
+@endpush

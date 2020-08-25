@@ -7,6 +7,7 @@ try {
     require('bootstrap');
 } catch (e) { }
 
+var Chart = require('chart.js');
 
 var Turbolinks = require("turbolinks")
 Turbolinks.start();
