@@ -57,6 +57,13 @@ class Create extends Component
 
             $nasabah->update(['saldo' => $sisa]);
 
+            $mitra = Mitra::find(1);
+
+            $mitra->saldo -= $this->jumlah;
+
+            $mitra->save();
+
+
             $mitra = Mitra::find(2);
 
             $mitra->saldo += $this->jumlah;

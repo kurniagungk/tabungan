@@ -13,13 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::livewire('/', 'index');
 
-Route::get('/', function () {
-    return view('test');
-});
+
+
 
 // route::prefix('tabungan')->group(function () {
 //     Route::get('/', 'tabungan@index');

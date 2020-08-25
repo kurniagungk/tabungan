@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Tarik;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
-use App\Nasabah, App\Transaksi;
+use App\Nasabah, App\Transaksi, App\Mitra;
 
 class Index extends Component
 {
@@ -141,6 +141,12 @@ class Index extends Component
         $jumlah = $this->santri->saldo - $this->jumlah;
 
         $this->santri->update(['saldo' => $jumlah]);
+
+        $mitra = Mitra::find(1);
+
+        $mitra->saldo -= $this->jumlah;
+
+        $mitra->save();
 
         $this->reset();
         $this->emit('succes');

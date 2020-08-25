@@ -4,7 +4,8 @@ namespace App\Http\Livewire\Setor;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
-use App\Nasabah, App\Transaksi;
+
+use App\Nasabah, App\Transaksi, App\Mitra;
 
 
 class Index extends Component
@@ -116,6 +117,12 @@ class Index extends Component
 
 
         $this->santri->update(['saldo' => $jumlah]);
+        $mitra = Mitra::find(1);
+
+        $mitra->saldo += $this->jumlah;
+
+        $mitra->save();
+
 
         $this->reset();
         $this->emit('setor');
