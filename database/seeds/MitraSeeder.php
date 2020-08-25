@@ -16,12 +16,14 @@ class MitraSeeder extends Seeder
         DB::table('mitra')->insert([
             'nama' => 'Tabungan',
             'email' => 'admin@admin.com',
+            'saldo' => 0,
             'password' => Hash::make('password'),
         ]);
 
         DB::table('mitra')->insert([
             'nama' => 'Waserda',
             'email' => 'waserda@admin.com',
+            'saldo' => 0,
             'password' => Hash::make('password'),
         ]);
     }
