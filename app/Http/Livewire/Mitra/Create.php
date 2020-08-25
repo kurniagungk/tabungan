@@ -26,7 +26,6 @@ class Create extends Component
         ]);
 
         Mitra::create([
-            'id' => Str::uuid(),
             'nama' => $this->nama,
             'email' => $this->email,
             'password' => $this->password,
