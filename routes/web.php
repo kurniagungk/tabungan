@@ -70,3 +70,7 @@ Route::get('/laporanmutasi', function () {
 Route::get('/mitrahistory', function () {
     return view('livewire.transaksimitra.index');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

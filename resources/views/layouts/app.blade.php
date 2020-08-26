@@ -33,9 +33,9 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-
+        @auth
         @include('admin.sidebar')
-
+        @endauth
 
         <!-- End of Sidebar -->
 
@@ -46,9 +46,9 @@
             <div id="content">
 
                 <!-- Topbar -->
-
+                @auth
                 @include('admin.topbar')
-
+                @endauth
 
                 <!-- End of Topbar -->
 
@@ -65,7 +65,7 @@
 
             </div>
             <!-- End of Main Content -->
-
+            @auth
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -75,7 +75,7 @@
                 </div>
             </footer>
             <!-- End of Footer -->
-
+            @endauth
         </div>
         <!-- End of Content Wrapper -->
 
