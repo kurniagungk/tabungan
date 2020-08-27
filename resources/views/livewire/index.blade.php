@@ -127,69 +127,38 @@
                     </div>
                 </div>
 
-                <!-- Pie Chart -->
-                <<<<<<< HEAD <div class="col-xl-6 col-lg-6">
-                    =======
-                    <div class="col-xl-12 col-lg-7">
-                        >>>>>>> 7058e9ffc3da2607637fab66977c1e93d96d302b
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-danger">Pengeluaran</h6>
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                        <div class="dropdown-header">Pilihan tampil:</div>
-                                        <a class="dropdown-item" href="#">Harian</a>
-                                        <a class="dropdown-item" href="#">Mingguan</a>
-                                        <a class="dropdown-item" href="#">Bulanan</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <<<<<<< HEAD <div class="chart-pie pt-4 pb-2">
-
-                            </div>
-                            <div class="mt-4 text-center small">
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-primary"></i> Tabungan
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> Koperasi
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-info"></i> Warnet
-                                </span>
-                                =======
-                                <div class="chart-area">
-                                    <canvas id="myAreaChart"></canvas>
-                                    >>>>>>> 7058e9ffc3da2607637fab66977c1e93d96d302b
+                <div class="col-xl-6 col-lg-6">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Pemasukan</h6>
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-header">Pilihan tampil:</div>
+                                    <a class="dropdown-item" href="#">Harian</a>
+                                    <a class="dropdown-item" href="#">Mingguan</a>
+                                    <a class="dropdown-item" href="#">Bulanan</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </div>
                         </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="pemasukanChart"></canvas>
+                            </div>
+                        </div>
                     </div>
-
-            </div>
-            <<<<<<< HEAD <!-- <div class="card-body">
-                @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
                 </div>
-                @endif
-
-                You are logged in!
-        </div> -->
-        <!-- </div> -->
-        <!-- </div> -->
+            </div>
+        </div>
     </div>
+</div>
 
-</div>
-</div>
 
 @push('scripts')
 <script type="text/javascript">

@@ -5,8 +5,8 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
-use App\Mitra,
-    App\Nasabah,
+use App\Nasabah,
+    App\User,
     App\Transaksi;
 
 class Index extends Component
@@ -16,8 +16,8 @@ class Index extends Component
     public function render()
     {
         $nasabah = Nasabah::count();
-        $uang = Mitra::select('saldo')->get()->sum("saldo");
-        $saldoTabungan = Mitra::select('saldo')->where('id', 1)->get()->sum("saldo");
+        $uang = User::select('saldo')->get()->sum("saldo");
+        $saldoTabungan = User::select('saldo')->where('id', 1)->get()->sum("saldo");
         $transaksi = Transaksi::whereDate('created_at', DB::raw('CURDATE()'))->count();
 
         $dataChart = Transaksi::selectRaw('DATE(created_at) as tanggal, sum(jumlah) as total')
@@ -25,7 +25,8 @@ class Index extends Component
             ->groupBy('tanggal')
             ->get();
 
-
+        $tanggal = [];
+        $total = [];
         foreach ($dataChart as $d) {
             $tanggal[] = $d->tanggal;
             $total[] = $d->total;
