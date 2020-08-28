@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-turbolinks="false">
     <div class="row justify-content-center">
         <div class="col-xl col-lg">
             <!-- <div class="card"> -->
@@ -149,7 +149,7 @@
                         <!-- Card Body -->
                         <div class="card-body">
                             <div class="chart-area">
-                                <canvas id="pemasukanChart"></canvas>
+                                <canvas id="Pengeluaran"></canvas>
                             </div>
                         </div>
                     </div>
@@ -164,29 +164,31 @@
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
 
-
-        var data = <?= json_encode($dataChart["total"]); ?>;
-        var tanggal = <?= json_encode($dataChart["tanggal"]); ?>;
+        var dataM = @this.get('dataPemasukan')
 
         var ctx = document.getElementById('pemasukanChart');
         var myChart = new Chart(ctx, {
             type: 'line',
-            data: {
-                labels: tanggal,
-                datasets: [{
-                    label: '# of Votes',
-                    data: data,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
+            data: dataM,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
 
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
+        var datak = @this.get('datakeluar')
 
-                    ],
-                    borderWidth: 1
-                }]
-            },
+        console.log(datak)
+
+        var ctx = document.getElementById('Pengeluaran');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: datak,
             options: {
                 scales: {
                     yAxes: [{

@@ -42,6 +42,7 @@ class userSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
         $user->assignRole($role1);
+        $user->assignRole($role2);
 
         $user = User::create([
             'name' => 'Waserda',

@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <form wire:submit.prevent="cari">
                                 <div class="input-group">
-                                    <input wire:model.lazy="search" autofocus type="text" id="cari" class="form-control " placeholder="Search for...">
+                                    <input wire:model.lazy="search" autocomplete="off" autofocus type="text" id="cari" class="form-control " placeholder="Search for...">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="sumbit">
                                             <i class="fas fa-search fa-sm"></i>
@@ -145,10 +145,14 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("cari").focus();
         window.livewire.on('cari', () => {
-            document.getElementById("jumlah").focus();
+            setTimeout(function() {
+                document.getElementById("jumlah").focus();
+            }, 200);
+
         });
 
         window.livewire.on('setor', () => {
+
             document.getElementById("cari").focus();
         });
     })
