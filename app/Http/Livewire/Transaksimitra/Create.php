@@ -5,12 +5,11 @@ namespace App\Http\Livewire\Transaksimitra;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 use App\Nasabah;
 use App\Transaksi;
-use App\Mitra;
-
-
+use App\User;
 
 class Create extends Component
 {
@@ -57,14 +56,14 @@ class Create extends Component
 
             $nasabah->update(['saldo' => $sisa]);
 
-            $mitra = Mitra::find(1);
+            $mitra = User::find(1);
 
             $mitra->saldo -= $this->jumlah;
 
             $mitra->save();
 
 
-            $mitra = Mitra::find(2);
+            $mitra = User::find(Auth::id());
 
             $mitra->saldo += $this->jumlah;
 

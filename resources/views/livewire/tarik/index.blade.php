@@ -149,7 +149,9 @@
             document.getElementById("cari").focus();
 
             window.livewire.on('cari', () => {
-                document.getElementById("jumlah").focus();
+                setTimeout(function() {
+                    document.getElementById("jumlah").focus();
+                }, 200);
             });
 
             window.livewire.on('succes', () => {
@@ -158,7 +160,10 @@
             });
 
             window.livewire.on('cek', () => {
-                $('#cek').modal('show');
+                setTimeout(function() {
+                    $('#cek').modal('show');
+                }, 200);
+
             });
 
             $('#cek').on('shown.bs.modal', function() {
