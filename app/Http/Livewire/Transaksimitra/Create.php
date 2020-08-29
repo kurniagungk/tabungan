@@ -56,11 +56,11 @@ class Create extends Component
 
             $nasabah->update(['saldo' => $sisa]);
 
-            $mitra = User::find(1);
+            $bank = User::find(1);
 
-            $mitra->saldo -= $this->jumlah;
+            $bank->saldo -= $this->jumlah;
 
-            $mitra->save();
+            $bank->save();
 
 
             $mitra = User::find(Auth::id());
