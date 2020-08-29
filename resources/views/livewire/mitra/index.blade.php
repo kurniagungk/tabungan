@@ -32,7 +32,7 @@
                     </span>
                     <span class="text">Add Data</span>
                 </a>
-                <a class="btn btn-success btn-icon-split" href="#">
+                <!-- <a class="btn btn-success btn-icon-split" href="#">
                     <span class="icon text-white-50">
                         <i class="fas fa-upload"></i>
                     </span>
@@ -43,7 +43,7 @@
                         <i class="fas fa-download"></i>
                     </span>
                     <span class="text">Export</span>
-                </a>
+                </a> -->
                 <div class="my-2"></div>
                 <br>
 
