@@ -54,6 +54,12 @@ class Create extends Component
 
             $sisa = $nasabah->saldo - $this->jumlah;
 
+            if ($sisa < 0) {
+                return  session()->flash('danger', 'Saldo tidak mencukupi');
+                $this->emit('saldo');
+            }
+
+
             $nasabah->update(['saldo' => $sisa]);
 
             $bank = User::find(1);

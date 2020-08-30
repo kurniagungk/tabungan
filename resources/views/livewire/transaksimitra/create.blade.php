@@ -18,6 +18,14 @@
                         @endif
                     </div>
 
+                    <div>
+                        @if (session()->has('danger'))
+                        <div class="alert alert-danger">
+                            {{ session('danger') }}
+                        </div>
+                        @endif
+                    </div>
+
                     <form wire:submit.prevent="bayar">
                         <div class="input-group ">
                             <div class="input-group-prepend">
