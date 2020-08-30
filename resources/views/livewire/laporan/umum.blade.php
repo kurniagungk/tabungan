@@ -21,7 +21,7 @@
             <div class="card-body">
 
                 <div class="row">
-                    <div class="col-xl-8 col-lg-7">
+                    <div class="col-xl-7 col-lg-7">
                         <div class="card shadow mb-8">
                             <div class="card-body">
 
@@ -73,7 +73,7 @@
                                             <select wire:model='selectMitra' id="inputState" class="form-control">
                                                 <option value="">Semua </option>
                                                 @foreach($mitra as $m)
-                                                <option value="{{$m->id}}">{{$m->nama}}</option>
+                                                <option value="{{$m->id}}">{{$m->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -97,29 +97,39 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-4 col-lg-5">
+                    <div class="col-xl-5 col-lg-5">
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-5 col-form-label">Periode : </label>
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Periode</label>
+                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                                    <label for="staticEmail" class="col-sm-3 col-form-label">{{$awal??''}}</label>
+                                    <label for="staticEmail" class="col-sm-1 col-form-label"> - </label>
+                                    <label for="staticEmail" class="col-sm-3 col-form-label">{{$akhir??''}}</label>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-7 col-form-label">Total Setor : </label>
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Total Setor : </label>
+                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                                    <label for="staticEmail" class="col-sm-7 col-form-label">{{$totalSetor??''}}</label>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-7 col-form-label">Total Tarik : </label>
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Total Tarik : </label>
+                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                                    <label for="staticEmail" class="col-sm-7 col-form-label">{{$totalTarik??''}}</label>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-7 col-form-label">Saldo : </label>
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Saldo : </label>
+                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                                    <label for="staticEmail" class="col-sm-3 col-form-label">{{$totalSetor - $totalTarik ??''}}</label>
                                 </div>
                                 <form>
                                     <center>
-                                        <a class="btn btn-warning btn-icon-split" href="#">
+                                        <button wire:click='export' class="btn btn-warning btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-download"></i>
                                             </span>
                                             <span class="text">Export</span>
-                                        </a>
+                                        </button>
                                     </center>
                                 </form>
                             </div>
@@ -170,3 +180,15 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+
+        window.livewire.on('export', () => {
+            window.open('{{route("laporan.umum")}}');
+        })
+
+    })
+</script>
+@endpush

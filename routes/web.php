@@ -1,6 +1,9 @@
 <?php
 
+
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +78,17 @@ Route::group(['middleware' => ['role:mitra']], function () {
     Route::get('/mitrahistory', function () {
         return view('livewire.transaksimitra.index');
     });
+
+    Route::get('laporanumum/export', function () {
+
+        $filePath = storage_path() . '/app/laporan/invoices.xlsx';
+
+
+        if (File::exists($filePath)) {
+            return response()->download($filePath);
+        }
+        abort(404);
+    })->name('laporan.umum');
 });
 
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
