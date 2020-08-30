@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 
 use App\Mitra;
 use App\Jurnal;
+use App\User;
 
 class Tariksaldo extends Component
 {
@@ -22,6 +23,16 @@ class Tariksaldo extends Component
             'keterangan' => 'required|max:255',
         ]);
 
+        $mitra = User::find($this->mitraId);
+
+
+
+        if ($mitra->saldo - $this->jumlah < 0) {
+            return session()->flash('danger', 'saldo tidak mencukupi');
+        }
+
+
+
         Jurnal::create([
             'id' => Str::uuid(),
             'mitra_id' => $this->mitraId,
@@ -29,7 +40,9 @@ class Tariksaldo extends Component
             'keterangan' => $this->keterangan
         ]);
 
-        $mitra = Mitra::find(2);
+
+
+
         $mitra->saldo -= $this->jumlah;
         $mitra->save();
 
@@ -39,8 +52,8 @@ class Tariksaldo extends Component
 
     public function render()
     {
-        $mitra = Mitra::get();
-
+        $mitra = User::where('id', '!=', 1)
+            ->get();
         $jurnal = Jurnal::with("mitra")
             ->whereDate('created_at', '=', date("Y-m-d"))->get();
 

@@ -26,6 +26,11 @@
                         {{ session('pesan') }}
                     </div>
                     @endif
+                    @if (session()->has('danger'))
+                    <div class="alert alert-danger">
+                        {{ session('danger') }}
+                    </div>
+                    @endif
                 </div>
 
 
@@ -35,7 +40,7 @@
                         <select wire:model="mitraId" id="inputState" class="form-control @error('mitraId') is-invalid @enderror">
                             <option value=""> -Pilih Salah Satu- </option>
                             @foreach($mitra as $m)
-                            <option value="{{$m->id}}"> {{$m->nama}} </option>
+                            <option value="{{$m->id}}"> {{$m->name}} </option>
                             @endforeach
 
                         </select>
@@ -106,7 +111,7 @@
                             <tr>
                                 <td>{{substr($j->id,0,8)}}</td>
                                 <td>{{$j->created_at}}</td>
-                                <td>{{$j->mitra->nama}}</td>
+                                <td>{{$j->mitra->name}}</td>
                                 <td>{{$j->jumlah}}</td>
                                 <td>{{$j->keterangan}}</td>
                                 <td>

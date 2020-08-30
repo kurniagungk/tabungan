@@ -20,6 +20,6 @@ class Jurnal extends Model
 
     public function mitra()
     {
-        return $this->hasOne(Mitra::class, 'id', 'mitra_id');
+        return $this->hasOne(User::class, 'id', 'mitra_id');
     }
 }
