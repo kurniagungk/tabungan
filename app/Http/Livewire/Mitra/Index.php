@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Mitra;
 
 use Livewire\Component;
-use App\Mitra;
+use App\User;
 
 class Index extends Component
 {
@@ -17,13 +17,13 @@ class Index extends Component
 
     public function kill($id)
     {
-        Mitra::destroy($id);
+        User::destroy($id);
         session()->flash('pesan', 'Data mitra successfully deleted.');
     }
 
     public function render()
     {
-        $mitra = Mitra::get();
+        $mitra = User::get();
         return view('livewire.mitra.index', compact("mitra"));
     }
 }
