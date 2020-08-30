@@ -38,20 +38,14 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::livewire('/nasabah/{nasabah}/edit', 'nasabah.edit')->name('nasabah.edit');
 
 
-
-
-
     Route::livewire('/laporanumum', 'laporan.umum')->name('laporan.umum');
 
-
+    Route::livewire('/user', 'admin.account')->name('admin.account');
 
 
     Route::get('/tarikmitra', function () {
         return view('livewire.mitra.tariksaldo');
     });
-
-
-
     Route::get('/laporanmitra', function () {
         return view('livewire.laporan.mitra');
     });

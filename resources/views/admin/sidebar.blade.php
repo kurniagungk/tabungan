@@ -31,48 +31,55 @@
     @role('admin')
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="/nasabah">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Data Nasabah</span></a>
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-store"></i>
+            <span>Data Master</span>
+        </a>
+        <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/nasabah">Data Nasabah</a>
+                <a class="collapse-item" href="/mitra">Data Mitra</a>
+
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-dollar-sign"></i>
             <span>Transaksi</span>
         </a>
-        <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                 <a class="collapse-item" href="/setor">Setor</a>
                 <a class="collapse-item" href="/tarik">Tarik</a>
+                <a class="collapse-item" href="/mitra/tarik">Tarik Saldo Mitra</a>
             </div>
         </div>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-store"></i>
             <span>Mitra</span>
         </a>
-        <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/mitra">Tambah</a>
-                <a class="collapse-item" href="/mitra/tarik">Tarik Saldo</a>
-                <a class="collapse-item" href="/mitrapay">Transaksi di Mitra</a>
+                <a class="collapse-item" href="/mitrapay">Transaksi Mitra</a>
             </div>
         </div>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-table"></i>
             <span>Laporan</span>
         </a>
-        <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                 <a class="collapse-item" href="laporanumum">Jurnal Umum</a>
@@ -84,15 +91,15 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Setting</span>
         </a>
-        <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                <a class="collapse-item" href="buttons.html">User</a>
-                <a class="collapse-item" href="cards.html">Guide</a>
+                <a class="collapse-item" href="/user">User</a>
+                <a class="collapse-item" href="#">Guide</a>
             </div>
         </div>
     </li>
@@ -109,9 +116,7 @@
         </a>
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/mitra">Tambah</a>
-                <a class="collapse-item" href="/mitra/tarik">Tarik Saldo</a>
-                <a class="collapse-item" href="/mitrapay">Transaksi di Mitra</a>
+                <a class="collapse-item" href="/mitrapay">Transaksi Kasir</a>
             </div>
         </div>
     </li>
@@ -123,10 +128,22 @@
         </a>
         <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                <a class="collapse-item" href="laporanumum">Jurnal Umum</a>
                 <a class="collapse-item" href="laporanmitra">Jurnal Mitra</a>
                 <a class="collapse-item" href="laporanmutasi">Mutasi Nasabah</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Setting</span>
+        </a>
+        <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                <a class="collapse-item" href="/user">User</a>
+                <a class="collapse-item" href="cards.html">#</a>
             </div>
         </div>
     </li>

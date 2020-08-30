@@ -25,13 +25,13 @@
                     </span>
                     <span class="text">Add Data</span>
                 </a>
-                <!--
-                <a class="btn btn-success btn-icon-split" href="#">
+                <a class="btn btn-warning btn-icon-split" href="#">
                     <span class="icon text-white-50">
                         <i class="fas fa-upload"></i>
                     </span>
                     <span class="text">Import</span>
                 </a>
+                <!--
                 <a class="btn btn-warning btn-icon-split" href="#">
                     <span class="icon text-white-50">
                         <i class="fas fa-download"></i>
