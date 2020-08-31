@@ -161,10 +161,11 @@
                                 <td>{{substr($t->id,0,8)}}</td>
                                 <td>{{$t->created_at}}</td>
                                 <td>{{$t->nasabah->nis}}</td>
-                                <td>{{$t->nasabah->nama}}</td>
+                                <td>{{$t->nasabah->name}}</td>
                                 <td>{{$t->jenis}}</td>
                                 <td>{{$t->mitra->nama}}</td>
                                 <td>{{$t->jumlah}}</td>
+
                             </tr>
                             @empty
                             @endforelse

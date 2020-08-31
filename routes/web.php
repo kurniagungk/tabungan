@@ -42,6 +42,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 
     Route::livewire('/laporanumum', 'laporan.umum')->name('laporan.umum');
+    Route::livewire('/laporanmitra', 'laporan.mitra')->name('laporan.mitra');
 
     Route::livewire('/user', 'admin.account')->name('admin.account');
 
@@ -49,9 +50,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/tarikmitra', function () {
         return view('livewire.mitra.tariksaldo');
     });
-    Route::get('/laporanmitra', function () {
-        return view('livewire.laporan.mitra');
-    });
+
     Route::get('/laporanmutasi', function () {
         return view('livewire.laporan.mutasi');
     });
@@ -69,9 +68,7 @@ Route::group(['middleware' => ['role:mitra']], function () {
     Route::livewire('/mitra/{mitra}/edit', 'mitra.edit')->name('mitra.edit');
     Route::livewire('/mitrapay', 'transaksimitra.create')->name('mitrapay')->layout('layouts.pembayaran');
     Route::livewire('/laporanumum', 'laporan.umum')->name('laporan.umum');
-    Route::get('/laporanmitra', function () {
-        return view('livewire.laporan.mitra');
-    });
+
     Route::get('/laporanmutasi', function () {
         return view('livewire.laporan.mutasi');
     });
@@ -89,6 +86,16 @@ Route::group(['middleware' => ['role:mitra']], function () {
         }
         abort(404);
     })->name('laporan.umum');
+    Route::get('laporanumum/export', function () {
+
+        $filePath = storage_path() . '/app/laporan/mitra.xlsx';
+
+
+        if (File::exists($filePath)) {
+            return response()->download($filePath);
+        }
+        abort(404);
+    })->name('laporan.mitra');
 });
 
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
