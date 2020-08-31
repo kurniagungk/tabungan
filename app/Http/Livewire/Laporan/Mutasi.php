@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire\Laporan;
 
+use App\Exports\LaporanMutasi;
 use Livewire\Component;
-use App\Exports\LaporanUmum;
+use App\Nasabah;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -20,6 +21,13 @@ class Mutasi extends Component
     public $totalSetor;
     public $totalTarik;
     public $santri;
+    public $search;
+
+
+    public function cari()
+    {
+        $this->santri = Nasabah::where('nis', $this->search)->first();
+    }
 
 
     public function filter()
@@ -40,6 +48,7 @@ class Mutasi extends Component
     public function data()
     {
         $transaksi = Transaksi::with('mitra', 'nasabah')
+            ->where('santri_id', $this->santri->id)
             ->whereBetween(DB::raw('DATE(created_at)'), [$this->awal, $this->akhir]);
         if ($this->selectMitra)
             $transaksi->where('mitra_id', $this->selectMitra);
@@ -70,7 +79,7 @@ class Mutasi extends Component
             'tarik' => $totalTarik
         ];
 
-        Excel::store(new LaporanUmum($data), 'laporan/invoices.xlsx', 'local');
+        Excel::store(new LaporanMutasi($data), 'laporan/mutasi.xlsx', 'local');
 
         $this->emit('export');
     }

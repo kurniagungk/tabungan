@@ -94,6 +94,17 @@ Route::group(['middleware' => ['role:mitra']], function () {
         }
         abort(404);
     })->name('laporan.mitra');
+
+    Route::get('laporanmutasi/export', function () {
+
+        $filePath = storage_path() . '/app/laporan/mutasi.xlsx';
+
+
+        if (File::exists($filePath)) {
+            return response()->download($filePath);
+        }
+        abort(404);
+    })->name('laporan.mutasi');
 });
 
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');

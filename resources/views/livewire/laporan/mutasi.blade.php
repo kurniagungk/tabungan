@@ -31,6 +31,8 @@
                     </div>
                 </form>
 
+                @if($santri)
+
                 <br>
                 <div class="row">
                     <div class="col-xl-7 col-lg-7">
@@ -38,6 +40,11 @@
                             <div class="card-body">
 
                                 <form wire:submit.prevent="filter">
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Nama</label>
+                                        <label class="col-sm-3 col-form-label">{{$santri->nama}}</label>
+                                    </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">periode</label>
@@ -134,23 +141,21 @@
                                     <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
                                     <label for="staticEmail" class="col-sm-3 col-form-label">{{$totalSetor - $totalTarik ??''}}</label>
                                 </div>
-                                <form>
-                                    <center>
-                                        <button wire:click='export' class="btn btn-warning btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-download"></i>
-                                            </span>
-                                            <span class="text">Export</span>
-                                        </button>
-                                    </center>
-                                </form>
+
+                                <center>
+                                    <button wire:click='export' class="btn btn-warning btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-download"></i>
+                                        </span>
+                                        <span class="text">Export</span>
+                                    </button>
+                                </center>
+
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
+                <br>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
@@ -189,6 +194,7 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -199,7 +205,7 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         window.livewire.on('export', () => {
-            window.open('{{route("laporan.umum")}}');
+            window.open('{{route("laporan.mutasi")}}');
         })
 
     })
