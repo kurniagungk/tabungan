@@ -8,80 +8,85 @@
     </div>
     <div class="card-body">
 
-        <!-- @if (session()->has('status')) -->
+        @if (session()->has('status'))
         <div class="alert alert-success">
-            <!-- {{ session('status') }} -->
+            {{ session('status') }}
         </div>
-        <!-- @endif -->
+        @endif
+
 
 
         <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
                 <!--   -->
-                <input wire:model="name" type="text" class="form-control form-control-user">
+                <input wire:model="name" type="text" class="form-control form-control-user  @error('name') is-invalid @enderror">
+                @error('name')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
         </div>
-        <!-- @error('name') -->
-        <div class="alert alert-danger" role="alert">
-            <!-- {{ $message }} -->
-        </div>
-        <!-- @enderror -->
+
         <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
                 <!--   -->
-                <input wire:model="email" type="text" class="form-control">
+                <input wire:model="email" type="text" class="form-control  @error('email') is-invalid @enderror">
+                @error('email')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
         </div>
 
-        <!-- @error('email') -->
-        <div class="alert alert-danger" role="alert">
-            <!-- {{ $message }} -->
-        </div>
-        <!-- @enderror -->
 
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Old Password</label>
+            <label for="staticEmail" class="col-sm-2 col-form-label  ">Old Password</label>
             <div class="col-sm-10">
                 <!--  -->
-                <input wire:model="OldPassword" autocomplete="off" type="Password" class="form-control">
+                <input wire:model="OldPassword" autocomplete="off" type="Password" class="form-control @error('OldPassword') is-invalid @enderror">
+                @error('OldPassword')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
         </div>
 
-        <!-- @error('OldPassword') -->
-        <div class="alert alert-danger" role="alert">
-            <!-- {{ $message }} -->
-        </div>
-        <!-- @enderror -->
+
 
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">New Password</label>
+            <label for="staticEmail" class="col-sm-2 col-form-label  ">New Password</label>
             <div class="col-sm-10">
                 <!--   -->
-                <input wire:model="NewPassword" type="Password" class="form-control">
+                <input wire:model="NewPassword" type="Password" class="form-control @error('NewPassword') is-invalid @enderror">
+                @error('NewPassword')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
         </div>
 
-        <!-- @error('NewPassword') -->
-        <div class="alert alert-danger" role="alert">
-            <!-- {{ $message }} -->
-        </div>
-        <!-- @enderror -->
+
 
         <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Verify New Password</label>
             <div class="col-sm-10">
                 <!--  -->
-                <input wire:model="OldPassword" autocomplete="off" type="Password" class="form-control">
+                <input wire:model="NewPasswordVerifikasi" autocomplete="off" type="Password" class="form-control  @error('NewPasswordVerifikasi') is-invalid @enderror">
+                @error('NewPasswordVerifikasi')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
         </div>
 
-        <!-- @error('OldPassword') -->
-        <div class="alert alert-danger" role="alert">
-            <!-- {{ $message }} -->
-        </div>
-        <!-- @enderror -->
+
 
         <button wire:click="Update" type="button" class="btn btn-primary">Submit</button>
         <a href='/'><button wire:click="Update" type="button" href="/" class="btn btn-danger">Cencel</button></a>

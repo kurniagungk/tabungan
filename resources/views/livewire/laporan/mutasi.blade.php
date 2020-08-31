@@ -1,12 +1,9 @@
-@extends('layouts.dashboard')
-
-@section('content')
 <div class="row">
     <div class="col-xl col-lg">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h5 class="m-0 font-weight-bold text-primary">Laporan Mutasi Santri</h5>
+                <h5 class="m-0 font-weight-bold text-primary">Jurnal Umum</h5>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -22,6 +19,7 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
+
                 <form wire:submit.prevent="cari">
                     <div class="input-group">
                         <input wire:model.lazy="search" autofocus type="text" id="cari" class="form-control " placeholder="Input Nomor Induk...">
@@ -32,108 +30,118 @@
                         </div>
                     </div>
                 </form>
+
                 <br>
                 <div class="row">
-                    <div class="col-xl-8 col-lg-7">
+                    <div class="col-xl-7 col-lg-7">
                         <div class="card shadow mb-8">
                             <div class="card-body">
 
-                                <!-- <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-calendar-alt"></i>
-                                        </span>
+                                <form wire:submit.prevent="filter">
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">periode</label>
+                                        <div class="col-sm-4">
+                                            <input wire:model='awal' type="date" class="form-control @error('awal') is-invalid @enderror" id="">
+                                            @error('awal')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input wire:model='akhir' type="date" class="form-control @error('akhir') is-invalid @enderror" id="">
+                                            @error('akhir')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <input type="number" class="form-control" autocomplete="off" placeholder="Periode . . .">
-                                </div> -->
+
+                                    <div class="form-group row">
+                                        <label for="staticEmail2" class="col-sm-3 col-form-label">Jenis Transaksi</label>
+
+                                        <div class="col-sm-9">
+                                            <div class="form-check form-check-inline">
+                                                <input wire:model="jenisTransaksi" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="" checked>
+                                                <label class="form-check-label" for="inlineRadio1">Semua</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input wire:model="jenisTransaksi" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="setor">
+                                                <label class="form-check-label" for="inlineRadio2">Setor</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input wire:model="jenisTransaksi" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="tarik">
+                                                <label class="form-check-label" for="inlineRadio3">Tarik</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-                                <form class="form-inline">
-                                    <div class="form-group mb-2">
-                                        <label class="sr-only">Email</label>
-                                        <input type="text" class="form-control-plaintext" value="Periode">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">mitra</label>
+                                        <div class="col-sm-4">
+                                            <select wire:model='selectMitra' id="inputState" class="form-control">
+                                                <option value="">Semua </option>
+                                                @foreach($mitra as $m)
+                                                <option value="{{$m->id}}">{{$m->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="form-group mx-sm-3 mb-2">
-                                        <label class="sr-only">Password</label>
-                                        <input type="date" class="form-control" id="inputPassword2" placeholder="Awal">
-                                    </div>
-                                    <div class="form-group mx-sm-3 mb-2">
 
-                                        <label class="sr-only">Password</label>
-                                        <input type="date" class="form-control" id="inputPassword2" placeholder="Ahir">
-                                    </div>
-                                </form>
 
-                                <form class="form-inline">
-                                    <div class="form-group mb-2">
-                                        <label for="staticEmail2" class="sr-only">Jenis Transaksi</label>
-                                        <input type="text" readonly class="form-control-plaintext" value="Jenis Transaksi">
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline1">Semua</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline2">Setor</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline3" name="customRadioInline1" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline3">Tarik</label>
-                                    </div>
-                                </form>
-                                <form class="form-inline">
-                                    <div class="form-group mb-2">
-                                        <label for="staticEmail2" class="sr-only">Mitra</label>
-                                        <input type="text" readonly class="form-control-plaintext" value="Mitra">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <select id="inputState" class="form-control">
-                                            <option selected>Semua </option>
-                                            <option>Koperasi</option>
-                                            <option>Warnet</option>
-                                        </select>
-                                    </div>
-                                </form>
-                                <br>
-                                <form>
+
+                                    <br>
+
                                     <center>
-                                        <a class="btn btn-info btn-icon-split" href="#">
+                                        <button type="submit" class="btn btn-info btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-filter"></i>
                                             </span>
                                             <span class="text">Filter</span>
-                                        </a>
+                                        </button>
                                     </center>
-                                </form>
 
+                                </form>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-xl-4 col-lg-5">
+                    <div class="col-xl-5 col-lg-5">
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-5 col-form-label">Rekening : </label>
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Periode</label>
+                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                                    <label for="staticEmail" class="col-sm-3 col-form-label">{{$awal??''}}</label>
+                                    <label for="staticEmail" class="col-sm-1 col-form-label"> - </label>
+                                    <label for="staticEmail" class="col-sm-3 col-form-label">{{$akhir??''}}</label>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-7 col-form-label">Nama : </label>
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Total Setor : </label>
+                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                                    <label for="staticEmail" class="col-sm-7 col-form-label">{{$totalSetor??''}}</label>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-7 col-form-label">Sekolah : </label>
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Total Tarik : </label>
+                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                                    <label for="staticEmail" class="col-sm-7 col-form-label">{{$totalTarik??''}}</label>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-7 col-form-label">Saldo : </label>
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Saldo : </label>
+                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                                    <label for="staticEmail" class="col-sm-3 col-form-label">{{$totalSetor - $totalTarik ??''}}</label>
                                 </div>
                                 <form>
                                     <center>
-                                        <a class="btn btn-warning btn-icon-split" href="#">
+                                        <button wire:click='export' class="btn btn-warning btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-download"></i>
                                             </span>
                                             <span class="text">Export</span>
-                                        </a>
+                                        </button>
                                     </center>
                                 </form>
                             </div>
@@ -147,40 +155,37 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>ID Transaksi</th>
                                 <th>Tanggal</th>
                                 <th>Rekening</th>
                                 <th>Nama</th>
-                                <th>Sekolah</th>
                                 <th>Jenis</th>
                                 <th>Sumber</th>
                                 <th>Jumlah</th>
-                                <th>Saldo</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if($transaksi)
+                            @forelse ($transaksi as $t)
                             <tr>
-                                <td>TR-0001</td>
-                                <td>12-11-2020 10:15</td>
-                                <td>NB-001</td>
-                                <td>Abdul</td>
-                                <td>SMK</td>
-                                <td>Tarik</td>
-                                <td>Koperasi</td>
-                                <td>40.000</td>
-                                <td>60.000</td>
+                                <td>{{$loop->index +1}}</td>
+                                <td>{{substr($t->id,0,8)}}</td>
+                                <td>{{$t->created_at}}</td>
+                                <td>{{$t->nasabah->nis}}</td>
+                                <td>{{$t->nasabah->nama}}</td>
+                                <td>{{$t->jenis}}</td>
+                                <td>{{$t->mitra->name}}</td>
+                                <td>{{$t->jumlah}}</td>
+
                             </tr>
+                            @empty
+                            @endforelse
+                            @else
                             <tr>
-                                <td>TR-0002</td>
-                                <td>12-11-2020 15.20</td>
-                                <td>NB-001</td>
-                                <td>Abdul</td>
-                                <td>SMK</td>
-                                <td>Setor</td>
-                                <td>Tunai</td>
-                                <td>100.000</td>
-                                <td>100.000</td>
+                                <td></td>
                             </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -188,4 +193,15 @@
         </div>
     </div>
 </div>
-@endsection
+
+@push('scripts')
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+
+        window.livewire.on('export', () => {
+            window.open('{{route("laporan.umum")}}');
+        })
+
+    })
+</script>
+@endpush
