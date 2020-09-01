@@ -7,7 +7,7 @@
 
                 <div class="p-5">
                     <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Payment - KOPERASI</h1>
+                        <h1 class="h4 text-gray-900 mb-4">Payment - WASERDA</h1>
                     </div>
 
                     <div>
@@ -81,7 +81,7 @@
                         <a class="small" href="/">Back to admin?</a>
                     </div>
                     <div class="text-center">
-                        <a class="small" href="#">Riwayat transaksi!</a>
+                        <a class="small" href="/riwayat">Riwayat transaksi!</a>
                     </div>
                 </div>
             </div>

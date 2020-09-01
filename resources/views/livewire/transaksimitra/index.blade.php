@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -28,7 +25,7 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h5 class="m-0 font-weight-bold text-primary">Riwayat Transaksi - KOPERASI</h5>
+                    <h5 class="m-0 font-weight-bold text-primary">Riwayat Transaksi - WASERDA</h5>
                 </div>
             </div>
 
@@ -147,5 +144,3 @@
     <script src="js/sb-admin-2.min.js"></script>
 
 </body>
-
-</html>
