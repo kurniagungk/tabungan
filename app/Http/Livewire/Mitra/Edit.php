@@ -6,7 +6,8 @@ use Livewire\Component;
 use Illuminate\Validation\Rule;
 
 
-use App\Mitra;
+
+use App\User;
 
 class Edit extends Component
 {
@@ -18,10 +19,10 @@ class Edit extends Component
     public $mitraId;
 
 
-    public function mount(Mitra $mitra)
+    public function mount(User $mitra)
     {
         $this->mitraId = $mitra->id;
-        $this->nama = $mitra->nama;
+        $this->nama = $mitra->name;
         $this->email = $mitra->email;
     }
 
@@ -36,9 +37,9 @@ class Edit extends Component
             'repassword' => 'required|same:password',
         ]);
 
-        Mitra::where('id', $this->mitraId)
+        User::where('id', $this->mitraId)
             ->update([
-                'nama' => $this->nama,
+                'name' => $this->nama,
                 'email' => $this->email,
                 'password' => $this->password,
             ]);
