@@ -35,6 +35,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::livewire('/mitra/create', 'mitra.create')->name('mitra.create');
     Route::livewire('/mitra/{mitra}/edit', 'mitra.edit')->name('mitra.edit');
     Route::livewire('/mitrapay', 'transaksimitra.create')->name('mitrapay')->layout('layouts.pembayaran');
+    Route::livewire('/riwayat', 'transaksimitra.index')->name('transaksimitra.index')->layout('layouts.pembayaran');
 
     Route::livewire('/nasabah/create', 'nasabah.create')->name('nasabah.create');
     Route::livewire('/nasabah', 'nasabah.index')->name('nasabah.index');
@@ -67,7 +68,8 @@ Route::group(['middleware' => ['role:mitra']], function () {
     Route::livewire('/mitra/{mitra}/edit', 'mitra.edit')->name('mitra.edit');
     Route::livewire('/mitrapay', 'transaksimitra.create')->name('mitrapay')->layout('layouts.pembayaran');
     Route::livewire('/laporanumum', 'laporan.umum')->name('laporan.umum');
-
+    Route::livewire('/laporanmitra', 'laporan.mitra')->name('laporan.mitra');
+    Route::livewire('/laporanmutasi', 'laporan.mutasi')->name('laporan.mutasi');
 
     Route::get('/mitrahistory', function () {
         return view('livewire.transaksimitra.index');
