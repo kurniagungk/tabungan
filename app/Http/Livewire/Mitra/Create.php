@@ -6,7 +6,7 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 
 
-use App\Mitra;
+use App\User;
 
 class Create extends Component
 {
@@ -25,11 +25,13 @@ class Create extends Component
             'repassword' => 'required|same:password',
         ]);
 
-        Mitra::create([
-            'nama' => $this->nama,
+        $mitra = User::create([
+            'name' => $this->nama,
             'email' => $this->email,
             'password' => $this->password,
         ]);
+
+        $mitra->assignRole('mitra');
 
         session()->flash('pesan', 'Mitra successfully Created.');
         return redirect()->to('/mitra');
