@@ -177,19 +177,8 @@
                         <!-- Card Body -->
                         <div class="card-body">
                             <div class="chart-area">
-                                <!-- <canvas id="grafiksantri"></canvas> -->
-                                <h4 class="small font-weight-bold">Munir <span class="float-right">30.000</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 70%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Agung <span class="float-right">20.000</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 60%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Rohman <span class="float-right">10.000</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                <canvas id="pengeluaranSantri"></canvas>
+
                             </div>
                         </div>
                     </div>
@@ -224,22 +213,51 @@
 
         var datak = @this.get('datakeluar')
 
-        console.log(datak)
-
         var ctx = document.getElementById('Pengeluaran');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: datak,
             options: {
                 scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
+                    xAxes: [{
+                        gridLines: {
+                            offsetGridLines: true
                         }
                     }]
                 }
             }
         });
+
+
+
+        var dataN = @this.get('dataNasaba')
+        console.log(dataN);
+        var ctx = document.getElementById('pengeluaranSantri');
+        var dataNasaba = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: dataN.labels,
+                datasets: [{
+                    label: dataN.datasets.label,
+                    backgroundColor: dataN.datasets.backgroundColor,
+                    data: dataN.datasets.data
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: dataN.datasets.label
+                }
+            }
+
+        });
+
+
+
+
 
     })
 </script>

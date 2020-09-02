@@ -14,6 +14,7 @@ class Index extends Component
 
     public $dataPemasukan;
     public $datakeluar;
+    public $dataNasaba;
 
     public function mount()
     {
@@ -21,6 +22,7 @@ class Index extends Component
 
         $this->dataM($from_date);
         $this->dataK($from_date);
+        $this->dataP();
     }
 
     public function dataM($from_date)
@@ -120,6 +122,31 @@ class Index extends Component
         $datakeluar['datasets'] = $datak;
         $datakeluar['labels'] = $tanggal;
         $this->datakeluar = $datakeluar;
+    }
+
+    public function dataP()
+    {
+        $transaksi = Transaksi::selectRaw('santri_id,DATE(created_at) as tanggal, sum(jumlah) as total')
+            ->whereRaw('DATE(created_at) = "' . date("Y-m-d") . '"')
+            ->where('jenis', 'tarik')
+            ->orderBy('total', 'DESC')
+            ->groupBy('santri_id')
+            ->with('nasabah')
+            ->take(5)
+            ->get();
+
+        foreach ($transaksi as $t) {
+            $label[] = $t->nasabah->nama;
+            $data[] = $t->total;
+            $background[] = '#' . substr(md5(rand()), 0, 6);
+        }
+
+        $dataNasaba['labels'] = $label ?? '';
+        $dataNasaba['datasets']['backgroundColor'] = $background ?? '';
+        $dataNasaba['datasets']['data'] = $data ?? '';
+        $dataNasaba['datasets']['label'] = 'Grafik Pengeluaran Santri' ?? '';
+
+        $this->dataNasaba = $dataNasaba;
     }
 
     public function render()
