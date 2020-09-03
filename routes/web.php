@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -35,7 +36,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::livewire('/mitra/create', 'mitra.create')->name('mitra.create');
     Route::livewire('/mitra/{mitra}/edit', 'mitra.edit')->name('mitra.edit');
     Route::livewire('/mitrapay', 'transaksimitra.create')->name('mitrapay')->layout('layouts.pembayaran');
-    Route::livewire('/riwayat', 'transaksimitra.index')->name('transaksimitra.index')->layout('layouts.pembayaran');
+
 
     Route::livewire('/nasabah/create', 'nasabah.create')->name('nasabah.create');
     Route::livewire('/nasabah', 'nasabah.index')->name('nasabah.index');
@@ -71,6 +72,8 @@ Route::group(['middleware' => ['role:mitra']], function () {
     Route::livewire('/laporanmitra', 'laporan.mitra')->name('laporan.mitra');
     Route::livewire('/laporanmutasi', 'laporan.mutasi')->name('laporan.mutasi');
 
+    Route::livewire('/riwayat', 'transaksimitra.index')->name('transaksimitra.index')->layout('layouts.pembayaran');
+
     Route::get('/mitrahistory', function () {
         return view('livewire.transaksimitra.index');
     });
@@ -85,6 +88,8 @@ Route::group(['middleware' => ['role:mitra']], function () {
         }
         abort(404);
     })->name('laporan.umum');
+
+
 
     Route::get('laporanumum/export', function () {
 
@@ -107,6 +112,17 @@ Route::group(['middleware' => ['role:mitra']], function () {
         }
         abort(404);
     })->name('laporan.mutasi');
+
+    Route::get('riwayat/export', function () {
+
+        $filePath = storage_path() . '/app/laporan/riwayat.xlsx';
+
+
+        if (File::exists($filePath)) {
+            return response()->download($filePath);
+        }
+        abort(404);
+    })->name('riwayat.export');
 });
 
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');

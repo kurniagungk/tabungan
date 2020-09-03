@@ -22,6 +22,7 @@
 
     @yield('css')
     @livewireStyles
+    @livewireScripts
 
 
 </head>
@@ -41,7 +42,7 @@
 
 
     <!-- Custom scripts for all pages-->
-    @livewireScripts
+
     <script src="{{ mix('/js/app.js') }}"></script>
     <script src="{{url('/js/sb-admin-2.min.js')}}"></script>
 
