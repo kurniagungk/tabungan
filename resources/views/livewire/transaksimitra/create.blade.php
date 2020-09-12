@@ -7,7 +7,7 @@
 
                 <div class="p-5">
                     <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Payment - WASERDA</h1>
+                        <h1 class="h4 text-gray-900 mb-4">Payment - {{$user}}</h1>
                     </div>
 
                     <div>

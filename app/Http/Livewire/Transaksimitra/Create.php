@@ -95,6 +95,8 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.transaksimitra.create');
+        $user = Auth::user()->name;
+
+        return view('livewire.transaksimitra.create', compact('user'));
     }
 }
