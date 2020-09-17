@@ -48,8 +48,7 @@
                         @if($video)
 
                         <div class="input-group row">
-                            <div class="embed-responsive embed-responsive-21by9">
-
+                            <div class="embed-responsive embed-responsive-4by3">
                                 <video id="preview"></video>
                             </div>
 
