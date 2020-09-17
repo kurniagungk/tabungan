@@ -17,6 +17,7 @@ class Create extends Component
     public $jumlah;
     public $nasabah;
     public $password;
+    public $video = false;
 
 
 
@@ -90,6 +91,12 @@ class Create extends Component
             $this->addError('password', 'password salah');
             $this->emit('nasabah');
         }
+    }
+
+    public function video()
+    {
+        $this->video = !$this->video;
+        $this->emit('video');
     }
 
 

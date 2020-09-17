@@ -26,7 +26,10 @@
                         @endif
                     </div>
 
+
                     <form wire:submit.prevent="bayar">
+
+
                         <div class="input-group ">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
@@ -39,17 +42,34 @@
                             @enderror
                         </div>
                         <br>
-                        <div class="form-group row">
-                            <div class="col-sm-12 mb-12 mb-sm-0">
-                                <input value="" wire:model.debounce.500ms="nis" type="text" class="form-control form-control-user @error('nis') is-invalid @enderror" id="exampleInputPassword" placeholder="NIS Santri">
-                                @error('nis')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+
+                        <!-- camera code -->
+
+                        @if($video)
+
+                        <div class="input-group row">
+                            <div class="embed-responsive embed-responsive-21by9">
+
+                                <video id="preview"></video>
                             </div>
 
                         </div>
+                        <br>
+                        @endif
+
+                        <div class="input-group">
+
+                            <div class="input-group-prepend">
+                                <span wire:click="video" class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input value="" wire:model.debounce.500ms="nis" type="text" class="form-control form-control-user @error('nis') is-invalid @enderror" id="nis" placeholder="NIS Santri">
+                            @error('nis')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <br>
 
                         @if($nasabah)
 
@@ -90,6 +110,7 @@
 </div>
 
 @push('scripts')
+<script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
 
@@ -101,6 +122,31 @@
         window.livewire.on('berhasil', () => {
             document.getElementById("jumlah").focus();
         });
+
+        window.livewire.on('video', () => {
+
+            let scanner = new Instascan.Scanner({
+                video: document.getElementById('preview')
+            });
+            scanner.addListener('scan', function(content) {
+                @this.set('nis', content)
+            });
+            Instascan.Camera.getCameras().then(function(cameras) {
+                if (cameras.length > 0) {
+                    scanner.start(cameras[0]);
+                } else {
+                    console.error('No cameras found.');
+                }
+            }).catch(function(e) {
+                console.error(e);
+            });
+
+        });
+
+
+
+
     })
 </script>
+
 @endpush
