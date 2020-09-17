@@ -51,9 +51,9 @@
                             <div class="embed-responsive embed-responsive-4by3">
                                 <video id="preview"></video>
                             </div>
-
+                            <br>
                         </div>
-                        <br>
+
 
 
                         <div class="input-group">
