@@ -123,6 +123,7 @@
 
         window.livewire.on('video', () => {
 
+
             let opts = {
                 continuous: true,
                 video: document.getElementById('preview'),
@@ -133,7 +134,7 @@
                 scanPeriod: 1
             };
 
-            var scanner = new Instascan.Scanner(opts);
+            let scanner = new Instascan.Scanner(opts);
 
             scanner.addListener('scan', function(content) {
                 @this.set('nis', content)
