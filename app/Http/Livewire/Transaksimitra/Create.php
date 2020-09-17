@@ -35,6 +35,7 @@ class Create extends Component
             $this->addError('nis', 'Nasabah tidak ditemukan');
             $this->reset('nasabah');
         }
+        $this->video();
     }
 
     public function bayar()
@@ -50,6 +51,7 @@ class Create extends Component
             'jumlah' => 'required|integer',
             'password' => 'required|integer',
         ]);
+
 
         if ($this->password == $nasabah->password) {
 

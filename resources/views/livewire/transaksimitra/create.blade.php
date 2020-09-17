@@ -124,9 +124,10 @@
 
         window.livewire.on('video', () => {
 
-            let scanner = new Instascan.Scanner({
+            const scanner = new Instascan.Scanner({
                 video: document.getElementById('preview')
             });
+
             scanner.addListener('scan', function(content) {
                 @this.set('nis', content)
             });
