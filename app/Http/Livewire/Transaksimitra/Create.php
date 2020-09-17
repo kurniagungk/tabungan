@@ -35,7 +35,7 @@ class Create extends Component
             $this->addError('nis', 'Nasabah tidak ditemukan');
             $this->reset('nasabah');
         }
-        $this->video();
+        $this->video = false;
     }
 
     public function bayar()

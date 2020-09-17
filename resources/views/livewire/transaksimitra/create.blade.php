@@ -7,7 +7,7 @@
 
                 <div class="p-5">
                     <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Payment - {{$user}}</h1>
+                        <h1 class="h5 text-gray-900 mb-4">Payment - {{$user}}</h1>
                     </div>
 
                     <div>
@@ -115,7 +115,6 @@
 
         window.livewire.on('nasabah', () => {
             document.getElementById("pin").focus();
-
         });
 
         window.livewire.on('berhasil', () => {
@@ -124,9 +123,17 @@
 
         window.livewire.on('video', () => {
 
-            const scanner = new Instascan.Scanner({
-                video: document.getElementById('preview')
-            });
+            let opts = {
+                continuous: true,
+                video: document.getElementById('preview'),
+                mirror: true,
+                captureImage: false,
+                backgroundScan: true,
+                refractoryPeriod: 5000,
+                scanPeriod: 1
+            };
+
+            var scanner = new Instascan.Scanner(opts);
 
             scanner.addListener('scan', function(content) {
                 @this.set('nis', content)
@@ -144,7 +151,7 @@
                     console.error('No cameras found.');
                 }
             }).catch(function(e) {
-                console.error(e);
+
             });
 
         });
