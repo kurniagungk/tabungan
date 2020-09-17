@@ -45,16 +45,16 @@
 
                         <!-- camera code -->
 
-                        @if($video)
 
-                        <div class="input-group row">
+
+                        <div class="input-group row @if($video) @else d-none @endif">
                             <div class="embed-responsive embed-responsive-4by3">
                                 <video id="preview"></video>
                             </div>
 
                         </div>
                         <br>
-                        @endif
+
 
                         <div class="input-group">
 
@@ -121,41 +121,37 @@
             document.getElementById("jumlah").focus();
         });
 
-        window.livewire.on('video', () => {
+        let opts = {
+            continuous: true,
+            video: document.getElementById('preview'),
+            mirror: true,
+            captureImage: false,
+            backgroundScan: true,
+            refractoryPeriod: 5000,
+            scanPeriod: 1
+        };
 
+        let scanner = new Instascan.Scanner(opts);
 
-            let opts = {
-                continuous: true,
-                video: document.getElementById('preview'),
-                mirror: true,
-                captureImage: false,
-                backgroundScan: true,
-                refractoryPeriod: 5000,
-                scanPeriod: 1
-            };
+        scanner.addListener('scan', function(content) {
+            @this.set('nis', content)
+        });
+        Instascan.Camera.getCameras().then(function(cameras) {
 
-            let scanner = new Instascan.Scanner(opts);
-
-            scanner.addListener('scan', function(content) {
-                @this.set('nis', content)
-            });
-            Instascan.Camera.getCameras().then(function(cameras) {
-
-                if (cameras.length > 0) {
-                    if (cameras.length > 1) {
-                        scanner.start(cameras[1]);
-                    } else {
-                        scanner.start(cameras[0]);
-                    }
-
+            if (cameras.length > 0) {
+                if (cameras.length > 1) {
+                    scanner.start(cameras[1]);
                 } else {
-                    console.error('No cameras found.');
+                    scanner.start(cameras[0]);
                 }
-            }).catch(function(e) {
 
-            });
+            } else {
+                console.error('No cameras found.');
+            }
+        }).catch(function(e) {
 
         });
+
 
 
 
