@@ -73,8 +73,8 @@
                         @if($nasabah)
 
                         <div class="form-group row">
-                            <label class="col-sm-5 col-form-label">Nama : </label>
-                            <label class="col-sm-5 col-form-label">{{$nasabah->nama}}</label>
+                            <label class="col-sm-12 col-form-label">Nama : {{$nasabah->nama}}</label>
+
                         </div>
 
                         @endif
