@@ -68,7 +68,7 @@
         </a>
         <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/mitrapay">Transaksi Mitra</a>
+                <a data-turbolinks="false" class="collapse-item" href="/mitrapay">Transaksi Mitra</a>
             </div>
         </div>
     </li>

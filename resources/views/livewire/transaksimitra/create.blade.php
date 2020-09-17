@@ -51,10 +51,12 @@
                             <div class="embed-responsive embed-responsive-4by3">
                                 <video id="preview"></video>
                             </div>
-                            <br>
+
                         </div>
 
-
+                        @if($video)
+                        <br>
+                        @endif
 
                         <div class="input-group">
 
