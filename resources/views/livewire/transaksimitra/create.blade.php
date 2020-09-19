@@ -136,7 +136,7 @@
         let scanner = new Instascan.Scanner(opts);
 
         scanner.addListener('scan', function(content) {
-            @this.set('nis', content)
+            @this.set('nis', content);
         });
         Instascan.Camera.getCameras().then(function(cameras) {
 
