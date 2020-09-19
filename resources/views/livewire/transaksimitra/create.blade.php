@@ -1,5 +1,5 @@
-<body class="bg-primary">
-    <div class="row justify-content-center align-self-center">
+
+    <div class="row justify-content-center align-self-center bg-primary">
         <div class="col-lg-10">
             <div class="card o-hidden border-0 shadow-lg my-5 card-block">
                 <div class="card-body p-0">
@@ -110,7 +110,7 @@
             </div>
         </div>
     </div>
-</body>
+
 
 @push('scripts')
 <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
@@ -126,13 +126,7 @@
         });
 
         let opts = {
-            continuous: true,
-            video: document.getElementById('preview'),
-            mirror: true,
-            captureImage: false,
-            backgroundScan: true,
-            refractoryPeriod: 5000,
-            scanPeriod: 1
+            video: document.getElementById('preview')
         };
 
         let scanner = new Instascan.Scanner(opts);
