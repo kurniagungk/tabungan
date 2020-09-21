@@ -1,4 +1,4 @@
-<body class="bg-primary">
+
     <div class="row justify-content-center align-self-center bg-primary">
         <div class="col-lg-10">
             <div class="card o-hidden border-0 shadow-lg my-5 card-block">
@@ -110,7 +110,7 @@
             </div>
         </div>
     </div>
-</body>
+
 
 @push('scripts')
 <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
