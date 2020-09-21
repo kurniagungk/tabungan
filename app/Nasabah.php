@@ -39,18 +39,18 @@ class Nasabah extends Model
     }
     public function provinsi()
     {
-        return $this->hasOne('App\Wilayah', 'kode', 'provinsi_id');
+        return $this->hasOne('App\wilayah', 'kode', 'provinsi_id');
     }
     public function kabupaten()
     {
-        return $this->hasOne('App\Wilayah', 'kode', 'kabupaten_id');
+        return $this->hasOne('App\wilayah', 'kode', 'kabupaten_id');
     }
     public function kecamatan()
     {
-        return $this->hasOne('App\Wilayah', 'kode', 'kecamatan_id');
+        return $this->hasOne('App\wilayah', 'kode', 'kecamatan_id');
     }
     public function desa()
     {
-        return $this->hasOne('App\Wilayah', 'kode', 'desa_id');
+        return $this->hasOne('App\wilayah', 'kode', 'desa_id');
     }
 }
