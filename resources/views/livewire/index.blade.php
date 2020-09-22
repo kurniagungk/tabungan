@@ -192,7 +192,7 @@
 
 @push('scripts')
 <script type="text/javascript">
-    var dataM = @this.get('dataPemasukan')
+    var dataM = @this.get('dataPemasukan');
 
     var ctx = document.getElementById('pemasukanChart');
     var myChart = new Chart(ctx, {
@@ -209,7 +209,7 @@
         }
     });
 
-    var datak = @this.get('datakeluar')
+    var datak = @this.get('datakeluar');
 
     var ctx = document.getElementById('Pengeluaran');
     var myChart = new Chart(ctx, {
