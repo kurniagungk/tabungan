@@ -1,4 +1,4 @@
-<div class="container" data-turbolinks="false">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-xl col-lg">
             <!-- <div class="card"> -->
@@ -192,65 +192,70 @@
 
 @push('scripts')
 <script type="text/javascript">
-    var dataM = @this.get('dataPemasukan');
+    document.addEventListener('DOMContentLoaded', function() {
+        var dataM = @this.get('dataPemasukan');
 
-    var ctx = document.getElementById('pemasukanChart');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: dataM,
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+        console.log(dataM);
+
+        var ctx = document.getElementById('pemasukanChart');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: dataM,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
             }
-        }
-    });
+        });
 
-    var datak = @this.get('datakeluar');
+        var datak = @this.get('datakeluar');
 
-    var ctx = document.getElementById('Pengeluaran');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: datak,
-        options: {
-            scales: {
-                xAxes: [{
-                    gridLines: {
-                        offsetGridLines: true
-                    }
-                }]
+        var ctx = document.getElementById('Pengeluaran');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: datak,
+            options: {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            offsetGridLines: true
+                        }
+                    }]
+                }
             }
-        }
-    });
+        });
 
 
 
-    var dataN = @this.get('dataNasaba');
+        var dataN = @this.get('dataNasaba');
 
-    var ctx = document.getElementById('pengeluaranSantri');
-    var dataNasaba = new Chart(ctx, {
-        type: 'horizontalBar',
-        data: {
-            labels: dataN.labels,
-            datasets: [{
-                label: dataN.datasets.label,
-                backgroundColor: dataN.datasets.backgroundColor,
-                data: dataN.datasets.data
-            }]
-        },
-        options: {
-            legend: {
-                display: false
+        var ctx = document.getElementById('pengeluaranSantri');
+        var dataNasaba = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: dataN.labels,
+                datasets: [{
+                    label: dataN.datasets.label,
+                    backgroundColor: dataN.datasets.backgroundColor,
+                    data: dataN.datasets.data
+                }]
             },
-            title: {
-                display: true,
-                text: dataN.datasets.label
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: dataN.datasets.label
+                }
             }
-        }
 
-    });
+        });
+    })
 </script>
 @endpush

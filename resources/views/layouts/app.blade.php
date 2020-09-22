@@ -19,11 +19,12 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{asset('/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    @livewireStyles
+
+    @livewireScripts
     <script src="{{ mix('/js/app.js') }}"></script>
     <script src="{{asset('/js/sb-admin-2.min.js')}}"></script>
 
-    @livewireStyles
-    @livewireScripts
 
 
 </head>
