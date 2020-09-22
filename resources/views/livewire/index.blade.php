@@ -228,7 +228,7 @@
 
 
 
-    var dataN = @this.get('dataNasaba')
+    var dataN = @this.get('dataNasaba');
 
     var ctx = document.getElementById('pengeluaranSantri');
     var dataNasaba = new Chart(ctx, {
