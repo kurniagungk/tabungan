@@ -58,6 +58,52 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/mitrahistory', function () {
         return view('livewire.transaksimitra.index');
     });
+
+
+    Route::get('laporanumum/export', function () {
+
+        $filePath = storage_path() . '/app/laporan/laporan-umum.xlsx';
+
+        if (File::exists($filePath)) {
+            return response()->download($filePath);
+        }
+        abort(404);
+    })->name('export.umum');
+
+
+
+    Route::get('laporanmitra/export', function () {
+
+        $filePath = storage_path() . '/app/laporan/mitra.xlsx';
+
+
+        if (File::exists($filePath)) {
+            return response()->download($filePath);
+        }
+        abort(404);
+    })->name('export.mitra');
+
+    Route::get('laporanmutasi/export', function () {
+
+        $filePath = storage_path() . '/app/laporan/mutasi.xlsx';
+
+
+        if (File::exists($filePath)) {
+            return response()->download($filePath);
+        }
+        abort(404);
+    })->name('export.mutasi');
+
+    Route::get('riwayat/export', function () {
+
+        $filePath = storage_path() . '/app/laporan/riwayat.xlsx';
+
+
+        if (File::exists($filePath)) {
+            return response()->download($filePath);
+        }
+        abort(404);
+    })->name('riwayat.export');
 });
 
 
@@ -77,52 +123,6 @@ Route::group(['middleware' => ['role:mitra']], function () {
     Route::get('/mitrahistory', function () {
         return view('livewire.transaksimitra.index');
     });
-
-    Route::get('laporanumum/export', function () {
-
-        $filePath = storage_path() . '/app/laporan/invoices.xlsx';
-
-
-        if (File::exists($filePath)) {
-            return response()->download($filePath);
-        }
-        abort(404);
-    })->name('laporan.umum');
-
-
-
-    Route::get('laporanumum/export', function () {
-
-        $filePath = storage_path() . '/app/laporan/mitra.xlsx';
-
-
-        if (File::exists($filePath)) {
-            return response()->download($filePath);
-        }
-        abort(404);
-    })->name('laporan.mitra');
-
-    Route::get('laporanmutasi/export', function () {
-
-        $filePath = storage_path() . '/app/laporan/mutasi.xlsx';
-
-
-        if (File::exists($filePath)) {
-            return response()->download($filePath);
-        }
-        abort(404);
-    })->name('laporan.mutasi');
-
-    Route::get('riwayat/export', function () {
-
-        $filePath = storage_path() . '/app/laporan/riwayat.xlsx';
-
-
-        if (File::exists($filePath)) {
-            return response()->download($filePath);
-        }
-        abort(404);
-    })->name('riwayat.export');
 });
 
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');

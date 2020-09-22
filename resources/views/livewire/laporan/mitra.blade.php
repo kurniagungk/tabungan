@@ -158,7 +158,7 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         window.livewire.on('export', () => {
-            window.open('{{route("laporan.mitra")}}');
+            window.open('{{route("export.mitra")}}');
         })
 
     })

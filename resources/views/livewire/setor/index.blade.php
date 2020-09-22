@@ -142,21 +142,17 @@
 
 @push('scripts')
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("cari").focus();
+    window.livewire.on('cari', () => {
+        setTimeout(function() {
+            document.getElementById("jumlah").focus();
+        }, 200);
+
+    });
+
+    window.livewire.on('setor', () => {
+
         document.getElementById("cari").focus();
-        window.livewire.on('cari', () => {
-            setTimeout(function() {
-                document.getElementById("jumlah").focus();
-            }, 200);
-
-        });
-
-        window.livewire.on('setor', () => {
-
-            document.getElementById("cari").focus();
-        });
-
-
-    })
+    });
 </script>
 @endpush

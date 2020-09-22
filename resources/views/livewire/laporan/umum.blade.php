@@ -122,16 +122,16 @@
                                     <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
                                     <label for="staticEmail" class="col-sm-3 col-form-label">{{$totalSetor - $totalTarik ??''}}</label>
                                 </div>
-                                <form>
-                                    <center>
-                                        <button wire:click='export' class="btn btn-warning btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-download"></i>
-                                            </span>
-                                            <span class="text">Export</span>
-                                        </button>
-                                    </center>
-                                </form>
+
+                                <center>
+                                    <button wire:click='export' class="btn btn-warning btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-download"></i>
+                                        </span>
+                                        <span class="text">Export</span>
+                                    </button>
+                                </center>
+
                             </div>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         window.livewire.on('export', () => {
-            window.open('{{route("laporan.umum")}}');
+            window.open("{{route('export.umum')}}");
         })
 
     })

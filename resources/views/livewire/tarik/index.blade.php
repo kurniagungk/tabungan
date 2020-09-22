@@ -145,30 +145,34 @@
 
     @push('scripts')
     <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("cari").focus();
+        window.livewire.on('cari', () => {
+            setTimeout(function() {
+                document.getElementById("jumlah").focus();
+            }, 200);
+        });
 
-            window.livewire.on('cari', () => {
-                setTimeout(function() {
-                    document.getElementById("jumlah").focus();
-                }, 200);
-            });
-
-            window.livewire.on('succes', () => {
+        window.livewire.on('succes', () => {
+            setTimeout(function() {
                 $('#cek').modal('hide')
                 document.getElementById("cari").focus();
-            });
+            }, 200);
 
-            window.livewire.on('cek', () => {
-                setTimeout(function() {
-                    $('#cek').modal('show');
-                }, 200);
+            setTimeout(function() {
+                document.getElementById("cari").focus();
+            }, 300);
 
-            });
+        });
 
-            $('#cek').on('shown.bs.modal', function() {
-                $('#paswordcek').trigger('focus')
-            });
-        })
+        window.livewire.on('cek', () => {
+            console.log('modal show')
+            setTimeout(function() {
+                $('#cek').modal('show');
+
+            }, 200);
+        });
+
+        $('#cek').on('shown.bs.modal', function() {
+            $('#paswordcek').trigger('focus')
+        });
     </script>
     @endpush

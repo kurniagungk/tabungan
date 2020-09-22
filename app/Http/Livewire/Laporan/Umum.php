@@ -70,7 +70,7 @@ class Umum extends Component
             'tarik' => $totalTarik
         ];
 
-        Excel::store(new LaporanUmum($data), 'laporan/invoices.xlsx', 'local');
+        Excel::store(new LaporanUmum($data), 'laporan/laporan-umum.xlsx', 'local');
 
         $this->emit('export');
     }

@@ -205,7 +205,7 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         window.livewire.on('export', () => {
-            window.open('{{route("laporan.mutasi")}}');
+            window.open('{{route("export.mutasi")}}');
         })
 
     })

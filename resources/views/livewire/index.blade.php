@@ -192,73 +192,65 @@
 
 @push('scripts')
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
+    var dataM = @this.get('dataPemasukan')
 
-        var dataM = @this.get('dataPemasukan')
-
-        var ctx = document.getElementById('pemasukanChart');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: dataM,
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-
-        var datak = @this.get('datakeluar')
-
-        var ctx = document.getElementById('Pengeluaran');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: datak,
-            options: {
-                scales: {
-                    xAxes: [{
-                        gridLines: {
-                            offsetGridLines: true
-                        }
-                    }]
-                }
-            }
-        });
-
-
-
-        var dataN = @this.get('dataNasaba')
-        console.log(dataN);
-        var ctx = document.getElementById('pengeluaranSantri');
-        var dataNasaba = new Chart(ctx, {
-            type: 'horizontalBar',
-            data: {
-                labels: dataN.labels,
-                datasets: [{
-                    label: dataN.datasets.label,
-                    backgroundColor: dataN.datasets.backgroundColor,
-                    data: dataN.datasets.data
+    var ctx = document.getElementById('pemasukanChart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: dataM,
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
                 }]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: true,
-                    text: dataN.datasets.label
-                }
             }
+        }
+    });
 
-        });
+    var datak = @this.get('datakeluar')
+
+    var ctx = document.getElementById('Pengeluaran');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: datak,
+        options: {
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        offsetGridLines: true
+                    }
+                }]
+            }
+        }
+    });
 
 
 
+    var dataN = @this.get('dataNasaba')
 
+    var ctx = document.getElementById('pengeluaranSantri');
+    var dataNasaba = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: dataN.labels,
+            datasets: [{
+                label: dataN.datasets.label,
+                backgroundColor: dataN.datasets.backgroundColor,
+                data: dataN.datasets.data
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: dataN.datasets.label
+            }
+        }
 
-    })
+    });
 </script>
 @endpush
