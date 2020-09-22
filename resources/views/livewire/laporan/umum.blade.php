@@ -184,12 +184,8 @@
 
 @push('scripts')
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-
-        window.livewire.on('export', () => {
-            window.open("{{route('export.umum')}}");
-        })
-
+    window.livewire.on('export', () => {
+        window.open("{{route('export.umum')}}");
     })
 </script>
 @endpush
