@@ -155,12 +155,8 @@
 
 @push('scripts')
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-
-        window.livewire.on('export', () => {
-            window.open('{{route("export.mitra")}}');
-        })
-
+    window.livewire.on('export', () => {
+        window.open('{{route("export.mitra")}}');
     })
 </script>
 @endpush
