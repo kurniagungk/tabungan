@@ -15,7 +15,7 @@
             <td>{{$loop->index +1}}</td>
             <td>{{substr($t->id,0,8)}}</td>
             <td>{{$t->created_at}}</td>
-            <td>{{$t->nasabah->nama}}</td>
+            <td>{{$t->mitra->name}}</td>
             <td>{{$t->jumlah}}</td>
 
         </tr>

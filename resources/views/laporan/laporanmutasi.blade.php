@@ -16,6 +16,7 @@
     <tbody>
         @if($data['transaksi'])
         @forelse ($data['transaksi'] as $t)
+
         <tr>
             <td>{{$loop->index +1}}</td>
             <td>{{substr($t->id,0,8)}}</td>

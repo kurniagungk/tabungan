@@ -23,7 +23,7 @@
             <td>{{$t->nasabah->nis}}</td>
             <td>{{$t->nasabah->nama}}</td>
             <td>{{$t->jenis}}</td>
-            <td>{{$t->mitra->nama}}</td>
+            <td>{{$t->mitra->name}}</td>
             <td>{{$t->jumlah}}</td>
         </tr>
         @empty
