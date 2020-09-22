@@ -202,12 +202,8 @@
 
 @push('scripts')
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-
-        window.livewire.on('export', () => {
-            window.open('{{route("export.mutasi")}}');
-        })
-
+    window.livewire.on('export', () => {
+        window.open('{{route("export.mutasi")}}');
     })
 </script>
 @endpush
