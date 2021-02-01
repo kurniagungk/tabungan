@@ -32,6 +32,7 @@ class Create extends Component
     public $kecamatan;
     public $desa;
     public $pasword;
+    public $card;
 
     public function mount()
     {
@@ -122,6 +123,7 @@ class Create extends Component
             'kecamatan_id' => $this->kecamatan,
             'desa_id' => $this->desa,
             'password' => $this->pasword,
+            'card' => $this->card,
             'saldo' => 0,
             'status' => 1,
         );

@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/nasabah', 'Api@getNasabag');
+Route::get('/saldo', 'Api@getSaldo');
+Route::post('transaksi/mitra', 'Api@transaksaMitra');
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

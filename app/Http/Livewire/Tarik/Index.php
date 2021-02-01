@@ -120,6 +120,7 @@ class Index extends Component
         $validatedData = $this->validate([
             'jumlah' => 'required|integer',
         ]);
+
         $jumlah = $this->santri->saldo - $this->jumlah;
 
 

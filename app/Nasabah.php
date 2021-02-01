@@ -27,6 +27,7 @@ class Nasabah extends Model
         'kecamatan_id',
         'desa_id',
         'password',
+        'card',
         'saldo'
     ];
 
