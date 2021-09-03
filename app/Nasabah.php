@@ -10,7 +10,7 @@ class Nasabah extends Model
 
     protected $fillable = [
         'id',
-        'nis',
+        'rekening',
         'nama',
         'tanggal_lahir',
         'tempat_lahir',
@@ -21,11 +21,6 @@ class Nasabah extends Model
         'foto',
         'telepon',
         'status',
-        'sekolah_id',
-        'provinsi_id',
-        'kabupaten_id',
-        'kecamatan_id',
-        'desa_id',
         'password',
         'card',
         'saldo'
@@ -34,24 +29,19 @@ class Nasabah extends Model
 
     protected $keyType = 'string';
 
-    public function asrama()
+
+    public function transaksi()
     {
-        return $this->hasOne('App\asrama', 'id', 'asrama_id');
+        return $this->hasMany(Nasabah_transaksi::class, 'nasabah_id', 'id');
     }
-    public function provinsi()
+
+
+    protected static function booted()
     {
-        return $this->hasOne('App\wilayah', 'kode', 'provinsi_id');
-    }
-    public function kabupaten()
-    {
-        return $this->hasOne('App\wilayah', 'kode', 'kabupaten_id');
-    }
-    public function kecamatan()
-    {
-        return $this->hasOne('App\wilayah', 'kode', 'kecamatan_id');
-    }
-    public function desa()
-    {
-        return $this->hasOne('App\wilayah', 'kode', 'desa_id');
+        static::creating(function ($nasabah) {
+            $query = Nasabah::first();
+            $rekening = $query?->rekening ? substr($query->rekening, 3)  : 0;
+            $nasabah->rekening = "NSB" . str_pad($rekening + 1, 5, 0, STR_PAD_LEFT);
+        });
     }
 }

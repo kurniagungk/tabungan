@@ -5,10 +5,12 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h5 class="m-0 font-weight-bold text-primary">Data Nasabah</h5>
                 <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        aria-labelledby="dropdownMenuLink">
                         <div class="dropdown-header">Dropdown Header:</div>
                         <a class="dropdown-item" href="#">Action</a>
                         <a class="dropdown-item" href="#">Another action</a>
@@ -68,7 +70,8 @@
                                     <i class="fas fa-search"></i>
                                 </span>
                             </div>
-                            <input wire:model="search" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                            <input wire:model="search" type="text" class="form-control" placeholder="Username"
+                                aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                     </div>
 
@@ -81,9 +84,13 @@
                             <tr>
                                 <th>No</th>
                                 <th style="width:100px">Image</th>
-                                <th> <a wire:click.prevent="sortBy('nis')" role="button">Nis <i class="fas fa-arrows-alt-v" @if($sortField=='no_induk' ) style="color:red" @endif></i></a>
+                                <th> <a wire:click.prevent="sortBy('nis')" role="button">Rekening <i
+                                            class="fas fa-arrows-alt-v" @if($sortField=='no_induk' ) style="color:red"
+                                            @endif></i></a>
                                 </th>
-                                <th><a wire:click.prevent="sortBy('nama')" role="button">Nama <i class="fas fa-arrows-alt-v" @if($sortField=='nama' ) style="color:red" @endif></i></a>
+                                <th><a wire:click.prevent="sortBy('nama')" role="button">Nama <i
+                                            class="fas fa-arrows-alt-v" @if($sortField=='nama' ) style="color:red"
+                                            @endif></i></a>
                                 </th>
                                 <th>Alamat</th>
                                 <th>Saldo</th>
@@ -97,28 +104,29 @@
                             <tr>
                                 <td>{{$loop->index +1}}</td>
                                 <td>
-                                    <img src="{{asset('storage/'.$n->foto)   }}" width="100px" class="img-thumbnail" alt="...">
+                                    <img src="{{asset('storage/'.$n->foto)   }}" width="100px" class="img-thumbnail"
+                                        alt="...">
                                 </td>
-                                <td>{{$n->nis}}</td>
+                                <td>{{$n->rekening}}</td>
                                 <td>{{$n->nama}}</td>
                                 <td>
-                                    {{$n->desa->nama}},
-                                    {{$n->kecamatan->nama}},
-                                    {{$n->kabupaten->nama}},
-                                    {{$n->provinsi->nama}}
+                                    {{ $n->alamat }}
                                 </td>
                                 <td>{{$n->saldo}}</td>
                                 <td>
                                     <center>
-                                        <a href="{{route('nasabah.edit', $n->id)}}" class="btn btn-success btn-circle btn-sm">
+                                        <a href="{{route('nasabah.edit', $n->id)}}"
+                                            class="btn btn-success btn-circle btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
 
                                         @if($confirming == $n->id)
-                                        <button wire:click="kill('{{ $n->id }}')" type="button" class="btn btn-danger btn-sm">Sure?</button>
+                                        <button wire:click="kill('{{ $n->id }}')" type="button"
+                                            class="btn btn-danger btn-sm">Sure?</button>
 
                                         @else
-                                        <button wire:click="confirmDelete( '{{ $n->id }}' )" type="button" class="btn btn-danger btn-circle btn-sm">
+                                        <button wire:click="confirmDelete( '{{ $n->id }}' )" type="button"
+                                            class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
                                         </button>
 

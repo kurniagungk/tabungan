@@ -4,40 +4,11 @@
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h5 class="m-0 font-weight-bold text-primary">Data Nasabah</h5>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
+
             </div>
             <!-- Card Body -->
             <div class="card-body">
 
-
-
-                <div class="form-group row">
-                    <label class="col-md-3 col-form-label">NIS</label>
-                    <div class="col-md-9">
-                        <input wire:model="nis" class="form-control @error('nis') is-invalid @enderror" id="no_induk"
-                            type="text" placeholder="Nomor Induk Pondok . . .">
-
-                        @error('nis')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-
-                </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">Nama Lengkap</label>
                     <div class="col-md-9">
@@ -79,68 +50,6 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">Alamat</label>
                     <div class="col-md-9">
-                        <select wire:model="provinsi" class="custom-select @error('provinsi') is-invalid @enderror"
-                            id="provinsi">
-                            <option value="">- Provinsi -</option>
-                            @foreach($dataProvinsi as $prov)
-                            <option value="{{$prov->kode}}">{{$prov->nama}}</option>
-                            @endforeach
-
-                        </select>
-                        @error('provinsi')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                        @if($provinsi)
-                        <br>
-                        <br>
-                        <select wire:model="kabupaten" class="custom-select @error('kabupaten') is-invalid @enderror"
-                            id="kabupaten">
-                            <option value="">- Kota / Kabupaten -</option>
-                            @foreach ($dataKabupaten as $kab)
-                            <option value="{{$kab->kode}}">{{$kab->nama}}</option>
-                            @endforeach
-                        </select>
-                        @error('kabupaten')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                        @endif
-                        @if($kabupaten)
-                        <br>
-                        <br>
-                        <select wire:model="kecamatan" class="custom-select @error('kecamatan') is-invalid @enderror">
-                            <option value="">- Kecamatan -</option>
-                            @foreach ($dataKecamatan as $kec)
-                            <option value="{{$kec->kode}}">{{$kec->nama}}</option>
-                            @endforeach
-                        </select>
-                        @error('kecamatan')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                        @endif
-                        @if($kecamatan)
-                        <br>
-                        <br>
-                        <select wire:model="desa" class="custom-select @error('desa') is-invalid @enderror">
-                            <option value="">- Desa / Kelurahan -</option>
-                            @foreach ($dataDesa as $des)
-                            <option value="{{$des->kode}}">{{$des->nama}}</option>
-                            @endforeach
-                        </select>
-                        @error('desa')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                        @endif
-                        @if($desa)
-                        <br>
-                        <br>
                         <textarea wire:model="alamat" class="form-control @error('alamat') is-invalid @enderror"
                             id="textarea-input" name="alamat" rows="3" placeholder=""></textarea>
                         @error('alamat')
@@ -148,10 +57,9 @@
                             {{ $message }}
                         </div>
                         @enderror
-                        @endif
+
                     </div>
                 </div>
-
 
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">Jenis Kelamin</label>
@@ -213,31 +121,13 @@
                         @enderror
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-md-3 col-form-label">Card</label>
-                    <div class="col-md-9">
-                        <input wire:model="card" class="form-control @error('card') is-invalid @enderror"
-                            id="text-input" type="number">
-                        @error('card')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
+
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">Pas Foto</label>
                     <div class="col-md-9">
                         <input wire:model="photo" type="file" name="foto"
                             class="form-control-file @error('photo') is-invalid @enderror"><span class="help-block">*
                             Ukuran (3x4) Format .jpg</span>
-                        <br>
-                        @if ($photo)
-
-                        <img src="{{ $photo->temporaryUrl() }}" height="200px" width="200px" class="img-thumbnail"
-                            alt="...">
-                        @endif
-
                         @error('photo')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -246,6 +136,30 @@
                     </div>
 
                 </div>
+
+                @if ($photo)
+                @php
+                try {
+                $url = $photo->temporaryUrl();
+                $photoStatus = true;
+                }catch (RuntimeException $exception){
+                $this->photoStatus = false;
+                }
+                @endphp
+                @if($photoStatus)
+                <div class="row">
+                    <label for="foto" class="col-md-3 col-form-label"></label>
+
+                    <div class="col-md-9">
+
+                        <img src=" {{ $url }}" alt="..." class="img-fluid" style="height:100px;">
+
+                    </div>
+
+                </div>
+                @else
+                @endif
+                @endif
 
 
 

@@ -3,30 +3,27 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
+
+
 
 class Transaksi extends Model
 {
     protected $table = 'transaksi';
+    protected $keyType = 'string';
 
     protected $fillable = [
         'id',
-        'santri_id',
-        'mitra_id',
-        'jumlah',
-        'jenis'
+        'credit',
+        'debit',
+        'keterangan',
+        'ref'
     ];
 
-    protected $keyType = 'string';
-
-
-    public function mitra()
+    protected static function booted()
     {
-        return $this->hasOne(User::class,  'id', 'mitra_id');
-    }
-
-    public function nasabah()
-    {
-        return $this->hasOne(Nasabah::class, 'id', 'santri_id');
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
     }
 }

@@ -58,12 +58,8 @@ class Index extends Component
 
     public function render()
     {
-        $nasabah = Nasabah::with('provinsi')
-            ->with('kabupaten')
-            ->with('kecamatan')
-            ->with('desa')
-            ->where('nama', 'like', '%' . $this->search . '%')
-            ->orWhere('nis', 'like', '%' . $this->search . '%')
+        $nasabah = Nasabah::where('nama', 'like', '%' . $this->search . '%')
+            ->orWhere('rekening', 'like', '%' . $this->search . '%')
             ->orWhere('alamat', 'like', '%' . $this->search . '%')
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate($this->perpage);

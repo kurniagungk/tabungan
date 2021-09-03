@@ -15,23 +15,19 @@ class CreateNasabahTable extends Migration
     {
         Schema::create('nasabah', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('nis');
+            $table->string('rekening');
             $table->string('nama');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
-            $table->string('alamat');
-            $table->string('wali');
-            $table->string('telepon');
-            $table->string('status');
-            $table->string('foto');
-            $table->string('saldo');
-            $table->string('card');
-            $table->string('password');
-            $table->string('provinsi_id', 2);
-            $table->string('kabupaten_id', 5);
-            $table->string('kecamatan_id', 8);
-            $table->string('desa_id', 13);
+            $table->string('alamat')->nullable();
+            $table->string('wali')->nullable();
+            $table->string('telepon')->nullable();
+            $table->string('foto')->nullable();
+            $table->string('saldo')->default(0);
+            $table->string('card')->nullable();
+            $table->string('password')->default(1234);
+            $table->enum('status', ['aktif', 'tidak'])->default('aktif');
             $table->timestamps();
         });
     }
