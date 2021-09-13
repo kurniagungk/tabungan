@@ -20,14 +20,13 @@
     <!-- Custom styles for this template-->
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{asset('/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/sb-admin-2.css')}}" rel="stylesheet">
     @livewireStyles
-
-    <script src="{{ mix('/js/app.js') }}"></script>
-    <script src="{{asset('/js/sb-admin-2.min.js')}}"></script>
+    <script src="{{ mix('/js/app.js') }}" defer></script>
+    <script src="{{asset('/js/jquery-ui.min.js')}}" defer></script>
+    <script src="{{asset('/js/sb-admin-2.min.js')}}" defer></script>
     @livewireScripts
     @stack('scripts')
-
     @yield('css')
 
 
@@ -50,7 +49,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content ">
 
                 <!-- Topbar -->
 
@@ -60,15 +59,16 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    @yield('content')
-                    {{ $slot }}
 
 
 
-                </div>
+
+
+                {{ $slot }}
+
+
+
+
                 <!-- /.container-fluid -->
 
             </div>
@@ -101,7 +101,6 @@
 
 
     <!-- Custom scripts for all pages-->
-
 
 
 

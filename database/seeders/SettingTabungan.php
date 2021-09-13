@@ -20,13 +20,13 @@ class SettingTabungan extends Seeder
                 'isi' => '10',
             ],
             [
-                'nama' => 'biaya_jumlah',
-                'isi' => '5000',
+                'nama' => 'biaya_admin',
+                'isi' => '500',
             ],
             [
                 'nama' => 'saldo_minimal',
                 'isi' => '5000',
-            ],
+            ]
         ]);
     }
 }

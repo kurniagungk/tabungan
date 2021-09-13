@@ -77,8 +77,8 @@
                 <div class="card-body px-5">
 
                     <div class="d-flex justify-content-center overflow-hidden mb-3 ">
-                        <img src="https://inwepo.co/wp-content/uploads/2020/03/Tampilkan-token.jpg" alt=""
-                            style="height:200px; width: 200px" class="rounded mx-auto border">
+                        <img src="{{asset('storage/'.$nasabah->foto)   }}" alt="" style="height:200px; width: 200px"
+                            class="rounded mx-auto border">
                     </div>
 
 
@@ -91,38 +91,61 @@
                                     value="{{$nasabah->rekening}}">
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
                                 <input type="text" readonly class="form-control-plaintext" value="{{$nasabah->nama}}">
                             </div>
                         </div>
+
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Saldo</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" value="{{$nasabah->saldo}}">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Saldo</label>
+                            <div class="col-sm-9">
+                                <input type="text" readonly class="form-control-plaintext"
+                                    value="Rp. {{ number_format($nasabah->saldo,2,',','.')  }}">
 
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Tanggal</label>
-                            <div class="col-sm-10">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Sisa Saldo</label>
+                            <div class="col-sm-9">
+                                <input type="text" readonly class="form-control-plaintext"
+                                    value="Rp. {{ number_format($sisa,2,',','.')  }}">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Tanggal</label>
+                            <div class="col-sm-9">
                                 <input type="datetime-local" step="any" class="form-control" wire:model="tanggal">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-sm-12">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Keterangan</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="setor" class="col-sm-3 col-form-label">Jumlah Tarik</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control  @error('tarik') is-invalid @enderror" id="tarik"
                                     wire:model="tarik" autocomplete="off">
-                                @error('tarik')
+                                @error('setor')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                                 @enderror
-
                             </div>
+                        </div>
+
+                        <div class="form-group row">
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Tarik</button>
                             </div>
@@ -164,7 +187,7 @@
     Livewire.on('start', () => {
         Swal.fire('Berhasil Tarik Tunai').then(() => {
             document.getElementById('rekening').focus();
-    });
+        });
     });
     Livewire.on('modal', () => {
         $('#myModal').modal('show')
@@ -176,15 +199,15 @@
         $('#password').focus()
     })
 
-
     window.addEventListener('close', () => {
-        $('#myModal').modal('hide')
+        $('#myModal').modal('tarik')
+        @this.removeModal()
         document.getElementById('rekening').focus();
     })
 
     window.addEventListener('show', () => {
         $('#myModal').modal('hide')
-        $('.modal-backdrop').remove()
+        @this.removeModal()
         document.getElementById('tarik').focus();
     })
 

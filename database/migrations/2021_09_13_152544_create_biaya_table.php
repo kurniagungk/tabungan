@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransaksiTable extends Migration
+class CreateBiayaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateTransaksiTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaksi', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('credit')->default(0);
-            $table->uuid('debit')->default(0);
-            $table->bigInteger('keterangan')->nullable();
-            $table->bigInteger('ref')->nullable();
+        Schema::create('biaya', function (Blueprint $table) {
+            $table->id();
+            $table->date('tanggal');
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateTransaksiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaksi');
+        Schema::dropIfExists('biaya');
     }
 }

@@ -18,6 +18,7 @@ class Tarik extends Component
     public $nasabah;
     public $nasabah_id;
     public $tarik;
+    public $sisa;
     public $tanggal;
     public $modal = false;
 
@@ -37,7 +38,7 @@ class Tarik extends Component
     public function close()
     {
         $this->dispatchBrowserEvent('close');
-        $this->reset('rekening', 'modal', 'nasabah');
+        $this->reset('rekening',  'nasabah');
     }
 
     public function find()
@@ -61,10 +62,23 @@ class Tarik extends Component
     public function show()
     {
         $this->dispatchBrowserEvent('show');
-        $this->reset('modal');
         $nasabah =  Nasabah::where('rekening', $this->rekening)->first();
         $this->nasabah = $nasabah;
+        $this->sisa = $nasabah->saldo;
         $this->nasabah_id = $nasabah->id;
+    }
+
+    public function updatedTarik($value)
+    {
+        if ($value)
+            $this->sisa = $this->nasabah->saldo - $this->tarik;
+        else
+            $this->sisa = $this->nasabah->saldo;
+    }
+
+    public function removeModal()
+    {
+        $this->reset('modal');
     }
 
     public function save()
@@ -112,7 +126,7 @@ class Tarik extends Component
 
             $this->emit('start');
 
-            $this->reset('nasabah', 'setor', 'rekening');
+            $this->reset('nasabah', 'tarik', 'sisa', 'rekening');
         } catch (\Exception $e) {
             dd($e);
             DB::rollBack();

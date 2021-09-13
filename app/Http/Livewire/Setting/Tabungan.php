@@ -12,11 +12,11 @@ class Tabungan extends Component
 
     public function mount()
     {
-        $setting = Setting::whereIn('nama', ['biaya_tanggal', 'biaya_jumlah', 'saldo_minimal'])->get();
+        $setting = Setting::whereIn('nama', ['biaya_tanggal', 'biaya_admin', 'saldo_minimal'])->get();
 
         $this->tanggal = $setting[0]->isi;
-        $this->biaya = $setting[1]->isi;
-        $this->minimal = $setting[2]->isi;
+        $this->minimal = $setting[1]->isi;
+        $this->biaya = $setting[2]->isi;
     }
 
     public function store()
@@ -28,8 +28,10 @@ class Tabungan extends Component
         ]);
 
         Setting::where("nama", "biaya_tanggal")->update(["isi" => $this->tanggal]);
-        Setting::where("nama", "biaya_jumlah")->update(["isi" => $this->biaya]);
+        Setting::where("nama", "biaya_admin")->update(["isi" => $this->biaya]);
         Setting::where("nama", "saldo_minimal")->update(["isi" => $this->minimal]);
+
+        session()->flash('pesan', 'Setting berhasil disimpan');
     }
 
     public function render()

@@ -86,35 +86,54 @@
 
                     <form wire:submit.prevent="save">
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Nis</label>
-                            <div class="col-sm-10">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Nis</label>
+                            <div class="col-sm-9">
                                 <input type="text" readonly class="form-control-plaintext"
                                     value="{{$nasabah->rekening}}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Nama</label>
-                            <div class="col-sm-10">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Nama</label>
+                            <div class="col-sm-9">
                                 <input type="text" readonly class="form-control-plaintext" value="{{$nasabah->nama}}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Saldo</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" value="{{$nasabah->saldo}}">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Saldo</label>
+                            <div class="col-sm-9">
+                                <input type="text" readonly class="form-control-plaintext"
+                                    value="Rp. {{ number_format($nasabah->saldo,2,',','.')  }}">
 
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Tanggal</label>
-                            <div class="col-sm-10">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Sisa Saldo</label>
+                            <div class="col-sm-9">
+                                <input type="text" readonly class="form-control-plaintext"
+                                    value="Rp. {{ number_format($sisa,2,',','.')  }}">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Tanggal</label>
+                            <div class="col-sm-9">
                                 <input type="datetime-local" step="any" class="form-control" wire:model="tanggal">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-sm-12">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Keterangan</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="setor" class="col-sm-3 col-form-label">Jumlah Setor</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control  @error('setor') is-invalid @enderror" id="setor"
                                     wire:model="setor" autocomplete="off">
                                 @error('setor')
@@ -122,8 +141,10 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-
                             </div>
+                        </div>
+
+                        <div class="form-group row">
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Setor</button>
                             </div>
@@ -151,15 +172,21 @@
 
 
 
-
-
     @if($modal)
     <livewire:transaksi.modal :rekening="$nasabah_id" wire:key='{{  $rekening }}' />
     @endif
 
 
+
+
+
 </div>
 
+
+
+
+
+@push('scripts')
 
 <script src="{{ asset('js/sweetalert2.js') }}"></script>
 
@@ -171,7 +198,7 @@
     Livewire.on('start', () => {
         Swal.fire('Berhasil Setor Tunai').then(() => {
             document.getElementById('rekening').focus();
-    })
+        })
     });
 
     window.addEventListener('modal', () => {
@@ -181,14 +208,17 @@
 
     window.addEventListener('close', () => {
         $('#myModal').modal('hide')
+        @this.removeModal()
         document.getElementById('rekening').focus();
     })
 
     window.addEventListener('show', () => {
         $('#myModal').modal('hide')
-        $('.modal-backdrop').remove()
+        @this.removeModal()
         document.getElementById('setor').focus();
     })
 
 
 </script>
+
+@endpush

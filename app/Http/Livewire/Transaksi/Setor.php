@@ -16,6 +16,7 @@ class Setor extends Component
     public $rekening;
     public $nasabah;
     public $setor;
+    public $sisa;
     public $tanggal;
     public $modal = false;
     public $nasabah_id;
@@ -37,7 +38,7 @@ class Setor extends Component
     public function close()
     {
         $this->dispatchBrowserEvent('close');
-        $this->reset('rekening', 'modal', 'nasabah');
+        $this->reset('rekening',  'nasabah');
     }
 
     public function find()
@@ -60,10 +61,23 @@ class Setor extends Component
     public function show()
     {
         $this->dispatchBrowserEvent('show');
-        $this->reset('modal');
         $nasabah =  Nasabah::where('rekening', $this->rekening)->first();
+        $this->sisa = $nasabah->saldo;
         $this->nasabah = $nasabah;
         $this->nasabah_id = $nasabah->id;
+    }
+
+    public function updatedSetor($value)
+    {
+        if ($value)
+            $this->sisa = $this->nasabah->saldo - $this->setor;
+        else
+            $this->sisa = $this->nasabah->saldo;
+    }
+
+    public function removeModal()
+    {
+        $this->reset('modal');
     }
 
     public function save()
@@ -105,7 +119,7 @@ class Setor extends Component
 
             $this->emit('start');
 
-            $this->reset('nasabah', 'setor', 'rekening');
+            $this->reset('nasabah', 'setor', 'sisa', 'rekening');
         } catch (\Exception $e) {
             dd($e);
             DB::rollBack();

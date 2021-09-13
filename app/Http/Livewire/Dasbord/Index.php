@@ -20,14 +20,10 @@ class Index extends Component
 
 
 
-
-
         $data = [
             'jumlahNasaba' => $nasabah,
-            'saldo' => $saldo->saldo,
+            'saldo' => $saldo?->saldo,
         ];
-
-
 
 
 

@@ -1,3 +1,4 @@
+<div class="container-fluid">
 <div class="row">
     <div class="col-xl col-lg">
         <div class="card shadow mb-4">
@@ -145,4 +146,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

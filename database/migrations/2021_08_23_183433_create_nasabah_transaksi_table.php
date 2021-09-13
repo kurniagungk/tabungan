@@ -16,11 +16,11 @@ class CreateNasabahTransaksiTable extends Migration
         Schema::create('nasabah_transaksi', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('nasabah_id');
-            $table->uuid('credit')->nullable();
-            $table->uuid('debit')->nullable();
-            $table->bigInteger('keterangan');
-            $table->bigInteger('ref');
-            $table->bigInteger('ref_id');
+            $table->uuid('credit')->default(0);
+            $table->uuid('debit')->default(0);
+            $table->bigInteger('keterangan')->nullable();
+            $table->bigInteger('ref')->nullable();
+            $table->bigInteger('ref_id')->nullable();
             $table->timestamps();
             $table->foreign('nasabah_id')->references('id')->on('nasabah')->onDelete('cascade');
         });

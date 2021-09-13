@@ -59,7 +59,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Rp
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Uang Yang ada</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">Rp
-                                </div>
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-receipt fa-2x text-gray-300"></i>
@@ -90,6 +90,8 @@
             </div>
         </div>
     </div>
+
+
 
     <!-- Content Row -->
 

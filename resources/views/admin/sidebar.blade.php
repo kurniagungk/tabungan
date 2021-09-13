@@ -4,7 +4,8 @@
 
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="http://tabungan.alkahfi-somalangu.id">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+        href="http://tabungan.alkahfi-somalangu.id">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -15,7 +16,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
         <a class="nav-link" data-turbolinks="false" href="/">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -30,37 +31,46 @@
     </div>
     @role('admin')
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseTwo">
+    <li class="nav-item {{ request()->is('nasabah') || request()->is('nasabah/*') ? 'active' : '' }}">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true"
+            aria-controls="collapseTwo">
             <i class="fas fa-fw fa-store"></i>
             <span>Data Master</span>
         </a>
-        <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapse1"
+            class="collapse {{ request()->is('nasabah') || request()->is('nasabah/*') ? 'show' : '' }}"
+            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/nasabah">Data Nasabah</a>
-                <a class="collapse-item" href="/mitra">Data Mitra</a>
+                <a class="collapse-item {{ request()->is('nasabah') ? 'active' : '' }}"
+                    href="{{ route('nasabah.index') }}">Data Nasabah</a>
+
+                <!--   <a class="collapse-item" href="/mitra">Data Mitra</a> -->
 
             </div>
         </div>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
+    <li class="nav-item {{ request()->is('transaksi/*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true"
+            aria-controls="collapseTwo">
             <i class="fas fa-fw fa-dollar-sign"></i>
             <span>Transaksi</span>
         </a>
-        <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapse2" class="collapse {{ request()->is('transaksi/*') ? 'show' : '' }}"
+            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                <a class="collapse-item" href="/setor">Setor</a>
-                <a class="collapse-item" href="/tarik">Tarik</a>
-                <a class="collapse-item" href="/mitra/tarik">Tarik Saldo Mitra</a>
+                <a class="collapse-item {{ request()->is('transaksi/setor') ? 'active' : '' }}"
+                    href="{{ route('transaksi.setor') }}">Setor</a>
+                <a class="collapse-item {{ request()->is('transaksi/tarik') ? 'active' : '' }}"
+                    href="{{ route('transaksi.tarik') }}">Tarik</a>
+                <!--   <a class="collapse-item" href="/mitra/tarik">Tarik Saldo Mitra</a> -->
             </div>
         </div>
     </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
+    <!-- Nav Item - Pages Collapse Menu
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-store"></i>
@@ -72,34 +82,42 @@
             </div>
         </div>
     </li>
+    -->
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true"
+            aria-controls="collapseTwo">
             <i class="fas fa-fw fa-table"></i>
             <span>Laporan</span>
         </a>
         <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                <!-- <h6 class="collapse-header">Custom Components:</h6>
                 <a class="collapse-item" href="laporanumum">Jurnal Umum</a>
                 <a class="collapse-item" href="laporanmitra">Jurnal Mitra</a>
                 <a class="collapse-item" href="laporanmutasi">Mutasi Nasabah</a>
+                -->
             </div>
         </div>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapseTwo">
+    <li class="nav-item {{ request()->is('setting/*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true"
+            aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Setting</span>
         </a>
-        <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapse5" class="collapse {{ request()->is('setting/*') ? 'show' : '' }}"
+            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                <a class="collapse-item {{ request()->is('setting/*') ? 'active' : '' }}"
+                    href="{{ route('setting.tabungan') }}">Tabungan</a>
+                <!-- <h6 class="collapse-header">Custom Components:</h6>
                 <a class="collapse-item" href="/user">User</a>
                 <a class="collapse-item" href="#">Guide</a>
+                -->
             </div>
         </div>
     </li>
@@ -107,10 +125,11 @@
 
 
 
-    @else
+@else
 
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true"
+            aria-controls="collapseTwo">
             <i class="fas fa-fw fa-store"></i>
             <span>Mitra</span>
         </a>
@@ -122,7 +141,8 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true"
+            aria-controls="collapseTwo">
             <i class="fas fa-fw fa-table"></i>
             <span>Laporan</span>
         </a>
@@ -135,15 +155,18 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true"
+            aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Setting</span>
         </a>
         <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+
+                <!-- <h6 class="collapse-header">Custom Components:</h6>
                 <a class="collapse-item" href="/user">User</a>
                 <a class="collapse-item" href="cards.html">#</a>
+                -->
             </div>
         </div>
     </li>
@@ -153,7 +176,8 @@
 
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();                                         document.getElementById('logout-form').submit();">
+        <a class="nav-link" href="{{ route('logout') }}"
+            onclick="event.preventDefault();                                         document.getElementById('logout-form').submit();">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
         </a>

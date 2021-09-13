@@ -133,6 +133,13 @@ Route::livewire('/nasabah/{nasabah}/edit', 'nasabah.edit')->name('nasabah.edit')
 
 */
 
+Route::get('/', function () {
+    if (Auth::check())
+        return redirect()->route('home');
+    else
+        return view('auth.login');
+});
+
 Route::get('/nasabah/{nasabah}/show', \App\Http\Livewire\Nasabah\Show::class)->name('nasabah.show');
 Route::get('/nasabah', \App\Http\Livewire\Nasabah\Index::class)->name('nasabah.index');
 Route::get('/nasabah/{nasabah}/edit', \App\Http\Livewire\Nasabah\Edit::class)->name('nasabah.edit');
@@ -145,9 +152,13 @@ Route::get('/setting/tabungan', \App\Http\Livewire\Setting\Tabungan::class)->nam
 Route::get('/transaksi/setor', \App\Http\Livewire\Transaksi\Setor::class)->name('transaksi.setor');
 Route::get('/transaksi/tarik', \App\Http\Livewire\Transaksi\Tarik::class)->name('transaksi.tarik');
 
-Route::get('/home', \App\Http\Livewire\Dasbord\Index::class)->name('transaksi.tarik');
+Route::get('/home', \App\Http\Livewire\Dasbord\Index::class)->name('home');
 
-Auth::routes();
+Auth::routes([
+    'register' => false, // Registration Routes...
+    'reset' => false, // Password Reset Routes...
+    'verify' => false, // Email Verification Routes...
+]);
 
 
 Route::get('/ceksaldo', [SaldoController::class, 'cek']);

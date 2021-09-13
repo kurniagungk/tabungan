@@ -1,5 +1,4 @@
 <div class="row">
-
     <!-- Area Chart -->
     <div class="col-xl-8 col-lg-7">
         <div class="card shadow mb-4">
@@ -67,127 +66,127 @@
 
 <script>
     document.addEventListener('livewire:load', function () {
-     
-          let transaksi = [];
-    
-    
-          @this.transaksi()
-        .then((data) => { 
-    
-          var labaChart = document.getElementById('myAreaChart');
-    
-          var myChartLaba = new Chart(labaChart, {
-        type: 'bar',
-        data: {
-            labels: data['labels'],
-            datasets: [
-              
-              {
-                type: 'line',
-                label: 'Setor',
-                id: "y-axis-0",
-                data: data['data_setor'],
-                borderColor: data['warna_setor'],
-                tension: 0.1
-            },
-            {
-                type: 'line',
-                label: 'Tarik',
-                id: "y-axis-0",
-                data: data['data_tarik'],
-                borderColor: data['warna_tarik'],
-                tension: 0.1
-            }
-              
-      
-            ]
-        },
-        options: {
-        
-        tooltips: {
-          mode: 'label'
-        },
-        responsive: true,
-        scales: {
-          xAxes: [{
-            stacked: true
-          }],
-          yAxes: [{
-    
-            ticks: {
-               callback: function(value, index, values) {
-                 return value.toLocaleString("id-ID",{style:"currency", currency:"IDR"});
-               }
-             },
-    
-            stacked: true,
-            position: "left",
-            id: "y-axis-0",
-          },
-          
-          
-          
-           ]
-        }
-      }
-    
-      
-       
-        });
-         
-    
-    
-         })
-    
-        
-    
-       
-    
-        
-    
-    
-         @this.nasabah()
-    .then((data) => { 
 
-        var nasabahChart = document.getElementById('nasabah');
+        let transaksi = [];
 
-    nasabah = new Chart(nasabahChart, {
-    type: 'bar',
-    data: {
-        labels: data['labels'],
-        datasets: [{
-            label: 'Saldo Nasabah Terbanyak',
-            data: data['data'],
-            borderWidth: 1,
-            backgroundColor: data['backgroundColor'],
-        }]
-    },
-    options: {
-     scales: {
-       yAxes: [{
-         ticks: {
-           callback: function(value, index, values) {
-             return value.toLocaleString("id-ID",{style:"currency", currency:"IDR"});
-           }
-         }
-       }]
-     }
-   }
- 
 
-    });
+        @this.transaksi()
+            .then((data) => {
+
+                var labaChart = document.getElementById('myAreaChart');
+
+                var myChartLaba = new Chart(labaChart, {
+                    type: 'bar',
+                    data: {
+                        labels: data['labels'],
+                        datasets: [
+
+                            {
+                                type: 'line',
+                                label: 'Setor',
+                                id: "y-axis-0",
+                                data: data['data_setor'],
+                                borderColor: data['warna_setor'],
+                                tension: 0.1
+                            },
+                            {
+                                type: 'line',
+                                label: 'Tarik',
+                                id: "y-axis-0",
+                                data: data['data_tarik'],
+                                borderColor: data['warna_tarik'],
+                                tension: 0.1
+                            }
+
+
+                        ]
+                    },
+                    options: {
+
+                        tooltips: {
+                            mode: 'label'
+                        },
+                        responsive: true,
+                        scales: {
+                            xAxes: [{
+                                stacked: true
+                            }],
+                            yAxes: [{
+
+                                ticks: {
+                                    callback: function (value, index, values) {
+                                        return value.toLocaleString("id-ID", { style: "currency", currency: "IDR" });
+                                    }
+                                },
+
+                                stacked: true,
+                                position: "left",
+                                id: "y-axis-0",
+                            },
 
 
 
-     });
-    
-       
-    
-    
-    
-        
-    
-    
-           
-        })
+                            ]
+                        }
+                    }
+
+
+
+                });
+
+
+
+            })
+
+
+
+
+
+
+
+
+        @this.nasabah()
+            .then((data) => {
+
+                var nasabahChart = document.getElementById('nasabah');
+
+                nasabah = new Chart(nasabahChart, {
+                    type: 'bar',
+                    data: {
+                        labels: data['labels'],
+                        datasets: [{
+                            label: 'Saldo Nasabah Terbanyak',
+                            data: data['data'],
+                            borderWidth: 1,
+                            backgroundColor: data['backgroundColor'],
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    callback: function (value, index, values) {
+                                        return value.toLocaleString("id-ID", { style: "currency", currency: "IDR" });
+                                    }
+                                }
+                            }]
+                        }
+                    }
+
+
+                });
+
+
+
+            });
+
+
+
+
+
+
+
+
+
+    })
 </script>

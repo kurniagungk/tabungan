@@ -29,28 +29,38 @@
                         <tr>
                             <td></td>
                             <td>Saldo Histori</td>
-                            <td>Rp. {{number_format($saldoHistori['debit'],2,',','.')  }}</td>
-                            <td>Rp. {{number_format($saldoHistori['credit'],2,',','.')  }}</td>
-                            <td>Rp. {{number_format($saldoHistori['debit'] - $saldoHistori['credit'] ,2,',','.')  }}
+                            <td>Rp. {{ number_format($saldoHistori['debit'], 2, ',', '.') }}</td>
+                            <td>Rp. {{ number_format($saldoHistori['credit'], 2, ',', '.') }}</td>
+                            <td>Rp. {{ number_format($saldoHistori['debit'] - $saldoHistori['credit'], 2, ',', '.') }}
                             </td>
                         </tr>
 
                         @php
-                        $saldo = $saldoHistori['debit'] - $saldoHistori['credit'];
+                            $saldo = $saldoHistori['debit'] - $saldoHistori['credit'];
                         @endphp
 
-                        @foreach ($transaksi->reverse() as $tr )
-                        @php
-                        $saldo += $tr->debit - $tr->credit;
-                        @endphp
-                        <tr>
-                            <td>{{$loop->iteration }}</td>
-                            <td>{{$tr->created_at }}</td>
-                            <td>Rp. {{ number_format($tr->debit,2,',','.')  }}</td>
-                            <td>Rp. {{number_format($tr->credit,2,',','.')  }}</td>
-                            <td>Rp. {{ number_format($saldo,2,',','.')  }}</td>
-                        </tr>
+                        @foreach ($transaksi->reverse() as $tr)
+                            @php
+                                $saldo += $tr->debit - $tr->credit;
+                            @endphp
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $tr->created_at }}</td>
+                                <td>Rp. {{ number_format($tr->debit, 2, ',', '.') }}</td>
+                                <td>Rp. {{ number_format($tr->credit, 2, ',', '.') }}</td>
+                                <td>Rp. {{ number_format($saldo, 2, ',', '.') }}</td>
+                            </tr>
                         @endforeach
+
+                        <tr>
+                            <td></td>
+                            <td>Saldo Histori</td>
+                            <td>Rp. {{ number_format($transaksi->sum('debit'), 2, ',', '.') }}</td>
+                            <td>Rp. {{ number_format($transaksi->sum('credit'), 2, ',', '.') }}</td>
+                            <td>Rp.
+                                {{ number_format($saldo, 2, ',', '.') }}
+                            </td>
+                        </tr>
 
                     </tbody>
                 </table>
