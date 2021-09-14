@@ -86,7 +86,8 @@ class BiayaAdmin extends Command
                             Transaksi::create([
                                 'credit' => $data->saldo,
                                 'keterangan' => 'biaya admin',
-                                'ref' => $biaya->id
+                                'ref' => 'biaya admin',
+                                'ref_id' => $biaya->id
                             ]);
 
                             $jumlah += $data->saldo;
@@ -107,7 +108,8 @@ class BiayaAdmin extends Command
                         $tarik =  $data->transaksi()->create([
                             'user_id' => Auth::id(),
                             'created_at' => date('Y-m-d H:i:s'),
-                            'credit' => $biaya_admin->isi
+                            'credit' => $biaya_admin->isi,
+                            'ref' => 'biaya admin',
                         ]);
 
 

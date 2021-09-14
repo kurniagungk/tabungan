@@ -152,6 +152,8 @@ Route::get('/setting/tabungan', \App\Http\Livewire\Setting\Tabungan::class)->nam
 Route::get('/transaksi/setor', \App\Http\Livewire\Transaksi\Setor::class)->name('transaksi.setor');
 Route::get('/transaksi/tarik', \App\Http\Livewire\Transaksi\Tarik::class)->name('transaksi.tarik');
 
+Route::get('/laporan/biaya', \App\Http\Livewire\Laporan\Biaya::class)->name('laporan.biaya');
+
 Route::get('/home', \App\Http\Livewire\Dasbord\Index::class)->name('home');
 
 Auth::routes([

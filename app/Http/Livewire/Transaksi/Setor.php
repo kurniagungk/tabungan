@@ -44,11 +44,11 @@ class Setor extends Component
     public function find()
     {
         $this->reset('nasabah');
-        $nasabah =  Nasabah::where('rekening', $this->rekening)->first();
+        $nasabah =  Nasabah::where('rekening', $this->rekening)->where('status', 'aktif')->first();
 
         if (!$nasabah) {
             $this->reset('nasabah');
-            return $this->addError('nis', 'Nis tidak ditemukan');
+            return $this->addError('rekening', 'Nis tidak ditemukan');
         }
 
 
@@ -70,7 +70,7 @@ class Setor extends Component
     public function updatedSetor($value)
     {
         if ($value)
-            $this->sisa = $this->nasabah->saldo - $this->setor;
+            $this->sisa = $this->nasabah->saldo + $this->setor;
         else
             $this->sisa = $this->nasabah->saldo;
     }
@@ -100,7 +100,8 @@ class Setor extends Component
             $setor =  $nasabah->transaksi()->create([
                 'user_id' => Auth::id(),
                 'created_at' => $this->tanggal,
-                'debit' => $this->setor
+                'debit' => $this->setor,
+                'ref' => 'tabungan'
             ]);
 
             $saldo = Saldo::where('nama', 'tabungan')->first();
@@ -110,7 +111,7 @@ class Setor extends Component
 
             Transaksi::create([
                 'debit' => $this->setor,
-                'keterangan' => 'Tabungan',
+                'keterangan' => 'tabungan',
                 'ref' => $setor->id
             ]);
 

@@ -24,7 +24,7 @@ class Create extends Component
     public $nama_wali;
     public $photo;
     public $photoStatus = false;
-    public $pasword = 123456;
+    public $pasword = 1234;
     public $card;
 
 
@@ -61,7 +61,7 @@ class Create extends Component
             'telepon' => 'required',
             'jenis_kelamin' => 'required',
             'nama_wali' => 'required',
-            'pasword' => 'required|min:6|max:6',
+            'pasword' => 'required|min:4',
             'photo' => 'nullable|image|max:5000|mimes:png,jpeg,bmp,gif',
 
         ], $messages);

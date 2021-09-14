@@ -18,9 +18,9 @@ class CreateNasabahTransaksiTable extends Migration
             $table->uuid('nasabah_id');
             $table->uuid('credit')->default(0);
             $table->uuid('debit')->default(0);
-            $table->bigInteger('keterangan')->nullable();
-            $table->bigInteger('ref')->nullable();
-            $table->bigInteger('ref_id')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('ref')->nullable();
+            $table->string('ref_id')->nullable();
             $table->timestamps();
             $table->foreign('nasabah_id')->references('id')->on('nasabah')->onDelete('cascade');
         });

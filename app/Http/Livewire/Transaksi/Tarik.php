@@ -107,7 +107,8 @@ class Tarik extends Component
             $tarik =  $nasabah->transaksi()->create([
                 'user_id' => Auth::id(),
                 'created_at' => $this->tanggal,
-                'credit' => $this->tarik
+                'credit' => $this->tarik,
+                'ref' => 'tabungan'
             ]);
 
             $saldo = Saldo::where('nama', 'tabungan')->first();
@@ -117,7 +118,7 @@ class Tarik extends Component
 
             Transaksi::create([
                 'credit' => $this->tarik,
-                'keterangan' => 'Tabungan',
+                'keterangan' => 'tabungan',
                 'ref' => $tarik->id
             ]);
 

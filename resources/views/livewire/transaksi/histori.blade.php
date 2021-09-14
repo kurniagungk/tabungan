@@ -23,6 +23,8 @@
                             <th scope="col">Setor</th>
                             <th scope="col">Tarik</th>
                             <th scope="col">Saldo</th>
+                            <th scope="col">Ref</th>
+                            <th scope="col">Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,23 +45,28 @@
                             @php
                                 $saldo += $tr->debit - $tr->credit;
                             @endphp
+
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $tr->created_at }}</td>
                                 <td>Rp. {{ number_format($tr->debit, 2, ',', '.') }}</td>
                                 <td>Rp. {{ number_format($tr->credit, 2, ',', '.') }}</td>
                                 <td>Rp. {{ number_format($saldo, 2, ',', '.') }}</td>
+                                <td>{{ $tr->ref }}</td>
+                                <td>{{ $tr->keterangan }}</td>
                             </tr>
                         @endforeach
 
                         <tr>
                             <td></td>
-                            <td>Saldo Histori</td>
+                            <td>Total</td>
                             <td>Rp. {{ number_format($transaksi->sum('debit'), 2, ',', '.') }}</td>
                             <td>Rp. {{ number_format($transaksi->sum('credit'), 2, ',', '.') }}</td>
                             <td>Rp.
                                 {{ number_format($saldo, 2, ',', '.') }}
                             </td>
+                            <td></td>
+                            <td></td>
                         </tr>
 
                     </tbody>

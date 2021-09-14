@@ -2,8 +2,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="$emit('close')">
+                <h5 class="modal-title">Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    wire:click="$emit('close')">
                     <span aria-hidden=" true">&times;</span>
                 </button>
             </div>
@@ -12,13 +13,13 @@
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-4 col-form-label">No Rekening</label>
                         <div class="col-sm-8">
-                            <input type="text" readonly class="form-control-plaintext" value="{{$rekening}}">
+                            <input type="text" readonly class="form-control-plaintext" value="{{ $rekening }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-4 col-form-label">Nama</label>
                         <div class="col-sm-8">
-                            <input type="text" readonly class="form-control-plaintext" value="{{$nama}}">
+                            <input type="text" readonly class="form-control-plaintext" value="{{ $nama }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -28,9 +29,9 @@
                                 class="form-control  @error('password') is-invalid @enderror" id="password"
                                 wire:model="password">
                             @error('password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
 

@@ -17,8 +17,8 @@ class CreateTransaksiTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('credit')->default(0);
             $table->uuid('debit')->default(0);
-            $table->bigInteger('keterangan')->nullable();
-            $table->bigInteger('ref')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('ref')->nullable();
             $table->timestamps();
         });
     }
