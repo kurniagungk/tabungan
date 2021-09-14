@@ -52,6 +52,6 @@ class Biaya extends Component
 
     public function render()
     {
-        return view('laporan.biaya');
+        return view('livewire.laporan.biaya');
     }
 }
