@@ -95,7 +95,7 @@
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ request()->is('laporan/biaya') ? 'active' : '' }}"
-                    href="{{ route('transaksi.tarik') }}">Biaya</a>
+                    href="{{ route('laporan.biaya') }}">Biaya</a>
                 <!-- <h6 class="collapse-header">Custom Components:</h6>
                 <a class="collapse-item" href="laporanumum">Jurnal Umum</a>
                 <a class="collapse-item" href="laporanmitra">Jurnal Mitra</a>
