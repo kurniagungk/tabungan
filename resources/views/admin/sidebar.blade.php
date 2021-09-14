@@ -85,14 +85,17 @@
     -->
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item {{ request()->is('laporan/*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true"
             aria-controls="collapseTwo">
             <i class="fas fa-fw fa-table"></i>
             <span>Laporan</span>
         </a>
-        <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapse4" class="collapse {{ request()->is('laporan/*') ? 'show' : '' }}"
+            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ request()->is('laporan/biaya') ? 'active' : '' }}"
+                    href="{{ route('transaksi.tarik') }}">Biaya</a>
                 <!-- <h6 class="collapse-header">Custom Components:</h6>
                 <a class="collapse-item" href="laporanumum">Jurnal Umum</a>
                 <a class="collapse-item" href="laporanmitra">Jurnal Mitra</a>
