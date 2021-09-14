@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(userSeeder::class);
         $this->call(MitraSeeder::class);
         $this->call(SettingTabungan::class);
-        $this->call(Saldo::class);
+        $this->call(SaldoSeeder::class);
     }
 }
