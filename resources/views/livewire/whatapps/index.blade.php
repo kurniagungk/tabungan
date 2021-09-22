@@ -104,6 +104,7 @@
     </script>
 
     <script>
+        let timeout = 0;
         const socket = io("{{ $url?->isi }}");
         socket.on("connect_error", () => {
             @this.status = "tidak"
@@ -113,16 +114,21 @@
         function start() {
             socket.emit("start", "whatapps");
             @this.status = "qr"
+            timeout = false
         }
 
         function stop() {
             socket.emit("stop", "whatapps");
+            timeout = 0;
             @this.status = "ready"
         }
 
         socket.on('status', function(pesan) {
 
             let status = pesan ? "terhubung" : "ready";
+
+            if (timeout)
+                clearTimeout(timeout);
 
             @this.status = status;
 
@@ -132,7 +138,12 @@
         })
 
         socket.on('qr', function(src) {
-            document.getElementById("qrcode").setAttribute('src', src);
+            let gambar = document.getElementById("qrcode");
+            if (gambar)
+                gambar.setAttribute('src', src)
+            timeout++;
+            if (timeout > 15)
+                stop()
         });
     </script>
 
