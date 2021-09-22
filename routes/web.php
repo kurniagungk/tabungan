@@ -155,6 +155,7 @@ Route::get('/transaksi/tarik', \App\Http\Livewire\Transaksi\Tarik::class)->name(
 Route::get('/laporan/biaya', \App\Http\Livewire\Laporan\Biaya::class)->name('laporan.biaya');
 
 Route::get('/home', \App\Http\Livewire\Dasbord\Index::class)->name('home');
+Route::get('/whatapps', \App\Http\Livewire\Whatapps\Index::class)->name('wa');
 
 Auth::routes([
     'register' => false, // Registration Routes...

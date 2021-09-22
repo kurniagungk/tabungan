@@ -14,7 +14,12 @@ class Index extends Component
         $akhir = date("Y-m-d");
         $awal = date('Y-m-d', strtotime('-30' . ' days'));
 
-        $saldo = Saldo::where('nama', 'tabungan')->first();
+        $saldo = Nasabah::sum('saldo');
+
+        $aktif = Nasabah::where('status', 'aktif')->sum('saldo');
+        $tidak = Nasabah::where('status', 'tidak')->sum('saldo');
+
+
 
         $nasabah = Nasabah::count();
 
@@ -22,7 +27,9 @@ class Index extends Component
 
         $data = [
             'jumlahNasaba' => $nasabah,
-            'saldo' => $saldo?->saldo,
+            'saldo' => $saldo,
+            'aktif' => $aktif,
+            'tidak' => $tidak,
         ];
 
 
