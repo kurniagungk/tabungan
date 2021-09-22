@@ -93,9 +93,7 @@
     </script>
 
     <script>
-        const socket = io("{{ $url?->isi }}", {
-
-        });
+        const socket = io("{{ $url?->isi }}");
         socket.on("connect_error", () => {
             @this.io = false
             socket.connect();
