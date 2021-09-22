@@ -10,9 +10,9 @@ class Index extends Component
 {
 
 
-    public $status  = false;
+    public $status  = 'tidak';
     public $io  = false;
-    public $whatapps  = false;
+    public $whatapps;
 
     protected $listeners = ['pesan'];
 

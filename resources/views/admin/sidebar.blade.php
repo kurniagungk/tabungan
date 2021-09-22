@@ -105,6 +105,13 @@
         </div>
     </li>
 
+    <li class="nav-item {{ request()->is('whatapps') ? 'active' : '' }}">
+        <a class="nav-link" data-turbolinks="false" href="{{ route('wa') }}">
+
+            <i class="fab fa-whatsapp"></i>
+            <span>Whatapps Bot</span></a>
+    </li>
+
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {{ request()->is('setting/*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true"

@@ -16,26 +16,39 @@ class SaldoController extends Controller
 
         $id  = explode("@", $request->input('no'));
 
-        $nasabah = Nasabah::where('telepon', $id[0])->first();
+        $token = $request->input('token');
 
-        if (empty($nasabah)) {
+        if ($token != "VGFidW5nYW4gQWxrYWhmaSBTb21hbGFuZ3U=")
+            return $data['errors'] = ['status' => 401];
+
+
+        $pesan = $request->input('pesan');
+
+        if ($pesan == "saldo") {
+
+            $nasabah = Nasabah::where('telepon', $id[0])->first();
+
+            if (empty($nasabah)) {
+                Whatapps::create([
+                    'nomer' => $id[0],
+                    'status' => 'gagal'
+                ]);
+                return $data['errors'] = ['status' => 403];
+            }
+
             Whatapps::create([
                 'nomer' => $id[0],
-                'status' => 'gagal'
+                'nama' => $nasabah->nama,
+                'status' => 'berhasil'
             ]);
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Saldo Tabungan',
+                'data'    => "Sisa saldo " . $nasabah->nama . " Rp. " . number_format($nasabah->saldo, 2, ",", ".")              // <-- data post
+            ], 200);
+        } else {
             return $data['errors'] = ['status' => 404];
         }
-
-        Whatapps::create([
-            'nomer' => $id[0],
-            'nama' => $nasabah->nama,
-            'status' => 'berhasil'
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Saldo Tabungan',
-            'data'    => "Sisa saldo " . $nasabah->nama . " Rp. " . number_format($nasabah->saldo, 2, ",", ".")              // <-- data post
-        ], 200);
     }
 }

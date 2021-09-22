@@ -15,16 +15,27 @@
                     </div>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body px-5">
-                    @if ($io)
-                        @if ($status)
-                            <h1>Whatapps Terhubung</h1>
-                        @else
-                            <img src="" alt="" id="qrcode">
-                        @endif
-                    @else
+                <div class="card-body px-5 flex item-center">
+
+                    @if ($status == 'ready')
+                        <h2>Server Ready</h2>
+                        <button onclick="start()" type="button" class="btn btn-primary btn-lg btn-block">start</button>
+                    @endif
+
+                    @if ($status == 'qr')
+                        <img src="" alt="" id="qrcode">
+                        <p class="text-center">Scann Untuk Whatapps Bot</p>
+                    @endif
+
+                    @if ($status == 'tidak')
                         <h1>Server Tidak Terhubung</h1>
                     @endif
+
+                    @if ($status == 'terhubung')
+                        <h1>Whatapps Terhubung</h1>
+                        <button onclick="stop()" type="button" class="btn btn-danger btn-lg btn-block">Stop</button>
+                    @endif
+
                 </div>
 
 
@@ -95,20 +106,29 @@
     <script>
         const socket = io("{{ $url?->isi }}");
         socket.on("connect_error", () => {
-            @this.io = false
+            @this.status = "tidak"
             socket.connect();
         });
 
-        socket.on('status', function(status) {
+        function start() {
+            socket.emit("start", "whatapps");
+            @this.status = "qr"
+        }
 
-            @this.io = true
-            @this.status = status
+        function stop() {
+            socket.emit("stop", "whatapps");
+            @this.status = "ready"
+        }
+
+        socket.on('status', function(pesan) {
+
+            let status = pesan ? "terhubung" : "ready";
+
+            @this.status = status;
 
         })
         socket.on('pesan', function(pesan) {
-
             Livewire.emit('pesan')
-
         })
 
         socket.on('qr', function(src) {
