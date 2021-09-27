@@ -23,7 +23,7 @@
                     @endif
 
                     @if ($status == 'qr')
-                        <img src="" alt="" id="qrcode">
+                        <img src="" alt="" id="qrcode" class="Responsive image">
                         <p class="text-center">Scann Untuk Whatapps Bot</p>
                     @endif
 
@@ -104,10 +104,10 @@
     </script>
 
     <script>
-        let timeout = 0;
         const socket = io("{{ $url?->isi }}");
         socket.on("connect_error", () => {
-            @this.status = "tidak"
+            console.log('connect_error')
+            Livewire.emit("status", "tidak")
             socket.connect();
         });
 
@@ -119,18 +119,19 @@
 
         function stop() {
             socket.emit("stop", "whatapps");
-            timeout = 0;
             @this.status = "ready"
+        }
+
+        function status(pesan) {
+            @this.status = pesan
         }
 
         socket.on('status', function(pesan) {
 
-            let status = pesan ? "terhubung" : "ready";
+            let data = pesan ? "terhubung" : "ready";
+            console.log(data)
 
-            if (timeout)
-                clearTimeout(timeout);
-
-            @this.status = status;
+            status(data)
 
         })
         socket.on('pesan', function(pesan) {
@@ -141,9 +142,6 @@
             let gambar = document.getElementById("qrcode");
             if (gambar)
                 gambar.setAttribute('src', src)
-            timeout++;
-            if (timeout > 15)
-                stop()
         });
     </script>
 

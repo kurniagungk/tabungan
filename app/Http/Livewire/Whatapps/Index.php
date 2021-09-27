@@ -11,10 +11,9 @@ class Index extends Component
 
 
     public $status  = 'tidak';
-    public $io  = false;
     public $whatapps;
 
-    protected $listeners = ['pesan'];
+    protected $listeners = ['pesan', 'status'];
 
 
     public function mount()
@@ -25,6 +24,11 @@ class Index extends Component
     public function pesan()
     {
         $this->whatapps = Whatapps::orderBy('created_at', 'desc')->take(10)->get();
+    }
+
+    public function status($data)
+    {
+        $this->status = $data;
     }
 
     public function render()
