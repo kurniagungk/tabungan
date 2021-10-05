@@ -129,6 +129,21 @@
                                 @enderror
                             </div>
                         </div>
+
+                        @if ($telepon)
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">Otomatis Wa</label>
+                                <div class="col-md-9">
+                                    <input type="checkbox" id="wa" wire:model="wa">
+                                    @error('telepon')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">Pasword</label>
                             <div class="col-md-9">

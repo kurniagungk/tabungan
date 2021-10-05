@@ -28,6 +28,7 @@ class Edit extends Component
     public $photo;
     public $photo_old;
     public $pasword;
+    public $wa;
 
     public function mount(Nasabah $nasabah)
     {
@@ -41,6 +42,7 @@ class Edit extends Component
         $this->photo_old = $nasabah->foto;
         $this->nasabah_id = $nasabah->id;
         $this->pasword =  $nasabah->password;
+        $this->wa =  $nasabah->wa;
     }
 
 
@@ -91,6 +93,7 @@ class Edit extends Component
         $nasabah->jenis_kelamin = $this->jenis_kelamin;
         $nasabah->wali = $this->wali;
         $nasabah->password = $this->pasword;
+        $nasabah->wa = $this->wa;
 
         if ($this->photo) {
             if ($nasabah->foto != "foto/user.png")

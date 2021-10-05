@@ -56,6 +56,19 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Wa Saldo Habis</label>
+                        <div class="col-md-9">
+                            <textarea name="" id="" cols="30" rows="10" wire:model="habis"
+                                class="form-control @error('habis') is-invalid @enderror"></textarea>
+                            @error('habis')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
 
 
                 </div>

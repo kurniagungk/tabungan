@@ -5,18 +5,20 @@ namespace App\Http\Livewire\Setting;
 use App\Setting;
 use Livewire\Component;
 
+
 class Tabungan extends Component
 {
 
-    public $tanggal, $biaya, $minimal;
+    public $tanggal, $biaya, $minimal, $habis;
 
     public function mount()
     {
-        $setting = Setting::whereIn('nama', ['biaya_tanggal', 'biaya_admin', 'saldo_minimal'])->get();
+        $setting = Setting::whereIn('nama', ['biaya_tanggal', 'biaya_admin', 'saldo_minimal', 'saldo_habis'])->get();
 
         $this->tanggal = $setting[0]->isi;
         $this->minimal = $setting[1]->isi;
         $this->biaya = $setting[2]->isi;
+        $this->habis = $setting[3]->isi;
     }
 
     public function store()
@@ -30,6 +32,7 @@ class Tabungan extends Component
         Setting::where("nama", "biaya_tanggal")->update(["isi" => $this->tanggal]);
         Setting::where("nama", "biaya_admin")->update(["isi" => $this->biaya]);
         Setting::where("nama", "saldo_minimal")->update(["isi" => $this->minimal]);
+        Setting::where("nama", "saldo_habis")->update(["isi" => $this->habis]);
 
         session()->flash('pesan', 'Setting berhasil disimpan');
     }

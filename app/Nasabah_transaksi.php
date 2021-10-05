@@ -10,6 +10,7 @@ class Nasabah_transaksi extends Model
 {
     use HasFactory;
     protected $table = 'nasabah_transaksi';
+    public $incrementing = false;
 
     protected $fillable = [
         'id',

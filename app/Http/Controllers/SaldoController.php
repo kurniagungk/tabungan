@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Nasabah;
+use App\Setting;
 use App\Whatapps;
 use Illuminate\Http\Request;
 
@@ -50,5 +51,16 @@ class SaldoController extends Controller
         } else {
             return $data['errors'] = ['status' => 404];
         }
+    }
+
+    public function habis(Request $request)
+    {
+        $query = 'asd';
+        $setting = Setting::where('nama', 'saldo_habis')->first();
+        $nama = str_replace('{$nama}', $query, $setting->isi);
+
+
+
+        echo strval($nama);
     }
 }

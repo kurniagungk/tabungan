@@ -17,7 +17,7 @@ class CreateNasabahTable extends Migration
             $table->uuid('id')->primary();
             $table->string('rekening');
             $table->string('nama');
-            $table->string('tempat_lahir');
+            $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
             $table->string('alamat')->nullable();
@@ -27,6 +27,7 @@ class CreateNasabahTable extends Migration
             $table->string('saldo')->default(0);
             $table->string('card')->nullable();
             $table->string('password')->default(1234);
+            $table->boolean('wa');
             $table->enum('status', ['aktif', 'tidak'])->default('aktif');
             $table->timestamps();
         });

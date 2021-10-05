@@ -18,6 +18,7 @@ class Setor extends Component
     public $setor;
     public $sisa;
     public $tanggal;
+    public $keterangan;
     public $modal = false;
     public $nasabah_id;
 
@@ -101,7 +102,8 @@ class Setor extends Component
                 'user_id' => Auth::id(),
                 'created_at' => $this->tanggal,
                 'debit' => $this->setor,
-                'ref' => 'tabungan'
+                'ref' => 'tabungan',
+                'keterangan' => $this->keterangan
             ]);
 
             $saldo = Saldo::where('nama', 'tabungan')->first();

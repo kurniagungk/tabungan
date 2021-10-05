@@ -9,6 +9,8 @@ use App\Transaksi;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\RequestException;
 
 class Tarik extends Component
 {
@@ -20,6 +22,7 @@ class Tarik extends Component
     public $tarik;
     public $sisa;
     public $tanggal;
+    public $keterangan;
     public $modal = false;
 
 
@@ -89,13 +92,14 @@ class Tarik extends Component
 
 
         $nasabah = $this->nasabah;
+
+
         $saldoMinimal = Setting::where('nama', 'saldo_minimal')->first();
 
 
 
         if ($nasabah->saldo - $this->tarik <  $saldoMinimal->isi || $nasabah->saldo < $saldoMinimal->isi)
             return  $this->addError('tarik', 'Saldo Kurang');
-
         try {
 
             DB::beginTransaction();
@@ -108,7 +112,8 @@ class Tarik extends Component
                 'user_id' => Auth::id(),
                 'created_at' => $this->tanggal,
                 'credit' => $this->tarik,
-                'ref' => 'tabungan'
+                'ref' => 'tabungan',
+                'keterangan' => $this->keterangan
             ]);
 
             $saldo = Saldo::where('nama', 'tabungan')->first();
@@ -125,18 +130,45 @@ class Tarik extends Component
 
             DB::commit();
 
+            /*
+            if ($nasabah->saldo <= $saldoMinimal->isi)
+                $this->whatapps($nasabah);
+                */
+
             $this->emit('start');
 
-            $this->reset('nasabah', 'tarik', 'sisa', 'rekening');
+            $this->reset('nasabah', 'tarik', 'sisa', 'keterangan', 'rekening');
         } catch (\Exception $e) {
-            dd($e);
             DB::rollBack();
             return session()->flash('danger', 'Gagal tarik Tunai');;
         }
     }
 
 
+    public function whatapps($nasabah)
+    {
 
+        $setting = Setting::where('nama', 'saldo_habis')->first();
+
+        $replace = ['{$nama}', '{$saldo}'];
+        $variable = [$nasabah->nama, $nasabah->saldo];
+        $pesan = str_replace($replace, $variable, $setting->isi);
+
+
+        try {
+            $response = Http::post('localhost:3000/send', [
+
+                'token' => 'VGFidW5nYW4gQWxrYWhmaSBTb21hbGFuZ3U=',
+                'no' => $nasabah->telepon,
+                'pesan' => $pesan
+
+            ]);
+
+            dd($response->json());
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
 
 
 

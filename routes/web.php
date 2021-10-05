@@ -144,6 +144,7 @@ Route::get('/nasabah/{nasabah}/show', \App\Http\Livewire\Nasabah\Show::class)->n
 Route::get('/nasabah', \App\Http\Livewire\Nasabah\Index::class)->name('nasabah.index');
 Route::get('/nasabah/{nasabah}/edit', \App\Http\Livewire\Nasabah\Edit::class)->name('nasabah.edit');
 Route::get('/nasabah/create', \App\Http\Livewire\Nasabah\Create::class)->name('nasabah.create');
+Route::get('/nasabah/import', \App\Http\Livewire\Nasabah\Import::class)->name('nasabah.import');
 
 
 Route::get('/setting/tabungan', \App\Http\Livewire\Setting\Tabungan::class)->name('setting.tabungan');
@@ -165,3 +166,4 @@ Auth::routes([
 
 
 Route::get('/ceksaldo', [SaldoController::class, 'cek']);
+Route::get('/habis', [SaldoController::class, 'habis']);

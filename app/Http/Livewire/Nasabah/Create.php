@@ -26,6 +26,7 @@ class Create extends Component
     public $photoStatus = false;
     public $pasword = 1234;
     public $card;
+    public $wa = false;
 
 
     public function updatedphoto()
@@ -58,7 +59,6 @@ class Create extends Component
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'date',
             'alamat' => 'required',
-            'telepon' => 'required',
             'jenis_kelamin' => 'required',
             'nama_wali' => 'required',
             'pasword' => 'required|min:4',
@@ -87,14 +87,13 @@ class Create extends Component
             'password' => $this->pasword,
             'card' => $this->card,
             'saldo' => 0,
+            'wa' => $this->wa,
         );
 
 
         $nasabah = Nasabah::create($data);
 
-        session()->flash('pesan', 'Data Nasabah Berhasil Ditambahkan');
-
-        return redirect()->route('nasabah.index');
+        return redirect()->route('nasabah.show', $nasabah->id);
     }
 
     public function updatedfoto()

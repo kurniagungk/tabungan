@@ -120,7 +120,7 @@
                                 <label for="staticEmail" class="col-sm-3 col-form-label">Keterangan</label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control" id="exampleFormControlTextarea1"
-                                        rows="3"></textarea>
+                                        wire:model="keterangan" wire:mode="keterangan" rows="3"></textarea>
                                 </div>
                             </div>
 
@@ -128,7 +128,7 @@
                             <div class="form-group row">
                                 <label for="setor" class="col-sm-3 col-form-label">Jumlah Setor</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control  @error('setor') is-invalid @enderror"
+                                    <input type="number" class="form-control  @error('setor') is-invalid @enderror"
                                         id="setor" wire:model.debounce.500ms="setor" autocomplete="off">
                                     @error('setor')
                                         <div class="invalid-feedback">

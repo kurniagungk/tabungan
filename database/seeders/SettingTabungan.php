@@ -26,6 +26,14 @@ class SettingTabungan extends Seeder
             [
                 'nama' => 'saldo_minimal',
                 'isi' => '5000',
+            ],
+            [
+                'nama' => 'socker_io',
+                'isi' => 'http://localhost:3000/',
+            ],
+            [
+                'nama' => 'saldo_habis',
+                'isi' => 'asd',
             ]
         ]);
     }

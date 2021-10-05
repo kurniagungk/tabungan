@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Nasabah extends Model
 {
     protected $table = 'nasabah';
+    public $incrementing = false;
 
     protected $fillable = [
         'id',
@@ -23,7 +25,8 @@ class Nasabah extends Model
         'status',
         'password',
         'card',
-        'saldo'
+        'saldo',
+        'wa'
     ];
 
 
@@ -39,9 +42,12 @@ class Nasabah extends Model
     protected static function booted()
     {
         static::creating(function ($nasabah) {
-            $query = Nasabah::first();
-            $rekening = $query?->rekening ? substr($query->rekening, 3)  : 0;
-            $nasabah->rekening = "NSB" . str_pad($rekening + 1, 5, 0, STR_PAD_LEFT);
+            if (!$nasabah->rekening) {
+                $query = Nasabah::first();
+                $rekening = $query?->rekening ? substr($query->rekening, 3)  : 0;
+                $nasabah->rekening = "NSB" . str_pad($rekening + 1, 5, 0, STR_PAD_LEFT);
+            }
+            $nasabah->id = Str::uuid();
         });
     }
 }
