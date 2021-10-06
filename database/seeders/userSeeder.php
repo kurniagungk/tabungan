@@ -39,9 +39,9 @@ class userSeeder extends Seeder
         // create demo users
         $user = User::create([
             'name' => 'Tabungan',
-            'email' => 'admin@admin.com',
+            'email' => 'kacang@admin.com',
             'saldo' => 0,
-            'password' => Hash::make('admin'),
+            'password' => Hash::make('kacang879'),
         ]);
         $user->assignRole($role1);
         $user->assignRole($role2);

@@ -75,7 +75,7 @@ class Edit extends Component
             'alamat' => 'required',
             'telepon' => 'required',
             'jenis_kelamin' => 'required',
-            'pasword' => 'required|min:6|max:6'
+            'pasword' => 'required|min:4|max:6'
 
         ], $messages);
 

@@ -23,7 +23,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
 
-                    <form wire:submit.prevent="update">
+                 
 
 
                         <div class="form-group row">
@@ -214,6 +214,7 @@
 
                 </div>
                 <div class="card-footer">
+                       <form wire:submit.prevent="update">
                     <button class="btn btn-sm btn-success" type="submit"> Simpan</button>
                     <a href='/nasabah'><button href="nasabah" class="btn btn-sm btn-danger" type="reset">
                             Cencel</button></a>
