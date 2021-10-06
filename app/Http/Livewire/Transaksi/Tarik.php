@@ -48,7 +48,8 @@ class Tarik extends Component
     {
 
         $this->reset('nasabah');
-        $nasabah =  Nasabah::where('rekening', $this->rekening)->first();
+        $rekening =  substr($this->rekening, 0, 3) == 'NSB' ||  substr($this->rekening, 0, 3) == 'nsb'  ? $this->rekening : 'NSB' . $this->rekening;
+        $nasabah =  Nasabah::where('rekening', $rekening)->first();
 
         if (!$nasabah) {
             $this->reset('nasabah');
@@ -65,7 +66,8 @@ class Tarik extends Component
     public function show()
     {
         $this->dispatchBrowserEvent('show');
-        $nasabah =  Nasabah::where('rekening', $this->rekening)->first();
+        $rekening =  substr($this->rekening, 0, 3) == 'NSB' ||  substr($this->rekening, 0, 3) == 'nsb'  ? $this->rekening : 'NSB' . $this->rekening;
+        $nasabah =  Nasabah::where('rekening', $rekening)->first();
         $this->nasabah = $nasabah;
         $this->sisa = $nasabah->saldo;
         $this->nasabah_id = $nasabah->id;

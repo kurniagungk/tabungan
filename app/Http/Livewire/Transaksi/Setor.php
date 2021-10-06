@@ -45,7 +45,9 @@ class Setor extends Component
     public function find()
     {
         $this->reset('nasabah');
-        $nasabah =  Nasabah::where('rekening', $this->rekening)->where('status', 'aktif')->first();
+        $rekening =  substr($this->rekening, 0, 3) == 'NSB' ||  substr($this->rekening, 0, 3) == 'nsb'  ? $this->rekening : 'NSB' . $this->rekening;
+
+        $nasabah =  Nasabah::where('rekening', $rekening)->where('status', 'aktif')->first();
 
         if (!$nasabah) {
             $this->reset('nasabah');
@@ -62,7 +64,8 @@ class Setor extends Component
     public function show()
     {
         $this->dispatchBrowserEvent('show');
-        $nasabah =  Nasabah::where('rekening', $this->rekening)->first();
+        $rekening =  substr($this->rekening, 0, 3) == 'NSB' ||  substr($this->rekening, 0, 3) == 'nsb'  ? $this->rekening : 'NSB' . $this->rekening;
+        $nasabah =  Nasabah::where('rekening', $rekening)->first();
         $this->sisa = $nasabah->saldo;
         $this->nasabah = $nasabah;
         $this->nasabah_id = $nasabah->id;

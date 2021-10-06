@@ -11,6 +11,9 @@ class Index extends Component
 {
     use WithPagination;
 
+
+    protected $paginationTheme = 'bootstrap';
+
     public $confirming;
     public $sortField = 'nama';
     public $search;
