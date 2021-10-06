@@ -47,7 +47,7 @@ class Chart extends Component
 
     public function nasabah()
     {
-        $nasabah = Nasabah::orderBy('saldo', 'asc')->take(5)->get();
+        $nasabah = Nasabah::orderBy('saldo', 'desc')->take(5)->get();
         $data['labels'] = $nasabah->pluck('nama');
         $data['data'] = $nasabah->pluck('saldo');
 
