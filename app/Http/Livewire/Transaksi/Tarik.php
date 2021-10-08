@@ -6,6 +6,7 @@ use App\Nasabah;
 use App\Saldo;
 use App\Setting;
 use App\Transaksi;
+use App\Whatapps;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -90,6 +91,7 @@ class Tarik extends Component
     {
 
 
+
         $this->validate();
 
 
@@ -132,10 +134,10 @@ class Tarik extends Component
 
             DB::commit();
 
-            /*
+
             if ($nasabah->saldo <= $saldoMinimal->isi)
                 $this->whatapps($nasabah);
-                */
+
 
             $this->emit('start');
 
@@ -150,12 +152,13 @@ class Tarik extends Component
     public function whatapps($nasabah)
     {
 
+
+
         $setting = Setting::where('nama', 'saldo_habis')->first();
 
-        $replace = ['{$nama}', '{$saldo}'];
-        $variable = [$nasabah->nama, $nasabah->saldo];
+        $replace = ['{nama}', '{saldo}'];
+        $variable = [$nasabah->nama, number_format($nasabah->saldo, 2, ',', '.')];
         $pesan = str_replace($replace, $variable, $setting->isi);
-
 
         try {
             $response = Http::post('localhost:3000/send', [
@@ -166,9 +169,23 @@ class Tarik extends Component
 
             ]);
 
-            dd($response->json());
+
+
+            $status = $response->ok() ? 'berhasil' : 'gagal';
+
+            Whatapps::create([
+                'nomer' => $nasabah->telepon,
+                'nama' => $nasabah->nama,
+                'status' => $status,
+                'jenis' => 'kirim'
+            ]);
         } catch (\Exception $e) {
-            dd($e);
+            Whatapps::create([
+                'nomer' => $nasabah->telepon,
+                'nama' => $nasabah->nama,
+                'status' => 'gagal',
+                'jenis' => 'kirim'
+            ]);
         }
     }
 

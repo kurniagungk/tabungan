@@ -59,8 +59,9 @@
                                 <th scope="col">No</th>
                                 <th>HP</th>
                                 <th>Nasabah</th>
-                                <th>Tanggal</th>
+                                <th>jenis</th>
                                 <th>Status</th>
+                                <th>Tanggal</th>
                             </tr>
 
                         </thead>
@@ -70,11 +71,12 @@
                                     <td scope="col">{{ $loop->index }}</td>
                                     <td>{{ $data->nomer }}</td>
                                     <td>{{ $data->nama }}</td>
-                                    <td>{{ $data->created_at }}</td>
+                                    <td>{{ $data->jenis }}</td>
                                     <td>
                                         <span
                                             class="badge badge-pill @if ($data->status == 'berhasil')  badge-success  @else badge-danger @endif">{{ $data->status }}</span>
                                     </td>
+                                    <td>{{ $data->created_at }}</td>
                                 </tr>
                             @empty
                                 <tr>

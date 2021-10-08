@@ -11,6 +11,6 @@ class Whatapps extends Model
     protected $table = 'whatapps';
 
     protected $fillable = [
-        'nomer', 'nama', 'status'
+        'nomer', 'nama', 'status', 'jenis'
     ];
 }

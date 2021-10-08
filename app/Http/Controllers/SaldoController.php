@@ -17,6 +17,7 @@ class SaldoController extends Controller
 
         $id  = explode("@", $request->input('no'));
 
+
         $token = $request->input('token');
 
         if ($token != "VGFidW5nYW4gQWxrYWhmaSBTb21hbGFuZ3U=")
@@ -40,7 +41,8 @@ class SaldoController extends Controller
             Whatapps::create([
                 'nomer' => $id[0],
                 'nama' => $nasabah->nama,
-                'status' => 'berhasil'
+                'status' => 'berhasil',
+                'jenis' => 'terima'
             ]);
 
             return response()->json([

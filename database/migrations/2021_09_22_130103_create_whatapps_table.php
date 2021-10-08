@@ -18,6 +18,7 @@ class CreateWhatappsTable extends Migration
             $table->string('nomer', 13);
             $table->string('nama')->nullable();
             $table->enum('status', ['berhasil', 'gagal']);
+            $table->enum('jenis', ['terima', 'kirim']);
             $table->timestamps();
         });
     }
