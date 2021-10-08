@@ -70,10 +70,6 @@ class Edit extends Component
 
         $validatedData = $this->validate([
             'nama' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'date',
-            'alamat' => 'required',
-            'telepon' => 'required',
             'jenis_kelamin' => 'required',
             'pasword' => 'required|min:4|max:6'
 

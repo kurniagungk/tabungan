@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MitraSeeder::class);
         $this->call(SettingTabungan::class);
         $this->call(SaldoSeeder::class);
+        $this->call(WarnaSeeder::class);
     }
 }

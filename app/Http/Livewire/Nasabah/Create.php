@@ -8,6 +8,10 @@ use Livewire\WithFileUploads;
 
 use App\wilayah;
 use App\Nasabah;
+use App\Saldo;
+use App\Transaksi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Create extends Component
 {
@@ -23,6 +27,7 @@ class Create extends Component
     public $jenis_kelamin;
     public $nama_wali;
     public $photo;
+    public $saldo;
     public $photoStatus = false;
     public $pasword = 1234;
     public $card;
@@ -56,11 +61,7 @@ class Create extends Component
 
         $validatedData = $this->validate([
             'nama' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'date',
-            'alamat' => 'required',
             'jenis_kelamin' => 'required',
-            'nama_wali' => 'required',
             'pasword' => 'required|min:4',
             'photo' => 'nullable|image|max:5000|mimes:png,jpeg,bmp,gif',
 
@@ -92,6 +93,41 @@ class Create extends Component
 
 
         $nasabah = Nasabah::create($data);
+
+        if ($this->saldo > 0)
+            try {
+
+                DB::beginTransaction();
+
+                $nasabah->saldo += $this->saldo;
+
+                $nasabah->save();
+
+                $saldo =  $nasabah->transaksi()->create([
+                    'user_id' => Auth::id(),
+                    'debit' => $this->saldo,
+                    'ref' => 'tabungan',
+                    'keterangan' => 'Setor Awal'
+                ]);
+
+                $saldo = Saldo::where('nama', 'tabungan')->first();
+                $saldo->saldo += $this->saldo;
+                $saldo->save();
+
+
+                Transaksi::create([
+                    'debit' => $this->saldo,
+                    'keterangan' => 'tabungan',
+                    'ref' => $saldo->id
+                ]);
+
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                dd($e);
+                return session()->flash('danger', 'Gagal saldo Tunai');
+            }
 
         return redirect()->route('nasabah.show', $nasabah->id);
     }

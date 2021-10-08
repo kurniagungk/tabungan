@@ -43,7 +43,7 @@ class Nasabah extends Model
     {
         static::creating(function ($nasabah) {
             if (!$nasabah->rekening) {
-                $query = Nasabah::first();
+                $query = Nasabah::orderBy('rekening', 'DESC')->first();
                 $rekening = $query?->rekening ? substr($query->rekening, 3)  : 0;
                 $nasabah->rekening = "NSB" . str_pad($rekening + 1, 5, 0, STR_PAD_LEFT);
             }

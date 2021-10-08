@@ -140,6 +140,19 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Saldo</label>
+                        <div class="col-md-9">
+                            <input wire:model="saldo" class="form-control @error('saldo') is-invalid @enderror"
+                                id="text-input" type="number">
+                            @error('saldo')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-md-3 col-form-label">Pas Foto</label>
                         <div class="col-md-9">
                             <input wire:model="photo" type="file" name="foto"

@@ -4,10 +4,10 @@ namespace App\Http\Livewire\Dasbord;
 
 use App\Nasabah;
 use App\Nasabah_transaksi;
-use App\Models\warna;
+use App\Warna;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
+
 
 class Chart extends Component
 {
@@ -30,7 +30,7 @@ class Chart extends Component
 
         $data = [];
 
-        //   $warna = warna::inRandomOrder()->limit(2)->get();
+        $warna = warna::inRandomOrder()->limit(2)->get();
 
         foreach ($transaksi as $tr) {
             $data['labels'][] = $tr->day;
@@ -38,8 +38,8 @@ class Chart extends Component
             $data['data_tarik'][] = $tr->tarik;
         }
 
-        // $data['warna_setor'] = '#' . $warna[0]->code;
-        // $data['warna_tarik'] = '#' . $warna[1]->code;
+        $data['warna_setor'] = '#' . $warna[0]->code;
+        $data['warna_tarik'] = '#' . $warna[1]->code;
 
         return $data;
     }
@@ -51,13 +51,13 @@ class Chart extends Component
         $data['labels'] = $nasabah->pluck('nama');
         $data['data'] = $nasabah->pluck('saldo');
 
-        /*
-        $warna = warna::inRandomOrder()->limit(count($nasabah))->get();
+
+        $warna = Warna::inRandomOrder()->limit(count($nasabah))->get();
 
         foreach ($warna as $s) {
             $data['backgroundColor'][] = '#' . $s->code;
         }
-        */
+
         return $data;
     }
 
