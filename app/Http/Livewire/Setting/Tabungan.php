@@ -15,9 +15,10 @@ class Tabungan extends Component
     {
         $setting = Setting::whereIn('nama', ['biaya_tanggal', 'biaya_admin', 'saldo_minimal', 'saldo_habis'])->get();
 
+
         $this->tanggal = $setting[0]->isi;
-        $this->minimal = $setting[1]->isi;
-        $this->biaya = $setting[2]->isi;
+        $this->biaya = $setting[1]->isi;
+        $this->minimal = $setting[2]->isi;
         $this->habis = $setting[3]->isi;
     }
 
