@@ -96,6 +96,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ request()->is('laporan/biaya') ? 'active' : '' }}"
                     href="{{ route('laporan.biaya') }}">Biaya</a>
+                    <a class="collapse-item {{ request()->is('laporan/transaksi') ? 'active' : '' }}"
+                        href="{{ route('laporan.transaksi') }}">Laporan Transaksi</a>
                 <!-- <h6 class="collapse-header">Custom Components:</h6>
                 <a class="collapse-item" href="laporanumum">Jurnal Umum</a>
                 <a class="collapse-item" href="laporanmitra">Jurnal Mitra</a>

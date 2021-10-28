@@ -26,6 +26,12 @@ class Nasabah_transaksi extends Model
     protected $keyType = 'string';
 
 
+    public function nasabah()
+    {
+        return $this->hasOne(Nasabah::class, 'id', 'nasabah_id');
+    }
+
+
     protected static function booted()
     {
         static::creating(function ($model) {
