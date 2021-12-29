@@ -14,7 +14,7 @@
         <div class="card-body px-5">
 
 
-            <div class="table-responsive-sm">
+            <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
@@ -38,23 +38,23 @@
                         </tr>
 
                         @php
-                            $saldo = $saldoHistori['debit'] - $saldoHistori['credit'];
+                        $saldo = $saldoHistori['debit'] - $saldoHistori['credit'];
                         @endphp
 
                         @foreach ($transaksi->reverse() as $tr)
-                            @php
-                                $saldo += $tr->debit - $tr->credit;
-                            @endphp
+                        @php
+                        $saldo += $tr->debit - $tr->credit;
+                        @endphp
 
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $tr->created_at }}</td>
-                                <td>Rp. {{ number_format($tr->debit, 2, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($tr->credit, 2, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($saldo, 2, ',', '.') }}</td>
-                                <td>{{ $tr->ref }}</td>
-                                <td>{{ $tr->keterangan }}</td>
-                            </tr>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $tr->created_at }}</td>
+                            <td>Rp. {{ number_format($tr->debit, 2, ',', '.') }}</td>
+                            <td>Rp. {{ number_format($tr->credit, 2, ',', '.') }}</td>
+                            <td>Rp. {{ number_format($saldo, 2, ',', '.') }}</td>
+                            <td>{{ $tr->ref }}</td>
+                            <td>{{ $tr->keterangan }}</td>
+                        </tr>
                         @endforeach
 
                         <tr>
