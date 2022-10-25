@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Nasabah;
 
+use App\Exports\NasabahExport;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\Nasabah;
 
@@ -56,6 +58,11 @@ class Index extends Component
     {
         Nasabah::destroy($id);
         session()->flash('pesan', 'Data mitra successfully deleted.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new NasabahExport, 'Nasabah.xlsx');
     }
 
 
