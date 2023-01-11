@@ -57,10 +57,21 @@ class Tarik extends Component
             return $this->addError('nis', 'Nis tidak ditemukan');
         }
 
+        /*
+
+        fungsi non modal password
+         */
+        $this->show();
+
+
+        /*
+
+        fungsi modal password
 
         $this->modal = true;
         $this->nasabah_id = $nasabah->id;
         $this->dispatchBrowserEvent('modal');
+  */
     }
 
 

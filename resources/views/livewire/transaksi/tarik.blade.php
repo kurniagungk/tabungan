@@ -57,9 +57,6 @@
 
     @if ($nasabah)
 
-
-
-
         <div class="row">
             <div class="col-lg-5 col-sm-12">
                 <div class="card shadow mb-4">
