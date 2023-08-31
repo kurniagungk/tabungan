@@ -47,9 +47,11 @@ class Chart extends Component
 
     public function nasabah()
     {
-        $nasabah = Nasabah::orderBy('saldo', 'desc')->take(5)->get();
-        $data['labels'] = $nasabah->pluck('nama');
-        $data['data'] = $nasabah->pluck('saldo');
+        $nasabah = Nasabah::select(DB::raw("tahun, SUM(saldo) as jumlah"))->orderBy('tahun', 'asc')->groupBy("tahun")->get();
+
+
+        $data['labels'] = $nasabah->pluck('tahun');
+        $data['data'] = $nasabah->pluck('jumlah');
 
 
         $warna = Warna::inRandomOrder()->limit(count($nasabah))->get();

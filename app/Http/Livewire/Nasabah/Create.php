@@ -28,6 +28,7 @@ class Create extends Component
     public $nama_wali;
     public $photo;
     public $saldo;
+    public $tahun;
     public $photoStatus = false;
     public $pasword = 1234;
     public $card;
@@ -56,11 +57,12 @@ class Create extends Component
             'tempat_lahir.required'    => 'TEMPAT LAHIR TIDAK BOLEH KOSONG',
             'telepon.required'    => 'NO HP TIDAK BOLEH KOSONG',
             'pasword.required' => 'PASWORD TIDAK BOLEH KOSONG',
-
+            'tahun' => 'PASWORD TIDAK BOLEH KOSONG',
         ];
 
         $validatedData = $this->validate([
             'nama' => 'required',
+            'tahun' => 'required',
             'jenis_kelamin' => 'required',
             'pasword' => 'required|min:4',
             'photo' => 'nullable|image|max:5000|mimes:png,jpeg,bmp,gif',
@@ -87,6 +89,7 @@ class Create extends Component
             'foto' => $photo,
             'password' => $this->pasword,
             'card' => $this->card,
+            'tahun' => $this->tahun,
             'saldo' => 0,
             'wa' => $this->wa,
         );

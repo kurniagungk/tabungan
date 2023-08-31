@@ -23,6 +23,7 @@ class Nasabah extends Model
         'foto',
         'telepon',
         'status',
+        'tahun',
         'password',
         'card',
         'saldo',

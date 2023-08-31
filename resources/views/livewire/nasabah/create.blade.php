@@ -52,8 +52,8 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Alamat</label>
                         <div class="col-md-9">
-                            <textarea wire:model="alamat" class="form-control @error('alamat') is-invalid @enderror"
-                                id="textarea-input" name="alamat" rows="3" placeholder=""></textarea>
+                            <textarea wire:model="alamat" class="form-control @error('alamat') is-invalid @enderror" id="textarea-input"
+                                name="alamat" rows="3" placeholder=""></textarea>
                             @error('alamat')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -124,6 +124,19 @@
                             </div>
                         </div>
                     @endif
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Tahun Masuk</label>
+                        <div class="col-md-9">
+                            <input wire:model="tahun" class="form-control @error('tahun') is-invalid @enderror"
+                                id="text-input" type="month" name="telepon" placeholder="08128888xxxx">
+                            @error('tahun')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
 
 
                     <div class="form-group row">

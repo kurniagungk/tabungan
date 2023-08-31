@@ -28,6 +28,7 @@ class Edit extends Component
     public $photo;
     public $photo_old;
     public $pasword;
+    public $tahun;
     public $wa;
 
     public function mount(Nasabah $nasabah)
@@ -43,6 +44,7 @@ class Edit extends Component
         $this->nasabah_id = $nasabah->id;
         $this->pasword =  $nasabah->password;
         $this->wa =  $nasabah->wa;
+        $this->tahun = $nasabah->tahun . '-01';
     }
 
 
@@ -88,6 +90,7 @@ class Edit extends Component
         $nasabah->telepon = $this->telepon;
         $nasabah->jenis_kelamin = $this->jenis_kelamin;
         $nasabah->wali = $this->wali;
+        $nasabah->tahun = $this->tahun;
         $nasabah->password = $this->pasword;
         $nasabah->wa = $this->wa;
 
