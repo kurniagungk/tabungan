@@ -28,9 +28,8 @@
 
                 const options = {
                     chart: {
-                        type: 'bar',
+                        type: 'line',
                         height: 375,
-                        stacked: true,
 
                     },
                     series: data.chart.series,

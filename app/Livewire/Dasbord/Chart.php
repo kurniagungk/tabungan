@@ -5,7 +5,7 @@ namespace App\Livewire\Dasbord;
 use App\Models\Nasabah;
 
 use App\Models\Nasabah_transaksi;
-use App\Warna;
+use App\Models\Warna;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
