@@ -7,7 +7,6 @@ use App\Models\Setting;
 use App\Models\Whatsapp;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Http;
 
 class Index extends Component

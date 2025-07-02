@@ -5,10 +5,9 @@ namespace App\Livewire\Whatsapp;
 use Mary\Traits\Toast;
 use Livewire\Component;
 use App\Models\WhatsappPesan;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 
-#[Layout('components.layouts.app')]
+
 class Pesan extends Component
 {
 
