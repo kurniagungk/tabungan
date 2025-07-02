@@ -1,0 +1,19 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-BISQ7WFK.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-l0sNRNKZ.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/initTheme.js": {
+    "file": "assets/initTheme-xVdMfH6O.js",
+    "name": "initTheme",
+    "src": "resources/js/initTheme.js",
+    "isEntry": true
+  }
+}

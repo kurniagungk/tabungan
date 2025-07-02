@@ -17,7 +17,7 @@
                 <!-- Card Body -->
                 <div class="card-body px-5">
 
-                    <form wire:submit.prevent="laporan">
+                    <form wire:submit="laporan">
 
                         @if (session()->has('message'))
                             <div class="alert alert-success">
@@ -35,7 +35,7 @@
 
 
                             <div class="input-group-prepend col-sm-12 col-lg-10">
-                                <input type="month" class="form-control" wire:model="tanggal">
+                                <input type="month" class="form-control" wire:model.live="tanggal">
                             </div>
 
                             <div class="input-group-prepend col-sm-12 col-lg-2">

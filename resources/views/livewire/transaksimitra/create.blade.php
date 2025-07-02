@@ -27,13 +27,13 @@
                                 @endif
                             </div>
 
-                            <form wire:submit.prevent="bayar">
+                            <form wire:submit="bayar">
 
                                 <div class="input-group ">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Rp.</span>
                                     </div>
-                                    <input wire:model.lazy="jumlah" id="jumlah" type="number" autofocus class="form-control form-control-user @error('jumlah') is-invalid @enderror">
+                                    <input wire:model.blur="jumlah" id="jumlah" type="number" autofocus class="form-control form-control-user @error('jumlah') is-invalid @enderror">
                                     @error('jumlah')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -57,7 +57,7 @@
                                     <div class="input-group-prepend">
                                         <span wire:click="video" class="input-group-text"><i class="fas fa-user"></i></span>
                                     </div>
-                                    <input value="" wire:model.debounce.500ms="nis" type="text" class="form-control form-control-user @error('nis') is-invalid @enderror" id="nis" placeholder="NIS Santri">
+                                    <input value="" wire:model.live.debounce.500ms="nis" type="text" class="form-control form-control-user @error('nis') is-invalid @enderror" id="nis" placeholder="NIS Santri">
                                     @error('nis')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -77,7 +77,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-12 mb-sm-0">
-                                        <input wire:model="password" type="password" pattern="[0-9]*" inputmode="numeric" id="pin" class="form-control form-control-user @error('password') is-invalid @enderror" placeholder="PIN">
+                                        <input wire:model.live="password" type="password" pattern="[0-9]*" inputmode="numeric" id="pin" class="form-control form-control-user @error('password') is-invalid @enderror" placeholder="PIN">
                                         @error('password')
                                         <div class="invalid-feedback">
                                             {{ $message }}

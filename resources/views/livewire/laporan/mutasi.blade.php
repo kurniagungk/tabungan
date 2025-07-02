@@ -20,9 +20,9 @@
             <!-- Card Body -->
             <div class="card-body">
 
-                <form wire:submit.prevent="cari">
+                <form wire:submit="cari">
                     <div class="input-group">
-                        <input wire:model.lazy="search" autofocus type="text" id="cari" class="form-control " placeholder="Input Nomor Induk...">
+                        <input wire:model.blur="search" autofocus type="text" id="cari" class="form-control " placeholder="Input Nomor Induk...">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="sumbit">
                                 <i class="fas fa-search fa-sm"></i>
@@ -39,7 +39,7 @@
                         <div class="card shadow mb-8">
                             <div class="card-body">
 
-                                <form wire:submit.prevent="filter">
+                                <form wire:submit="filter">
 
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Nama</label>
@@ -49,7 +49,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">periode</label>
                                         <div class="col-sm-4">
-                                            <input wire:model='awal' type="date" class="form-control @error('awal') is-invalid @enderror" id="">
+                                            <input wire:model.live='awal' type="date" class="form-control @error('awal') is-invalid @enderror" id="">
                                             @error('awal')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -57,7 +57,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-sm-4">
-                                            <input wire:model='akhir' type="date" class="form-control @error('akhir') is-invalid @enderror" id="">
+                                            <input wire:model.live='akhir' type="date" class="form-control @error('akhir') is-invalid @enderror" id="">
                                             @error('akhir')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -71,15 +71,15 @@
 
                                         <div class="col-sm-9">
                                             <div class="form-check form-check-inline">
-                                                <input wire:model="jenisTransaksi" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="" checked>
+                                                <input wire:model.live="jenisTransaksi" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="" checked>
                                                 <label class="form-check-label" for="inlineRadio1">Semua</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input wire:model="jenisTransaksi" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="setor">
+                                                <input wire:model.live="jenisTransaksi" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="setor">
                                                 <label class="form-check-label" for="inlineRadio2">Setor</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input wire:model="jenisTransaksi" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="tarik">
+                                                <input wire:model.live="jenisTransaksi" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="tarik">
                                                 <label class="form-check-label" for="inlineRadio3">Tarik</label>
                                             </div>
                                         </div>
@@ -89,7 +89,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">mitra</label>
                                         <div class="col-sm-4">
-                                            <select wire:model='selectMitra' id="inputState" class="form-control">
+                                            <select wire:model.live='selectMitra' id="inputState" class="form-control">
                                                 <option value="">Semua </option>
                                                 @foreach($mitra as $m)
                                                 <option value="{{$m->id}}">{{$m->name}}</option>

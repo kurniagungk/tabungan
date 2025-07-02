@@ -17,7 +17,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">periode</label>
                                 <div class="col-sm-4">
-                                    <input wire:model='awal' type="date" class="form-control @error('awal') is-invalid @enderror" id="">
+                                    <input wire:model.live='awal' type="date" class="form-control @error('awal') is-invalid @enderror" id="">
                                     @error('awal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -25,7 +25,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4">
-                                    <input wire:model='akhir' type="date" class="form-control @error('akhir') is-invalid @enderror" id="">
+                                    <input wire:model.live='akhir' type="date" class="form-control @error('akhir') is-invalid @enderror" id="">
                                     @error('akhir')
                                     <div class="invalid-feedback">
                                         {{ $message }}

@@ -37,7 +37,7 @@
                 <div class="form-group row">
                     <label for="staticEmail2" class="col-sm-2 col-form-label">Mitra</label>
                     <div class="form-group mx-sm-3 mb-2">
-                        <select wire:model="mitraId" id="inputState" class="form-control @error('mitraId') is-invalid @enderror">
+                        <select wire:model.live="mitraId" id="inputState" class="form-control @error('mitraId') is-invalid @enderror">
                             <option value=""> -Pilih Salah Satu- </option>
                             @foreach($mitra as $m)
                             <option value="{{$m->id}}"> {{$m->name}} </option>
@@ -56,7 +56,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Jumlah</label>
                     <div class="form-group mx-sm-3 mb-2">
-                        <input wire:model="jumlah" type="text" class="form-control @error('jumlah') is-invalid @enderror" id="inputPassword2" placeholder="Rp.">
+                        <input wire:model.live="jumlah" type="text" class="form-control @error('jumlah') is-invalid @enderror" id="inputPassword2" placeholder="Rp.">
                     </div>
                     @error('jumlah')
                     <div class="invalid-feedback">
@@ -70,7 +70,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Keterangan</label>
                     <div class="form-group mx-sm-3 mb-2">
-                        <textarea wire:model="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea wire:model.live="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                     @error('keterangan')
                     <div class="invalid-feedback">

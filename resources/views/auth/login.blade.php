@@ -1,73 +1,57 @@
-@extends('layouts.app')
+<x-layout>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <div class="min-h-screen flex items-center justify-center bg-base-200 -mt-30">
+        <div class="w-full max-w-4xl grid grid-cols-1 ">
+            <!-- Left (kosong atau bisa isi hero/image) -->
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+            <!-- Right (form login) -->
+            <div class="flex items-center justify-center ">
+                <div class="w-full max-w-sm">
+
+
+
+                    <form method="POST" action="{{ route('login') }}" class="space-y-4">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">E-mail</legend>
+                            <input type="text" class="input w-full @error('email') input-error @enderror"
+                                type="email" name="email" class="grow" placeholder="your@email.com" required
+                                autofocus />
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            @error('email')
+                                <p class="label text-error">{{ $message }}</p>
+                            @enderror
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        </fieldset>
+
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Password</legend>
+                            <input type="password" class="input w-full" type="password" name="password" class="grow"
+                                required />
+
+                        </fieldset>
+
+
+                        <hr>
+
+
+                        <div class="flex justify-end">
+                            <button class="btn btn-primary ">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 12h14m0 0l-4-4m4 4l-4 4" />
+                                </svg>
+                                Login
+                            </button>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
                     </form>
+
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+</x-layout>

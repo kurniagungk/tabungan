@@ -6,7 +6,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Support\Facades\Hash;
 
-use App\User;
+use App\Models\User;
 
 class UserAndRoleSeeder extends Seeder
 {

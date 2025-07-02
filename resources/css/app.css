@@ -1,5 +1,68 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
-@import '~@fortawesome/fontawesome-free/css/fontawesome';
-@import '~@fortawesome/fontawesome-free/css/regular';
-@import '~@fortawesome/fontawesome-free/css/solid';
-@import '~@fortawesome/fontawesome-free/css/brands';
+/* Tailwind */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";      
+ 
+/* daisyUI */
+@plugin "daisyui" {         
+    themes: light --default, dark --prefersdark, pastel --preferslight;   
+}   
+ 
+/* maryUI */
+@source "../../vendor/robsontenorio/mary/src/View/Components/**/*.php"; 
+ 
+/* Dark theme variant support */
+@custom-variant dark (&:where(.dark, .dark *)); 
+ 
+/* Laravel 12 defaults */
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php"; 
+@source "../../storage/framework/views/*.php"; 
+@source "../**/*.blade.php"; 
+@source "../**/*.js"; 
+@source "../**/*.vue"; 
+ 
+/* Your styles goes here ... */
+/* ... */
+
+.mary-table-pagination {
+
+    button,
+    span {
+        @apply text-xs border-none
+    }
+
+    button {
+        @apply cursor-pointer
+    }
+
+    span[aria-current="page"]>span {
+        @apply bg-base-content/5
+    }
+
+    button, span[aria-current="page"]>span, span[aria-disabled="true"] span {
+        @apply py-1 px-2
+    }
+}
+
+.apexcharts-menu {
+    @apply bg-base-200 text-gray-900 border border-gray-300 rounded-md shadow-lg;
+  }
+  
+  .dark .apexcharts-menu {
+    @apply bg-gray-900 text-gray-100 border-gray-700;
+  }
+  
+  .apexcharts-menu .menu-item {
+    @apply py-1 px-3 cursor-pointer text-gray-900;
+  }
+  
+  .dark .apexcharts-menu .menu-item {
+    @apply text-gray-100;
+  }
+  
+  .apexcharts-menu .menu-item:hover {
+    @apply bg-gray-100;
+  }
+  
+  .dark .apexcharts-menu .menu-item:hover {
+    @apply bg-gray-700 text-white;
+  }

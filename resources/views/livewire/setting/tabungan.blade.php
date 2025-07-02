@@ -1,93 +1,23 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xl col-lg">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h5 class="m-0 font-weight-bold text-primary">Setting Tabungan</h5>
+<x-card title="Setting Tabungan" separator>
+    @if (session()->has('pesan'))
+        <x-alert type="success" class="mb-4">{{ session('pesan') }}</x-alert>
+    @endif
 
-                </div>
+    <form wire:submit.prevent="store" class="space-y-4">
+        <x-input label="Tanggal Pengambilan Biaya Admin" type="number" wire:model.live="tanggal" name="tanggal"
+            :error="$errors->first('tanggal')" />
 
+        <x-input label="Biaya Admin Per Bulan" type="number" wire:model.live="biaya" name="biaya" :error="$errors->first('biaya')" />
 
-                <!-- Card Body -->
-                <div class="card-body">
+        <x-input label="Saldo Minimal" type="number" wire:model.live="minimal" name="minimal" :error="$errors->first('minimal')" />
 
-                    @if (session()->has('pesan'))
-                        <div class="alert alert-success">
-                            {{ session('pesan') }}
-                        </div>
-                    @endif
+        <x-textarea label="WA Saldo Habis" wire:model.live="habis" name="habis" :error="$errors->first('habis')" rows="5" />
 
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Tanggal Pengambilan Biaya Admin</label>
-                        <div class="col-md-9">
-                            <input wire:model="tanggal" class="form-control @error('tanggal') is-invalid @enderror"
-                                type="number" name="tanggal" placeholder=". . ."><span class="help-block"></span>
-                            @error('tanggal')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Biaya Admin Per Bulan</label>
-                        <div class="col-md-9">
-                            <input wire:model="biaya" class="form-control @error('biaya') is-invalid @enderror"
-                                id="text-input" name="biaya" placeholder="biaya admin" type="number">
-                            @error('biaya')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Saldo Minimal</label>
-                        <div class="col-md-9">
-                            <input wire:model="minimal" type="number" type="number"
-                                class="form-control @error('minimal') is-invalid @enderror" id="text-input"
-                                name="tempat_lahir" placeholder="minimal">
-                            @error('minimal')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Wa Saldo Habis</label>
-                        <div class="col-md-9">
-                            <textarea name="" id="" cols="30" rows="10" wire:model="habis"
-                                class="form-control @error('habis') is-invalid @enderror"></textarea>
-                            @error('habis')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-
-
-                </div>
-                <div class="card-footer">
-                    <form class="form-horizontal" wire:submit.prevent="store">
-                        <button class="btn btn-sm btn-success" type="submit"> Simpan</button>
-                        <a href='/nasabah'><button href="nasabah" class="btn btn-sm btn-danger" type="reset">
-                                Cencel</button></a>
-                    </form>
-                </div>
-
-
-
-
-
-
-
-
-            </div>
+        <div class="flex justify-end gap-2 mt-5">
+            <x-button type="submit" color="success" size="sm">Simpan</x-button>
+            <x-button type="reset" color="danger" size="sm" onclick="window.location.href='/nasabah'">
+                Cancel
+            </x-button>
         </div>
-    </div>
-</div>
+    </form>
+</x-card>

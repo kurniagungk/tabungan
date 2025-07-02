@@ -27,12 +27,12 @@
                         <div class="card shadow mb-8">
                             <div class="card-body">
 
-                                <form wire:submit.prevent="filter">
+                                <form wire:submit="filter">
 
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">periode</label>
                                         <div class="col-sm-4">
-                                            <input wire:model='awal' type="date"
+                                            <input wire:model.live='awal' type="date"
                                                 class="form-control @error('awal') is-invalid @enderror" id="">
                                             @error('awal')
                                                 <div class="invalid-feedback">
@@ -41,7 +41,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-sm-4">
-                                            <input wire:model='akhir' type="date"
+                                            <input wire:model.live='akhir' type="date"
                                                 class="form-control @error('akhir') is-invalid @enderror" id="">
                                             @error('akhir')
                                                 <div class="invalid-feedback">
@@ -57,17 +57,17 @@
 
                                         <div class="col-sm-10">
                                             <div class="form-check form-check-inline">
-                                                <input wire:model="jenisTransaksi" class="form-check-input" type="radio"
+                                                <input wire:model.live="jenisTransaksi" class="form-check-input" type="radio"
                                                     name="inlineRadioOptions" id="inlineRadio1" value="" checked>
                                                 <label class="form-check-label" for="inlineRadio1">Semua</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input wire:model="jenisTransaksi" class="form-check-input" type="radio"
+                                                <input wire:model.live="jenisTransaksi" class="form-check-input" type="radio"
                                                     name="inlineRadioOptions" id="inlineRadio2" value="setor">
                                                 <label class="form-check-label" for="inlineRadio2">Setor</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input wire:model="jenisTransaksi" class="form-check-input" type="radio"
+                                                <input wire:model.live="jenisTransaksi" class="form-check-input" type="radio"
                                                     name="inlineRadioOptions" id="inlineRadio3" value="tarik">
                                                 <label class="form-check-label" for="inlineRadio3">Tarik</label>
                                             </div>
@@ -78,7 +78,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">mitra</label>
                                         <div class="col-sm-4">
-                                            <select wire:model='selectMitra' id="inputState" class="form-control">
+                                            <select wire:model.live='selectMitra' id="inputState" class="form-control">
                                                 <option value="">Semua </option>
                                                 @foreach ($mitra as $m)
                                                     <option value="{{ $m->id }}">{{ $m->name }}</option>

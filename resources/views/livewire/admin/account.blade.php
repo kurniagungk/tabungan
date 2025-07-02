@@ -20,7 +20,7 @@
             <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
                 <!--   -->
-                <input wire:model="name" type="text" class="form-control form-control-user  @error('name') is-invalid @enderror">
+                <input wire:model.live="name" type="text" class="form-control form-control-user  @error('name') is-invalid @enderror">
                 @error('name')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -33,7 +33,7 @@
             <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
                 <!--   -->
-                <input wire:model="email" type="text" class="form-control  @error('email') is-invalid @enderror">
+                <input wire:model.live="email" type="text" class="form-control  @error('email') is-invalid @enderror">
                 @error('email')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -47,7 +47,7 @@
             <label for="staticEmail" class="col-sm-2 col-form-label  ">Old Password</label>
             <div class="col-sm-10">
                 <!--  -->
-                <input wire:model="OldPassword" autocomplete="off" type="Password" class="form-control @error('OldPassword') is-invalid @enderror">
+                <input wire:model.live="OldPassword" autocomplete="off" type="Password" class="form-control @error('OldPassword') is-invalid @enderror">
                 @error('OldPassword')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -62,7 +62,7 @@
             <label for="staticEmail" class="col-sm-2 col-form-label  ">New Password</label>
             <div class="col-sm-10">
                 <!--   -->
-                <input wire:model="NewPassword" type="Password" class="form-control @error('NewPassword') is-invalid @enderror">
+                <input wire:model.live="NewPassword" type="Password" class="form-control @error('NewPassword') is-invalid @enderror">
                 @error('NewPassword')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -77,7 +77,7 @@
             <label for="staticEmail" class="col-sm-2 col-form-label">Verify New Password</label>
             <div class="col-sm-10">
                 <!--  -->
-                <input wire:model="NewPasswordVerifikasi" autocomplete="off" type="Password" class="form-control  @error('NewPasswordVerifikasi') is-invalid @enderror">
+                <input wire:model.live="NewPasswordVerifikasi" autocomplete="off" type="Password" class="form-control  @error('NewPasswordVerifikasi') is-invalid @enderror">
                 @error('NewPasswordVerifikasi')
                 <div class="invalid-feedback">
                     {{ $message }}

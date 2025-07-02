@@ -2,7 +2,8 @@
 
 namespace App\Exports;
 
-use App\Nasabah;
+use App\Models\Nasabah;
+
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;

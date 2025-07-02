@@ -19,13 +19,13 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <form wire:submit.prevent="store">
+                <form wire:submit="store">
                     <div class="form-group row">
 
 
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                            <input wire:model="nama" type="text" class="form-control @error('nama') is-invalid @enderror">
+                            <input wire:model.live="nama" type="text" class="form-control @error('nama') is-invalid @enderror">
                         </div>
                         @error('nama')
                         <div class="invalid-feedback">
@@ -37,7 +37,7 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input wire:model="email" type="email" class="form-control @error('email') is-invalid @enderror">
+                            <input wire:model.live="email" type="email" class="form-control @error('email') is-invalid @enderror">
                         </div>
                         @error('email')
                         <div class="invalid-feedback">
@@ -48,7 +48,7 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                            <input wire:model="password" type="password" class="form-control @error('password') is-invalid @enderror">
+                            <input wire:model.live="password" type="password" class="form-control @error('password') is-invalid @enderror">
                         </div>
                         @error('password')
                         <div class="invalid-feedback">
@@ -60,7 +60,7 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Confirm Password</label>
                         <div class="col-sm-10">
-                            <input wire:model="repassword" type="password" class="form-control @error('repassword') is-invalid @enderror">
+                            <input wire:model.live="repassword" type="password" class="form-control @error('repassword') is-invalid @enderror">
                         </div>
                         @error('repassword')
                         <div class="invalid-feedback">

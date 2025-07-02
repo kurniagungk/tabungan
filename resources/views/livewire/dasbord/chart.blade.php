@@ -1,200 +1,109 @@
-<div class="row">
-    <!-- Area Chart -->
-    <div class="col-xl-12 col-lg-12">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Chart Saldo</h6>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                </div>
+<div class="mt-10">
+
+    <x-card title="Grafik Transaksi Nasabah" shadow separator>
+        <div class="flex justify-center h-96 mt-5" wire:ignore>
+
+            <div id="loading" class="flex justify-center h-96 ">
+                <x-loading class="loading-infinity loading-xl" />
             </div>
-            <!-- Card Body -->
-            <div class="card-body" style="position: relative; height:50vh; width:80vw">
-                <div class="chart-pie pt-4 pb-2">
-                    <div class="chartjs-size-monitor">
-                        <div class="chartjs-size-monitor-expand">
-                            <div class=""></div>
-                        </div>
-                        <div class="chartjs-size-monitor-shrink">
-                            <div class=""></div>
-                        </div>
-                    </div>
-                    <canvas id="nasabah" style=" height:40vh; width:80vw"></canvas>
-                </div>
-            </div>
+            <div id="chart" class="w-full hidden"></div>
         </div>
-    </div>
+    </x-card>
 
 
-    <div class="col-xl-12 col-lg-12">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Chart Transaksi</h6>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                </div>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body" style="position: relative; height:50vh; width:80vw">
-                <div class="chart-area">
-                    <div class="chartjs-size-monitor">
-                        <div class="chartjs-size-monitor-expand">
-                            <div class=""></div>
-                        </div>
-                        <div class="chartjs-size-monitor-shrink">
-                            <div class=""></div>
-                        </div>
-                    </div>
-                    <canvas id="myAreaChart" class="chartjs-render-monitor" style="height:40vh; width:80vw"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Pie Chart -->
 
 </div>
 
 
+@script
+    <script>
+        document.addEventListener('livewire:initialized', () => {
 
-<script>
-    document.addEventListener('livewire:load', function() {
+            $wire.transaksi();
 
-        let transaksi = [];
+            $wire.on('chart-transaksi', (data) => {
 
+                const options = {
+                    chart: {
+                        type: 'bar',
+                        height: 375,
+                        stacked: true,
 
-        @this.transaksi()
-            .then((data) => {
-
-                var labaChart = document.getElementById('myAreaChart');
-
-                var myChartLaba = new Chart(labaChart, {
-                    type: 'bar',
-                    data: {
-                        labels: data['labels'],
-                        datasets: [
-
-                            {
-                                type: 'line',
-                                label: 'Setor',
-                                id: "y-axis-0",
-                                data: data['data_setor'],
-                                borderColor: data['warna_setor'],
-                                tension: 0.1
-                            },
-                            {
-                                type: 'line',
-                                label: 'Tarik',
-                                id: "y-axis-0",
-                                data: data['data_tarik'],
-                                borderColor: data['warna_tarik'],
-                                tension: 0.1
-                            }
-
-
-                        ]
                     },
-                    options: {
-
-                        tooltips: {
-                            mode: 'label'
+                    series: data.chart.series,
+                    xaxis: {
+                        categories: data.chart.labels
+                    },
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: true,
+                            delay: 300
                         },
-                        responsive: true,
-                        scales: {
-                            xAxes: [{
-                                stacked: true
-                            }],
-                            yAxes: [{
-
-                                    ticks: {
-                                        callback: function(value, index, values) {
-                                            return value.toLocaleString("id-ID", {
-                                                style: "currency",
-                                                currency: "IDR"
-                                            });
-                                        }
-                                    },
-
-                                    stacked: true,
-                                    position: "left",
-                                    id: "y-axis-0",
-                                },
-
-
-
-                            ]
+                        dynamicAnimation: {
+                            enabled: true,
+                            speed: 350
                         }
-                    }
-
-
-
-                });
-
-
-
-            })
-
-
-
-
-
-
-
-
-        @this.nasabah()
-            .then((data) => {
-
-                var nasabahChart = document.getElementById('nasabah');
-
-                nasabah = new Chart(nasabahChart, {
-                    type: 'bar',
-                    data: {
-                        labels: data['labels'],
-                        datasets: [{
-                            label: 'Saldo Tahun Masuk',
-                            data: data['data'],
-                            borderWidth: 1,
-                            backgroundColor: data['backgroundColor'],
-                        }]
                     },
-                    options: {
 
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    callback: function(value, index, values) {
-                                        return value.toLocaleString("id-ID", {
-                                            style: "currency",
-                                            currency: "IDR"
-                                        });
-                                    }
-                                }
-                            }]
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+                        style: {
+                            fontSize: '14px',
+                            fontFamily: 'Inter, sans-serif',
+                        },
+                        custom: function({
+                            series,
+                            dataPointIndex,
+                            w
+                        }) {
+                            const date = w.globals.categoryLabels[dataPointIndex];
+                            const seriesNames = w.globals.seriesNames;
+
+                            // Ambil nilai Setor dan Tarik dari index masing-masing series
+                            const setor = series[0][dataPointIndex] ?? 0;
+                            const tarik = series[1][dataPointIndex] ?? 0;
+
+                            return `
+                        <div class="
+                          p-3 
+                            text-gray-800 text-sm w-56
+                            bg-base-100
+                            dark:bg-base-300
+                       
+                        ">
+                            <div class="flex justify-between">
+                                <span class=" font-semibold text-success">${seriesNames[0]} Tunai</span>
+                                <span class=" font-semibold text-success">Rp${setor.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class=" font-semibold text-error">${seriesNames[1]} Tunai</span>
+                                <span class=" font-semibold text-error">Rp${tarik.toLocaleString('id-ID')}</span>
+                            </div>
+                        </div>
+            `;
                         }
-                    }
+                    },
+                    stroke: {
+                        curve: 'smooth'
+                    },
 
+                };
+                let loading = document.getElementById('loading');
+                loading.classList.add('hidden');
+                let chart = document.getElementById('chart');
+                chart.classList.remove('hidden');
 
-                });
-
-
-
+                var chartApex = new ApexCharts(chart, options);
+                chartApex.render();
             });
 
-
-
-
-
-
-
-
-
-    })
-</script>
+        })
+    </script>
+@endscript

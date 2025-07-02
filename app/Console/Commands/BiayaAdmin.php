@@ -3,10 +3,12 @@
 namespace App\Console\Commands;
 
 use App\Biaya;
-use App\Nasabah;
-use App\Saldo;
-use App\Setting;
-use App\Transaksi;
+
+use App\Models\Nasabah;
+
+use App\Models\Saldo;
+use App\Models\Setting;
+use App\Models\Transaksi;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

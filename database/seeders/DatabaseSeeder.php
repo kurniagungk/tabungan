@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Saldo;
+use App\Models\Saldo;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

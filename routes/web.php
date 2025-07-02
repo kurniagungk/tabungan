@@ -142,24 +142,25 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['role:admin']], function () {
 
-    Route::get('/nasabah/{nasabah}/show', \App\Http\Livewire\Nasabah\Show::class)->name('nasabah.show');
-    Route::get('/nasabah', \App\Http\Livewire\Nasabah\Index::class)->name('nasabah.index');
-    Route::get('/nasabah/{nasabah}/edit', \App\Http\Livewire\Nasabah\Edit::class)->name('nasabah.edit');
-    Route::get('/nasabah/create', \App\Http\Livewire\Nasabah\Create::class)->name('nasabah.create');
-    Route::get('/nasabah/import', \App\Http\Livewire\Nasabah\Import::class)->name('nasabah.import');
+    Route::get('/nasabah/{nasabah}/show', \App\Livewire\Nasabah\Show::class)->name('nasabah.show');
+    Route::get('/nasabah', \App\Livewire\Nasabah\Index::class)->name('nasabah.index');
+    Route::get('/nasabah/{nasabah}/edit', \App\Livewire\Nasabah\Edit::class)->name('nasabah.edit');
+    Route::get('/nasabah/create', \App\Livewire\Nasabah\Create::class)->name('nasabah.create');
+    Route::get('/nasabah/import', \App\Livewire\Nasabah\Import::class)->name('nasabah.import');
 
 
-    Route::get('/setting/tabungan', \App\Http\Livewire\Setting\Tabungan::class)->name('setting.tabungan');
+    Route::get('/setting', \App\Livewire\Setting\Tabungan::class)->name('setting.tabungan');
 
 
-    Route::get('/transaksi/setor', \App\Http\Livewire\Transaksi\Setor::class)->name('transaksi.setor');
-    Route::get('/transaksi/tarik', \App\Http\Livewire\Transaksi\Tarik::class)->name('transaksi.tarik');
+    Route::get('/transaksi/setor', \App\Livewire\Transaksi\Setor::class)->name('transaksi.setor');
+    Route::get('/transaksi/tarik', \App\Livewire\Transaksi\Tarik::class)->name('transaksi.tarik');
 
-    Route::get('/laporan/biaya', \App\Http\Livewire\Laporan\Biaya::class)->name('laporan.biaya');
-    Route::get('/laporan/transaksi', \App\Http\Livewire\Laporan\Transaksi::class)->name('laporan.transaksi');
+    Route::get('/laporan/biaya', \App\Livewire\Laporan\Biaya::class)->name('laporan.biaya');
+    Route::get('/laporan/transaksi', \App\Livewire\Laporan\Transaksi::class)->name('laporan.transaksi');
 
-    Route::get('/home', \App\Http\Livewire\Dasbord\Index::class)->name('home');
-    Route::get('/whatapps', \App\Http\Livewire\Whatapps\Index::class)->name('wa');
+    Route::get('/home', \App\Livewire\Dasbord\Index::class)->name('home');
+    Route::get('/whatapps', \App\Livewire\Whatsapp\Index::class)->name('whatsapp');
+    Route::get('/whatapps/pesan', \App\Livewire\Whatsapp\Pesan::class)->name('whatsapp.pesan');
 });
 
 Auth::routes([

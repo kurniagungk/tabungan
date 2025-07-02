@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Nasabah;
-use App\Setting;
+use App\Models\Nasabah;
+
+use App\Models\Setting;
 use App\Whatapps;
 use Illuminate\Http\Request;
 

@@ -1,74 +1,66 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-5 col-sm-12">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Nasabah</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body px-5">
+<div class="grid grid-cols-1 md:grid-cols-8 gap-5">
+    <x-card title="Detail" shadow class="col-span-5">
+        <img src="{{ asset('storage/' . $nasabah->foto) }}" class=" h-50 rounded-lg mx-auto" />
+        <div class="mx-5 my-10 space-y-2">
+            <div class="flex">
+                <h3 class="w-40 font-bold">NAMA</h3>
+                <h3>: {{ $nasabah->nama }}</h3>
+            </div>
+            <div class="flex">
+                <h3 class="w-40 font-bold">NISN</h3>
+                <h3>: {{ $nasabah->nisn }}</h3>
+            </div>
+            <div class="flex">
+                <h3 class="w-40 font-bold">REKENING</h3>
+                <h3>: {{ $nasabah->rekening }}</h3>
+            </div>
+            <div class="flex">
+                <h3 class="w-40 font-bold">TANGGAL LAHIR</h3>
+                <h3>: {{ $nasabah->tanggal_lahir }}</h3>
+            </div>
+            <div class="flex">
+                <h3 class="w-40 font-bold">TEMPAT LAHIR</h3>
+                <h3>: {{ $nasabah->tempat_lahir }}</h3>
+            </div>
+            <div class="flex">
+                <h3 class="w-40 font-bold">ALAMAT</h3>
+                <h3>: {{ $nasabah->alamat }}</h3>
+            </div>
 
-                    <div class="d-flex justify-content-center overflow-hidden mb-3 ">
-                        <img src="https://inwepo.co/wp-content/uploads/2020/03/Tampilkan-token.jpg" alt=""
-                            style="height:200px; width: 200px" class="rounded mx-auto border">
-                    </div>
-
-
-
-                    <form wire:submit.prevent="save">
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Nis</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext"
-                                    value="{{ $nasabah->rekening }}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Nama</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext"
-                                    value="{{ $nasabah->nama }}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Saldo</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext"
-                                    value="{{ $nasabah->saldo }}">
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a type="button" class="bbtn btn-primary btn-lg btn-block"
-                                    href="{{ route('nasabah.index') }}">Nasabah</a>
-                            </div>
-                            <div class="col-sm-6">
-                                <a type="button" class="bbtn btn-success btn-lg btn-block"
-                                    href="{{ route('nasabah.create') }}">Tambah Nasabah
-                                </a>
-                            </div>
-
-
-
-                        </div>
-
-                    </form>
-
-
-
-
-
-
-                </div>
-
-
-
+            <div class="flex">
+                <h3 class="w-40 font-bold">JENIS KELAMIN</h3>
+                <h3>: {{ $nasabah->jenis_kelamin }}</h3>
+            </div>
+            <div class="flex">
+                <h3 class="w-40 font-bold">WALI</h3>
+                <h3>: {{ $nasabah->wali }}</h3>
+            </div>
+            <div class="flex">
+                <h3 class="w-40 font-bold">TELEPON</h3>
+                <h3>: {{ $nasabah->telepon }}</h3>
+            </div>
+            <div class="flex">
+                <h3 class="w-40 font-bold">STATUS</h3>
+                <h3>: {{ $nasabah->status }}</h3>
+            </div>
+            <div class="flex">
+                <h3 class="w-40 font-bold">TAHUN</h3>
+                <h3>: {{ $nasabah->tahun }}</h3>
             </div>
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3">
+            <x-button label="Data Nasabah" class="btn-primary w-full" link="/nasabah" />
+            <x-button label="Tambah Nasabah Baru" class="btn-warning w-full" link="/nasabah/create" />
+        </div>
 
+        @if ($errors->any())
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
 
-    </div>
+    </x-card>
+
 </div>
