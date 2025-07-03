@@ -31,17 +31,20 @@ class userSeeder extends Seeder
         $role1->givePermissionTo('bank');
         $role1->givePermissionTo('mitra');
 
-        $role2 = Role::create(['name' => 'mitra']);
-        $role2->givePermissionTo('mitra');
+        //      $role2 = Role::create(['name' => 'mitra']);
+        //    $role2->givePermissionTo('mitra');
+
+        $role2 = Role::create(['name' => 'petugas']);
+        $role2->givePermissionTo('bank');
 
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
         $user = User::create([
             'name' => 'Tabungan',
-            'email' => 'kacang@admin.com',
+            'email' => 'admin@admin.com',
             'saldo' => 0,
-            'password' => Hash::make('kacang879'),
+            'password' => bcrypt(str()->random(8))
         ]);
         $user->assignRole($role1);
         $user->assignRole($role2);
@@ -50,7 +53,7 @@ class userSeeder extends Seeder
             'name' => 'Waserda',
             'email' => 'waserda@admin.com',
             'saldo' => 0,
-            'password' => Hash::make('admin'),
+            'password' => bcrypt(str()->random(8))
         ]);
 
         $user->assignRole($role2);

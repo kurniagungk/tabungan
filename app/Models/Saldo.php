@@ -16,4 +16,14 @@ class Saldo extends Model
         'nama',
         'jumlah',
     ];
+
+    public function nasabah()
+    {
+        return $this->hasMany(Nasabah::class);
+    }
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }

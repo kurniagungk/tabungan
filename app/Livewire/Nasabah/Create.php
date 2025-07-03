@@ -6,9 +6,11 @@ use App\Models\Saldo;
 
 use App\Models\Nasabah;
 
-use App\Models\Transaksi;
 use Livewire\Component;
+use App\Models\Whatsapp;
+use App\Models\Transaksi;
 use Illuminate\Support\Str;
+use App\Models\WhatsappPesan;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +33,7 @@ class Create extends Component
     public $nama_wali;
     public $photo;
     public $saldo;
+    public $saldo_id;
     public $tahun;
     public $photoStatus = false;
     public $pasword = 1234;
@@ -46,11 +49,18 @@ class Create extends Component
         ]);
 
         $this->photoUrl = null;
+        $this->tahun = date('Y');
     }
 
 
     public function store()
     {
+
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+        if (!$admin) {
+            $this->saldo_id = $user->saldo_id;
+        }
 
         $messages = [
             'nis.required'    => 'NIS TIDAK BOLEH KOSONG',
@@ -69,6 +79,7 @@ class Create extends Component
         $validatedData = $this->validate([
             'nama' => 'required',
             'tahun' => 'required',
+            'saldo_id' => 'required',
             'jenis_kelamin' => 'required',
             'pasword' => 'required|min:4',
             'jenis_kelamin' => 'required',
@@ -92,6 +103,8 @@ class Create extends Component
 
         try {
 
+
+
             DB::beginTransaction();
 
             $data = array(
@@ -109,6 +122,7 @@ class Create extends Component
                 'card' => $this->card,
                 'tahun' => $this->tahun,
                 'saldo' => 0,
+                'saldo_id' => $this->saldo_id,
                 'wa' => $this->wa,
             );
 
@@ -120,14 +134,14 @@ class Create extends Component
 
                 $nasabah->save();
 
-                $saldo =  $nasabah->transaksi()->create([
+                $setor =  $nasabah->transaksi()->create([
                     'user_id' => Auth::id(),
                     'debit' => $this->saldo,
                     'ref' => 'tabungan',
                     'keterangan' => 'Setor Awal'
                 ]);
 
-                $saldo = Saldo::where('nama', 'tabungan')->first();
+                $saldo = Saldo::where('id', $this->saldo_id)->first();
                 $saldo->saldo += $this->saldo;
                 $saldo->save();
 
@@ -135,18 +149,16 @@ class Create extends Component
                 Transaksi::create([
                     'debit' => $this->saldo,
                     'keterangan' => 'tabungan',
-                    'ref' => $saldo->id
+                    'ref' => $setor->id
                 ]);
             }
 
-
-
-
-
-
-
-
             DB::commit();
+
+            $pesan = WhatsappPesan::where('jenis', 'setor')->first();
+
+            if ($nasabah->wa &&  $pesan->status == 'aktif' && $nasabah->saldo > 0)
+                $this->whatapps($nasabah, $setor);
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e);
@@ -154,6 +166,33 @@ class Create extends Component
         }
 
         return redirect()->route('nasabah.show', $nasabah->id);
+    }
+
+    public function whatapps($nasabah, $transaksi)
+    {
+
+
+
+        $wa = WhatsappPesan::where('jenis', 'setor')->first();
+
+        if (!$wa || $wa->status == "tidak")
+            return;
+
+        $replace = ['{nama}', '{saldo}', '{jumlah}', '{tanggal}'];
+        $variable = [
+            $nasabah->nama,
+            'Rp. ' . number_format($nasabah->saldo, 2, ',', '.'),
+            'Rp. ' . number_format($this->setor, 2, ',', '.'),
+            date('d-m-Y H:i', strtotime($transaksi->created_at))
+
+        ];
+        $pesan = str_replace($replace, $variable, $wa->pesan);
+
+        Whatsapp::create([
+            'nasabah_id' => $nasabah->id,
+            'pesan' => $pesan,
+            'status' => 'pending'
+        ]);
     }
 
     public function updatedfoto()
@@ -227,6 +266,11 @@ class Create extends Component
             ['id' => 'tidak', 'name' => 'Tidak',]
         ];
 
-        return view('livewire.nasabah.create', compact('jenis_kelamins', 'waSelect'));
+        $dataSaldo = Saldo::all()->prepend((object)[
+            'id' => '',
+            'nama' => 'Pilih Saldo'
+        ]);
+
+        return view('livewire.nasabah.create', compact('jenis_kelamins', 'waSelect', 'dataSaldo'));
     }
 }

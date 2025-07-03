@@ -33,6 +33,10 @@
 
         <x-input prefix="Rp." label="Saldo" type="number" wire:model="saldo" />
 
+        @role('admin')
+            <x-select label="Saldo" wire:model="saldo_id" :options="$dataSaldo" option-value="id" option-label="nama" />
+        @endrole
+
         @if ($photoUrl != null)
             <div wire:key="api">
                 <x-file wire:model="photo" accept="image/png, image/jpeg" class="flex justify-center">

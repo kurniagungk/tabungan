@@ -20,7 +20,8 @@
 
 @script
     <script>
-        document.addEventListener('livewire:initialized', () => {
+        document.addEventListener('livewire:navigated', () => {
+            console.log(123)
 
             $wire.transaksi();
 
@@ -70,23 +71,23 @@
                             const tarik = series[1][dataPointIndex] ?? 0;
 
                             return `
-                        <div class="
-                          p-3 
-                            text-gray-800 text-sm w-56
-                            bg-base-100
-                            dark:bg-base-300
-                       
-                        ">
-                            <div class="flex justify-between">
-                                <span class=" font-semibold text-success">${seriesNames[0]} Tunai</span>
-                                <span class=" font-semibold text-success">Rp${setor.toLocaleString('id-ID')}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class=" font-semibold text-error">${seriesNames[1]} Tunai</span>
-                                <span class=" font-semibold text-error">Rp${tarik.toLocaleString('id-ID')}</span>
-                            </div>
-                        </div>
-            `;
+            <div class="
+              p-3 
+                text-gray-800 text-sm w-56
+                bg-base-100
+                dark:bg-base-300
+           
+            ">
+                <div class="flex justify-between">
+                    <span class=" font-semibold text-success">${seriesNames[0]} Tunai</span>
+                    <span class=" font-semibold text-success">Rp${setor.toLocaleString('id-ID')}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class=" font-semibold text-error">${seriesNames[1]} Tunai</span>
+                    <span class=" font-semibold text-error">Rp${tarik.toLocaleString('id-ID')}</span>
+                </div>
+            </div>
+`;
                         }
                     },
                     stroke: {
@@ -102,7 +103,8 @@
                 var chartApex = new ApexCharts(chart, options);
                 chartApex.render();
             });
-
+        }, {
+            once: true
         })
     </script>
 @endscript

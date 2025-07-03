@@ -23,7 +23,6 @@
 
         @scope('actions', $nasabah)
             <div class="flex gap-2">
-                <x-button icon="o-trash" wire:click="delete('{{ $nasabah->id }}')" spinner class="btn-sm btn-error" />
                 <x-button icon="o-pencil" link="/nasabah/{{ $nasabah->id }}/edit" class="btn-sm btn-warning" />
             </div>
         @endscope

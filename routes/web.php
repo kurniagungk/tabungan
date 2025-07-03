@@ -140,13 +140,18 @@ Route::get('/', function () {
         return view('auth.login');
 });
 
-Route::group(['middleware' => ['role:admin']], function () {
+Route::group(['middleware' => ['role:admin|petugas']], function () {
 
     Route::get('/nasabah/{nasabah}/show', \App\Livewire\Nasabah\Show::class)->name('nasabah.show');
     Route::get('/nasabah', \App\Livewire\Nasabah\Index::class)->name('nasabah.index');
     Route::get('/nasabah/{nasabah}/edit', \App\Livewire\Nasabah\Edit::class)->name('nasabah.edit');
     Route::get('/nasabah/create', \App\Livewire\Nasabah\Create::class)->name('nasabah.create');
     Route::get('/nasabah/import', \App\Livewire\Nasabah\Import::class)->name('nasabah.import');
+
+    Route::get('/user/{id}/edit', \App\Livewire\User\Edit::class)->name('user.edit');
+    Route::get('/user/create', \App\Livewire\User\Create::class)->name('user.create');
+    Route::get('/user', \App\Livewire\User\Index::class)->name('user');
+    Route::get('/saldo', \App\Livewire\Saldo\Index::class)->name('saldo');
 
 
     Route::get('/setting', \App\Livewire\Setting\Tabungan::class)->name('setting.tabungan');

@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Dasbord;
 
-use App\Models\Nasabah;
+use App\Models\User;
 
-use App\Models\Nasabah_transaksi;
+use App\Models\Saldo;
 use App\Models\Warna;
+use App\Models\Nasabah;
 use Livewire\Component;
+use App\Models\Nasabah_transaksi;
 use Illuminate\Support\Facades\DB;
 
 
@@ -19,12 +21,19 @@ class Chart extends Component
 
     public function transaksi()
     {
+
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+        $saldo = User::select("id", "saldo_id")->where('saldo_id', $user->saldo_id)->get();
         $akhir = date('Y-m-d', strtotime('+1 days'));
         $awal = date('Y-m-d', strtotime('-30 days'));
 
         $transaksi = Nasabah_transaksi::select(DB::raw('sum(debit) as setor, sum(credit) as tarik, date(created_at) as day'))
             ->whereBetween('updated_at', [$awal, $akhir])
             ->groupBy('day')
+            ->when(!$admin, function ($query) use ($saldo) {
+                return $query->whereIn('user_id', $saldo->pluck('id'));
+            })
             ->orderBy('day')
             ->get();
 

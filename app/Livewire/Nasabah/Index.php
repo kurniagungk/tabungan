@@ -7,6 +7,7 @@ use App\Models\Nasabah;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Exports\NasabahExport;
+use App\Models\Saldo;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -62,6 +63,8 @@ class Index extends Component
             ['key' => 'alamat', 'label' => 'Alamat'],
             ['key' => 'saldo', 'label' => 'Saldo'],
         ];
+
+
 
         return view('livewire.nasabah.index', compact("nasabah", "headers"));
     }

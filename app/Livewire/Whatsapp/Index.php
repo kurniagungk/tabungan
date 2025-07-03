@@ -13,7 +13,6 @@ class Index extends Component
 {
     use WithPagination;
 
-
     public $perPage = 10;
     public $status;
     public $qr;
@@ -22,7 +21,7 @@ class Index extends Component
     public $whatsappUrl;
     public $whatsappKey;
 
-    #[Layout('components.layouts.app')]
+
     public function mount()
     {
 

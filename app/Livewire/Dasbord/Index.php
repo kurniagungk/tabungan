@@ -11,17 +11,28 @@ class Index extends Component
     public function render()
     {
 
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+
         $akhir = date("Y-m-d");
         $awal = date('Y-m-d', strtotime('-30' . ' days'));
 
-        $saldo = Nasabah::sum('saldo');
+        $saldo = Nasabah::when(!$admin, function ($query) use ($user) {
+            return $query->where('saldo_id', $user->saldo_id);
+        })->sum('saldo');
 
-        $aktif = Nasabah::where('status', 'aktif')->sum('saldo');
-        $tidak = Nasabah::where('status', 'tidak')->sum('saldo');
+        $aktif = Nasabah::when(!$admin, function ($query) use ($user) {
+            return $query->where('saldo_id', $user->saldo_id);
+        })->where('status', 'aktif')->sum('saldo');
+        $tidak = Nasabah::when(!$admin, function ($query) use ($user) {
+            return $query->where('saldo_id', $user->saldo_id);
+        })->where('status', 'tidak')->sum('saldo');
 
 
 
-        $nasabah = Nasabah::count();
+        $nasabah = Nasabah::when(!$admin, function ($query) use ($user) {
+            return $query->where('saldo_id', $user->saldo_id);
+        })->count();
 
 
 

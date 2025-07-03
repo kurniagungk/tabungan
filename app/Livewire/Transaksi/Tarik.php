@@ -67,9 +67,15 @@ class Tarik extends Component
     public function find()
     {
         $this->reset('nasabah');
+
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+
         $rekening =  substr($this->rekening, 0, 3) == 'NSB' ||  substr($this->rekening, 0, 3) == 'nsb'  ? $this->rekening : 'NSB' . $this->rekening;
 
-        $nasabah =  Nasabah::where('rekening', $rekening)->where('status', 'aktif')->first();
+        $nasabah =  Nasabah::when(!$admin, function ($query) use ($user) {
+            return $query->where('saldo_id', $user->saldo_id);
+        })->where('rekening', $rekening)->where('status', 'aktif')->first();
 
         if (!$nasabah) {
             $this->reset('nasabah');
@@ -125,7 +131,7 @@ class Tarik extends Component
             ]);
 
             // Kunci baris saldo agar aman dari race condition
-            $saldo = Saldo::where('nama', 'tabungan')->lockForUpdate()->first();
+            $saldo = Saldo::where('id', $nasabah->saldo_id)->lockForUpdate()->first();
             $saldo->saldo -= $this->tarik;
             $saldo->save();
 

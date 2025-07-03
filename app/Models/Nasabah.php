@@ -13,6 +13,7 @@ class Nasabah extends Model
     protected $fillable = [
         'id',
         'rekening',
+        'saldo_id',
         'nisn',
         'nama',
         'tanggal_lahir',
