@@ -151,10 +151,10 @@ Route::group(['middleware' => ['role:admin|petugas']], function () {
     Route::get('/user/{id}/edit', \App\Livewire\User\Edit::class)->name('user.edit');
     Route::get('/user/create', \App\Livewire\User\Create::class)->name('user.create');
     Route::get('/user', \App\Livewire\User\Index::class)->name('user');
-    Route::get('/saldo', \App\Livewire\Saldo\Index::class)->name('saldo');
 
 
-    Route::get('/setting', \App\Livewire\Setting\Tabungan::class)->name('setting.tabungan');
+
+
 
 
     Route::get('/transaksi/setor', \App\Livewire\Transaksi\Setor::class)->name('transaksi.setor');
@@ -167,6 +167,15 @@ Route::group(['middleware' => ['role:admin|petugas']], function () {
     Route::get('/whatapps', \App\Livewire\Whatsapp\Index::class)->name('whatsapp');
     Route::get('/whatapps/pesan', \App\Livewire\Whatsapp\Pesan::class)->name('whatsapp.pesan');
 });
+
+
+Route::group(
+    ['middleware' => ['role:admin|petugas']],
+    function () {
+        Route::get('/setting', \App\Livewire\Setting\Tabungan::class)->name('setting.tabungan');
+        Route::get('/saldo', \App\Livewire\Saldo\Index::class)->name('saldo');
+    }
+);
 
 Auth::routes([
     'register' => false, // Registration Routes...

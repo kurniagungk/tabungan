@@ -1,6 +1,6 @@
 <div>
 
-    <x-card title="Form Data Pengguna" shadow separator>
+    <x-card title="Data Lembaga" shadow separator>
         <x-table :headers="$headers" :rows="$saldo" with-pagination per-page="perPage" :per-page-values="[3, 5, 10]">
             @scope('actions', $saldo)
                 <div class="flex gap-2">
@@ -18,7 +18,7 @@
 
     </x-card>
 
-    <x-modal wire:model="modal" title="Form Data Saldo" @close="$wire.closeModal()">
+    <x-modal wire:model="modal" title="Form Data Lembaga" @close="$wire.closeModal()">
 
         <x-input label="nama" icon="o-user" wire:model="nama" />
 

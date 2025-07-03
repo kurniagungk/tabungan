@@ -26,17 +26,33 @@ class Create extends Component
     #[Validate('required|numeric')]
     public $saldo_id = null;
 
+    #[Validate('required|numeric')]
+    public $role_id = null;
+
     public function simpan()
     {
 
+
+
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+
+        if (!$admin) {
+            $this->saldo_id = $user->saldo_id;
+            $this->role_id = Role::where('name', 'petugas')->first()->id;
+        }
+
+
         $this->validate();
 
-        User::create([
+        $save =   User::create([
             'name' => $this->name,
             'email' => $this->email,
             'password' => bcrypt($this->password),
             'saldo_id' => $this->saldo_id,
         ]);
+
+        $save->assignRole($this->role_id);
 
         $this->toast(
             type: 'success',
@@ -58,7 +74,10 @@ class Create extends Component
             'nama' => 'Pilih Saldo'
         ]);
 
-        $role = Role::all();
+        $role = Role::all()->prepend((object)[
+            'id' => '',
+            'nama' => 'Pilih Saldo'
+        ]);
 
         return view('livewire.user.create', compact('saldo', 'role'));
     }

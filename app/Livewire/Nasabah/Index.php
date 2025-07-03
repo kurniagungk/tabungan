@@ -49,7 +49,14 @@ class Index extends Component
 
     public function render()
     {
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+
+
         $nasabah = Nasabah::where('nama', 'like', '%' . $this->search . '%')
+            ->when(!$admin, function ($query) use ($user) {
+                return $query->where('saldo_id', $user->saldo_id);
+            })
             ->orWhere('rekening', 'like', '%' . $this->search . '%')
             ->orWhere('alamat', 'like', '%' . $this->search . '%')
             ->orderBy(...array_values($this->sortBy))

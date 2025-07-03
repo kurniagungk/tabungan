@@ -34,7 +34,14 @@ class Index extends Component
 
     public function render()
     {
-        $users = User::with('saldo:id,nama')->paginate($this->perPage);
+
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+
+
+        $users = User::when(!$admin, function ($query) use ($user) {
+            return $query->where('saldo_id', $user->saldo_id);
+        })->with('saldo:id,nama')->paginate($this->perPage);
 
         $headers = [
             ['key' => 'name', 'label' => 'Nama'],

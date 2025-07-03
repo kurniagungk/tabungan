@@ -4,8 +4,10 @@
             <x-input label="Name" wire:model.defer="name" />
             <x-input label="Email" type="email" wire:model.defer="email" />
             <x-input label="Password" type="password" wire:model.defer="password" />
-            <x-select label="Saldo" wire:model="role_id" :options="$role" />
-            <x-select label="Saldo" wire:model="saldo_id" :options="$saldo" option-value="id" option-label="nama" />
+            @role('admin')
+                <x-select label="Role" wire:model="role_id" :options="$role" />
+                <x-select label="Saldo" wire:model="saldo_id" :options="$saldo" option-value="id" option-label="nama" />
+            @endrole
         </div>
 
         <div class="mt-6">

@@ -34,7 +34,7 @@
         <x-input prefix="Rp." label="Saldo" type="number" wire:model="saldo" />
 
         @role('admin')
-            <x-select label="Saldo" wire:model="saldo_id" :options="$dataSaldo" option-value="id" option-label="nama" />
+            <x-select label="Lembaga" wire:model="saldo_id" :options="$dataSaldo" option-value="id" option-label="nama" />
         @endrole
 
         @if ($photoUrl != null)

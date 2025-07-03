@@ -80,7 +80,13 @@
 
                     </x-menu-sub>
 
-                    <x-menu-item title="Setting" icon="s-cog-8-tooth" link="/setting" />
+
+                    <x-menu-item title="User" icon="s-user-plus" link="/user" />
+
+                    @role('admin')
+                        <x-menu-item title="Setting" icon="s-cog-8-tooth" link="/setting" />
+                        <x-menu-item title="Lembaga" icon="s-building-library" link="/saldo" />
+                    @endrole
 
 
 
