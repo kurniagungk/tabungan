@@ -27,7 +27,15 @@ class Transaksi extends Component
 
         $this->transaksi = null;
 
-        $transaksi = Nasabah_transaksi::whereBetween('created_at', [$this->dari . ' 00:00:00', $this->sampai . ' 23:59:59'])->with('nasabah')->get();
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+
+        $transaksi = Nasabah_transaksi::whereBetween('created_at', [$this->dari . ' 00:00:00', $this->sampai . ' 23:59:59'])
+            ->withWhereHas('nasabah', function ($query) use ($user, $admin) {
+                $query->select('id', 'rekening', 'nama', 'saldo_id')->when(!$admin, function ($query) use ($user) {
+                    $query->where('saldo_id', $user->saldo_id);
+                });
+            })->get();
 
         $this->transaksi = $transaksi;
         $this->show = true;

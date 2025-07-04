@@ -5,9 +5,7 @@ namespace App\Livewire\Nasabah;
 use App\Models\Nasabah;
 
 use Livewire\Component;
-use Livewire\Attributes\Layout;
 
-#[Layout('components.layouts.app')]
 class Show extends Component
 {
 

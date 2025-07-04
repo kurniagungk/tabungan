@@ -10,7 +10,8 @@
 
 
 
-        <x-input label="Telepon" wire:model="telepon" type="number" />
+
+        <x-input label="No Hp (Whatsapp)" wire:model="telepon" type="number" prefix="+62" />
 
         <x-select label="Jenis Kelamin" wire:model="jenis_kelamin" :options="$jenis_kelamins" icon="o-user" />
 
@@ -33,6 +34,6 @@
         <x-textarea label="Alamat" wire:model="alamat" placeholder="Here ..." hint="Max 1000 chars" rows="5" />
 
     </div>
+    <div class="flex justify-end"> <x-button label="Save" wire:click="update" class="btn-primary" spinner /></div>
 
-    <x-button label="Save" wire:click="update" class="btn-primary" />
 </x-card>

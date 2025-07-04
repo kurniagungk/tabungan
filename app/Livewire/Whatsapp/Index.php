@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Whatsapp;
 
-use App\Models\Setting;
+use App\Models\Saldo;
 
-use App\Models\Whatsapp;
+use App\Models\Setting;
 use Livewire\Component;
+use App\Models\Whatsapp;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Http;
 
@@ -20,15 +21,29 @@ class Index extends Component
     public $server = true;
     public $whatsappUrl;
     public $whatsappKey;
+    public $whatsappSession;
+    public $saldo_id;
+
+
 
 
     public function mount()
     {
 
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+        if (!$admin) {
+
+            $saldo = Saldo::where('id', $user->saldo_id)->first();
+
+            $this->whatsappSession = $saldo->nama;
+            $this->saldo_id = $user->saldo_id;
+        }
+
+
         $this->whatsappUrl = Env('WHATSAPP_API_URL');
         $this->whatsappKey = Env('WHATSAPP_API_KEY');
 
-        $this->findSesion();
         $setting = Setting::where('nama', 'whatsapp_api')->first();
 
         if ($setting->isi == 0)
@@ -36,6 +51,15 @@ class Index extends Component
         else
             $this->status = true;
     }
+
+    public function updatedSaldoId()
+    {
+        $saldo = Saldo::find($this->saldo_id);
+        $this->whatsappSession = $saldo->nama;
+        $this->qr = null;
+        $this->dispatch('qr');
+    }
+
 
     public function updatedStatus()
     {
@@ -56,7 +80,7 @@ class Index extends Component
                 'Content-Type' => 'application/json',
                 'x-api-key' => $this->whatsappKey
             ]
-        )->delete($this->whatsappUrl . '/sessions/tabungan');
+        )->delete($this->whatsappUrl . '/sessions/' . $this->whatsappSession);
 
         $this->sesion = false;
     }
@@ -71,14 +95,14 @@ class Index extends Component
                     'Content-Type' => 'application/json',
                     'x-api-key' => $this->whatsappKey
                 ]
-            )->get($this->whatsappUrl . '/sessions/tabungan');
+            )->get($this->whatsappUrl . '/sessions/' . $this->whatsappSession);
+
 
 
             $this->server = true;
 
 
             if (isset($sesion->json()['error'])) {
-
                 $this->createSession();
             } else {
                 $this->statusSession();
@@ -97,9 +121,8 @@ class Index extends Component
                 'x-api-key' => $this->whatsappKey
             ]
         )->post($this->whatsappUrl . '/sessions/add', [
-            'sessionId' => 'tabungan',
+            'sessionId' => $this->whatsappSession,
         ]);
-
 
 
         if (isset($create->json()['qr']))
@@ -113,7 +136,7 @@ class Index extends Component
                 'Content-Type' => 'application/json',
                 'x-api-key' => $this->whatsappKey
             ]
-        )->get($this->whatsappUrl . '/sessions/tabungan/status');
+        )->get($this->whatsappUrl . '/sessions/' . $this->whatsappSession . '/status');
 
 
 
@@ -143,8 +166,14 @@ class Index extends Component
     public function render()
     {
 
-        $pesan = Whatsapp::orderBy('created_at', 'desc')->paginate(10);
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
 
+        $pesan = Whatsapp::withWhereHas('nasabah', function ($query) use ($user, $admin) {
+            $query->select('id', 'nama', 'saldo_id')->when(!$admin, function ($query) use ($user) {
+                $query->where('saldo_id', $user->saldo_id);
+            });
+        })->orderBy('created_at', 'desc')->paginate(10);
 
         $headers = [
             ['key' => 'nasabah.nama', 'label' => 'Nasabah'],
@@ -152,6 +181,11 @@ class Index extends Component
             ['key' => 'created_at', 'label' => ' tanggal']
         ];
 
-        return view('livewire.whatsapp.index', compact('pesan', 'headers'));
+        $dataSaldo = Saldo::all()->prepend((object)[
+            'id' => '',
+            'nama' => 'Pilih Saldo'
+        ]);
+
+        return view('livewire.whatsapp.index', compact('pesan', 'headers', 'dataSaldo'));
     }
 }

@@ -1,4 +1,4 @@
-<x-card title="Your stats" shadow separator>
+<x-card title="Data Nasabah" shadow separator>
     <div>
         <x-button label="tambah data" class="btn-primary" icon="o-plus" link="/nasabah/create" />
         <x-button label="Export Data" class="btn-success" icon="s-arrow-down-on-square-stack" wire:click="export" />

@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Nasabah;
 
+use Mary\Traits\Toast;
 use App\Models\Nasabah;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -13,6 +14,7 @@ class Edit extends Component
 {
 
     use WithFileUploads;
+    use Toast;
 
     public $nasabah_id;
     public $nama;
@@ -108,9 +110,16 @@ class Edit extends Component
 
         $nasabah->save();
 
-
-        session()->flash('pesan', 'Data Nasabah successfully edite.');
-        return redirect()->route('nasabah.index');
+        $this->toast(
+            type: 'success',
+            title: 'Berhasil Mengubah Data Nasabah',
+            description: null,                  // optional (text)
+            position: 'toast-top toast-end',    // optional (daisyUI classes)
+            icon: 'o-information-circle',       // Optional (any icon)
+            css: 'alert-info',                  // Optional (daisyUI classes)
+            timeout: 3000,                      // optional (ms)
+            redirectTo: Route('nasabah.index')                    // optional (uri)
+        );
     }
 
     public function render()

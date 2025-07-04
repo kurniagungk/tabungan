@@ -8,7 +8,7 @@
                 <x-input wire:model="sampai" type="date" />
             </div>
             <div class="grid content-end ">
-                <x-button icon="o-magnifying-glass" label="Lihat" class="btn-primary" wire:click="laporan" />
+                <x-button icon="o-magnifying-glass" label="Lihat" class="btn-primary" wire:click="laporan" spinner />
             </div>
         </div>
     </x-card>
@@ -26,16 +26,18 @@
                             <th colspan="7">{{ $dari }} - {{ $sampai }}</th>
                         </tr>
                         <tr>
-                            <th colspan="2">Total Tarik</th>
-                            <th colspan="6">{{ $transaksi->sum('credit') }}</th>
+                            <th colspan="2">Total Setor</th>
+                            <th colspan="6">{{ Number::currency($transaksi->sum('debit'), 'Rp.') }}</th>
                         </tr>
                         <tr>
-                            <th colspan="2">Total Setor</th>
-                            <th colspan="6">{{ $transaksi->sum('debit') }}</th>
+                            <th colspan="2">Total Tarik</th>
+                            <th colspan="6">{{ Number::currency($transaksi->sum('credit'), 'Rp.') }}</th>
                         </tr>
+
                         <tr>
                             <th colspan="2">Total</th>
-                            <th colspan="6">{{ $transaksi->sum('debit') - $transaksi->sum('credit') }}</th>
+                            <th colspan="6">
+                                {{ Number::currency($transaksi->sum('debit') - $transaksi->sum('credit'), 'Rp.') }}</th>
                         </tr>
                         <tr>
                             <th colspan="9"></th>
@@ -61,9 +63,9 @@
                                 <td>{{ $tr->created_at }}</td>
                                 <td>{{ $tr->nasabah->rekening }}</td>
                                 <td>{{ $tr->nasabah->nama }}</td>
-                                <td>{{ $tr->credit }}</td>
-                                <td>{{ $tr->debit }}</td>
-                                <td>{{ $jumlah }}</td>
+                                <td>{{ Number::currency($tr->credit, 'Rp.') }}</td>
+                                <td>{{ Number::currency($tr->debit, 'Rp.') }}</td>
+                                <td>{{ Number::currency($jumlah, 'Rp.') }}</td>
                                 <td>{{ $tr->keterangan }}</td>
                             </tr>
                         @endforeach

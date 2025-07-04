@@ -4,8 +4,9 @@ namespace App\Livewire\Nasabah;
 
 use App\Models\Saldo;
 
-use App\Models\Nasabah;
+use Mary\Traits\Toast;
 
+use App\Models\Nasabah;
 use Livewire\Component;
 use App\Models\Whatsapp;
 use App\Models\Transaksi;
@@ -22,6 +23,7 @@ class Create extends Component
 {
 
     use WithFileUploads;
+    use Toast;
 
     public $nisn;
     public $nama;
@@ -159,13 +161,31 @@ class Create extends Component
 
             if ($nasabah->wa &&  $pesan->status == 'aktif' && $nasabah->saldo > 0)
                 $this->whatapps($nasabah, $setor);
+
+            $this->toast(
+                type: 'success',
+                title: 'Berhasil Menambahkan Data Nasabah',
+                description: null,                  // optional (text)
+                position: 'toast-top toast-end',    // optional (daisyUI classes)
+                icon: 'o-information-circle',       // Optional (any icon)
+                css: 'alert-info',                  // Optional (daisyUI classes)
+                timeout: 3000,                      // optional (ms)
+                redirectTo: Route('nasabah.show', $nasabah->id)                    // optional (uri)
+            );
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e);
-            return session()->flash('danger', 'Gagal saldo Tunai');
-        }
 
-        return redirect()->route('nasabah.show', $nasabah->id);
+            $this->toast(
+                type: 'error',
+                title: 'Gagal Menambahkan Data',
+                description: null,                  // optional (text)
+                position: 'toast-top toast-end',    // optional (daisyUI classes)
+                icon: 'o-information-circle',       // Optional (any icon)
+                css: 'alert-info',                  // Optional (daisyUI classes)
+                timeout: 3000,                      // optional (ms)
+                redirectTo: Route('nasabah.show', $nasabah->id)                    // optional (uri)
+            );
+        }
     }
 
     public function whatapps($nasabah, $transaksi)

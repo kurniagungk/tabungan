@@ -53,12 +53,14 @@ class Index extends Component
         $admin = $user->hasRole('admin');
 
 
-        $nasabah = Nasabah::where('nama', 'like', '%' . $this->search . '%')
-            ->when(!$admin, function ($query) use ($user) {
-                return $query->where('saldo_id', $user->saldo_id);
+        $nasabah = Nasabah::when(!$admin, function ($query) use ($user) {
+            $query->where('saldo_id', $user->saldo_id);
+        })
+            ->where(function ($query) {
+                $query->where('nama', 'like', '%' . $this->search . '%')
+                    ->orWhere('rekening', 'like', '%' . $this->search . '%')
+                    ->orWhere('alamat', 'like', '%' . $this->search . '%');
             })
-            ->orWhere('rekening', 'like', '%' . $this->search . '%')
-            ->orWhere('alamat', 'like', '%' . $this->search . '%')
             ->orderBy(...array_values($this->sortBy))
             ->paginate($this->perPage);
 

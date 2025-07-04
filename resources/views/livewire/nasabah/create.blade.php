@@ -15,7 +15,7 @@
 
 
 
-        <x-input label="Telepon" wire:model="telepon" type="number" />
+        <x-input label="No Hp (Whatsapp)" wire:model="telepon" type="number" prefix="+62"/>
 
         <x-select label="Jenis Kelamin" wire:model="jenis_kelamin" :options="$jenis_kelamins" icon="o-user" />
 
@@ -55,5 +55,5 @@
 
     </div>
 
-    <x-button label="Save" wire:click="store" class="btn-primary" />
+    <div class="flex justify-end"> <x-button label="Save" wire:click="store" class="btn-primary" spinner /></div>
 </x-card>

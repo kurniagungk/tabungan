@@ -1,9 +1,14 @@
-<div class="grid grid-cols-1 md:grid-cols-5 gap-5">
-    <x-card title="Whatapps" shadow separator class="col-span-1 md:col-span-2">
+<div class="grid grid-cols-1 md:grid-cols-5 gap-5 -mt-2">
+    <x-card title="Whatsapp api" shadow separator class="col-span-1 md:col-span-2">
+
+        @role('admin')
+            <x-select label="Lembaga" wire:model.live="saldo_id" :options="$dataSaldo" option-value="id" option-label="nama" />
+        @endrole
+
         @if ($server)
             <div class="">
                 <div>
-                    <label class="label">Status</label>
+                    <label class="label mt-5">Status</label>
                     <label class="cursor-pointer label justify-start gap-3">
                         <input type="checkbox" class="toggle toggle-success" wire:model.live="status">
                         <span class="label-text">Aktifkan WhatsApp Session</span>
@@ -26,10 +31,14 @@
                     @endif
                 </div>
 
-                @if ($status)
+                @if ($status && $qr)
                     <div class="flex justify-center items-center mt-5">
                         <img src="{{ $qr }}" alt="QR Code"
                             class="rounded-lg shadow-lg w-72 border border-base-300">
+                    </div>
+                @else
+                    <div id="loading" class="flex justify-center h-96 ">
+                        <x-loading class="loading-infinity loading-xl" />
                     </div>
                 @endif
 
@@ -85,25 +94,38 @@
 
 @script
     <script>
-        let status = $wire.status
-        console.log(status);
-        if (status) {
+        document.addEventListener('livewire:navigated', () => {
+            $wire.findSesion();
 
-            let count = 3;
-            const interval = setInterval(() => {
-                if (count < 2) {
-                    $wire.findSesion();
-                    count++;
-                } else {
-                    clearInterval(interval); // stop pengulangan
-                }
-            }, 30000); // setiap 30 detik
+            $wire.on('qr', () => {
+                $wire.findSesion();
+            })
+
+            let status = $wire.status
+
+            console.log(status);
+            if (status) {
+
+                let count = 0;
+                const interval = setInterval(() => {
+                    if (count < 2) {
+                        $wire.findSesion();
+                        count++;
+                    } else {
+                        clearInterval(interval); // stop pengulangan
+                        $wire.$set('qr', null);
+                    }
+                }, 55000); // setiap 30 detik
 
 
-        } else {
-            setInterval(() => {
-                $wire.findSesion()
-            }, 30000)
-        }
+            } else {
+                setInterval(() => {
+                    $wire.findSesion()
+                }, 30000)
+            }
+
+        }, {
+            once: true
+        });
     </script>
 @endscript
