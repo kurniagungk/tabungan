@@ -16,15 +16,16 @@ class PesanWhatsapp extends Seeder
         $templates = [
             [
                 'kode' => 'tarik',
-                'pesan' => "📤 *Tarik Tunai Berhasil*\n\nNama: {nama}  \nJumlah: {jumlah}",
+                'pesan' => "📤 *Tarik Tunai Berhasil*\n\nNama: {nama}  \nJumlah: {jumlah}  \nTanggal: {tanggal}  \n💰 Sisa Saldo: {saldo}\n\nSilakan konfirmasi jika ada yang tidak sesuai.",
                 'status' => 'aktif',
             ],
             [
                 'kode' => 'setor',
-                'pesan' => "📥 *Setor Tunai Berhasil*\n\nNama: {nama}  \nJumlah: {jumlah}",
+                'pesan' => "📥 *Setor Tunai Berhasil*\n\nNama: {nama}  \nJumlah: {jumlah}  \nTanggal: {tanggal}  \n💰 Sisa Saldo: {saldo}\n\nSilakan konfirmasi jika ada yang tidak sesuai.",
                 'status' => 'aktif',
             ],
         ];
+
 
         foreach ($templates as $template) {
             WhatsappPesan::firstOrCreate(
