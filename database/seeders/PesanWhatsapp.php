@@ -15,12 +15,12 @@ class PesanWhatsapp extends Seeder
     {
         $templates = [
             [
-                'kode' => 'tarik',
+                'jenis' => 'tarik',
                 'pesan' => "📤 *Tarik Tunai Berhasil*\n\nNama: {nama}  \nJumlah: {jumlah}  \nTanggal: {tanggal}  \n💰 Sisa Saldo: {saldo}\n\nSilakan konfirmasi jika ada yang tidak sesuai.",
                 'status' => 'aktif',
             ],
             [
-                'kode' => 'setor',
+                'jenis' => 'setor',
                 'pesan' => "📥 *Setor Tunai Berhasil*\n\nNama: {nama}  \nJumlah: {jumlah}  \nTanggal: {tanggal}  \n💰 Sisa Saldo: {saldo}\n\nSilakan konfirmasi jika ada yang tidak sesuai.",
                 'status' => 'aktif',
             ],
