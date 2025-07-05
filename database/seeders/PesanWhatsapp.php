@@ -29,7 +29,7 @@ class PesanWhatsapp extends Seeder
 
         foreach ($templates as $template) {
             WhatsappPesan::firstOrCreate(
-                ['jenis' => $template['kode']], // cek berdasarkan kode
+                ['jenis' => $template['jenis']], // cek berdasarkan kode
                 [
                     'pesan' => $template['pesan'],
                     'status' => $template['status'],
