@@ -13,6 +13,7 @@ class Setting extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'saldo_id',
         'nama',
         'isi',
     ];

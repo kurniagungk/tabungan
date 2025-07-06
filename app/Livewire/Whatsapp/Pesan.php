@@ -22,11 +22,24 @@ class Pesan extends Component
     #[Validate('required')]
     public $status_setor;
 
+    public $saldo_id;
+
 
     public function mount()
     {
-        $tarik = WhatsappPesan::where('jenis', 'tarik')->first();
-        $setor = WhatsappPesan::where('jenis', 'setor')->first();
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+
+        $saldo_id = null;
+
+        if (!$admin) {
+            $saldo_id = $user->saldo_id;
+        }
+
+        $this->saldo_id = $saldo_id;
+
+        $tarik = WhatsappPesan::where('saldo_id', $saldo_id)->where('jenis', 'tarik')->first();
+        $setor = WhatsappPesan::where('saldo_id', $saldo_id)->where('jenis', 'setor')->first();
 
         $this->pesan_tarik = $tarik->pesan;
         $this->pesan_setor = $setor->pesan;
@@ -38,8 +51,10 @@ class Pesan extends Component
     {
         $this->validate();
 
-        $tarik = WhatsappPesan::where('jenis', 'tarik')->first();
-        $setor = WhatsappPesan::where('jenis', 'setor')->first();
+        $saldo_id = $this->saldo_id;
+
+        $tarik = WhatsappPesan::where('saldo_id', $saldo_id)->where('jenis', 'tarik')->first();
+        $setor = WhatsappPesan::where('saldo_id', $saldo_id)->where('jenis', 'setor')->first();
         $tarik->pesan = $this->pesan_tarik;
         $tarik->status = $this->status_tarik;
         $setor->pesan = $this->pesan_setor;

@@ -144,8 +144,9 @@ class Tarik extends Component
             DB::commit();
 
             $pesan = WhatsappPesan::where('jenis', 'tarik')->first();
+            $setting = Setting::where('nama', 'whatsapp_api')->first();
 
-            if ($nasabah->wa &&  $pesan->status == 'aktif')
+            if ($nasabah->wa &&  $pesan->status == 'aktif' && $setting->isi == 1)
                 $this->whatapps($nasabah, $tarik);
 
             $this->reset('transaksi', 'nasabah', 'tarik', 'sisa', 'rekening', 'keterangan',  'modal', 'nasabah_id', 'password');

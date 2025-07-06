@@ -3,13 +3,18 @@
 namespace App\Livewire\Saldo;
 
 use App\Models\Saldo;
+use Mary\Traits\Toast;
+use App\Models\Setting;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\WhatsappPesan;
+use Illuminate\Support\Facades\DB;
 
 class Index extends Component
 {
 
     use WithPagination;
+    use Toast;
 
     public $modal = false;
     public $saldoId;
@@ -30,12 +35,63 @@ class Index extends Component
 
     public function save()
     {
-        $saldo = Saldo::find($this->saldoId);
-        if (!$saldo) {
-            $saldo = new Saldo();
+
+        $this->validate([
+            'nama' => 'required',
+        ]);
+
+
+
+        try {
+            DB::beginTransaction();
+
+            $saldo = Saldo::find($this->saldoId);
+            if (!$saldo) {
+                $saldo = new Saldo();
+            }
+            $saldo->nama = $this->nama;
+            $saldo->save();
+
+            // Gunakan saldo yang sudah disimpan
+            $defaultSettings = Setting::whereNull('saldo_id')->get();
+
+            foreach ($defaultSettings as $default) {
+                Setting::create([
+                    'saldo_id' => $saldo->id, // gunakan $saldo, bukan $s
+                    'nama' => $default->nama,
+                    'isi' => $default->isi,
+                ]);
+            }
+
+            $defaultPesan = WhatsappPesan::whereNull('saldo_id')->get();
+
+            foreach ($defaultPesan as $pesan) {
+                WhatsappPesan::create([
+                    'saldo_id' => $saldo->id, // gunakan $saldo, bukan $s
+                    'pesan' => $pesan->pesan,
+                    'jenis' => $pesan->jenis,
+                    'status' => $pesan->status,
+                ]);
+            }
+
+            DB::commit();
+
+            $this->success(
+                'Berhasil Menambahkan Lembaga',
+                timeout: 5000,
+                position: 'toast-top toast-end'
+            );
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->error(
+                'Gagal Menambahkan Lembaga',
+                timeout: 5000,
+                position: 'toast-top toast-end'
+            );
         }
-        $saldo->nama = $this->nama;
-        $saldo->save();
+
+
+
         $this->modal = false;
         $this->reset('nama', 'saldoId');
     }

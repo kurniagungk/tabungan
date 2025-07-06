@@ -3,11 +3,12 @@
 namespace App\Livewire\Transaksi;
 
 use App\Models\Saldo;
+use Mary\Traits\Toast;
 use App\Models\Nasabah;
+use App\Models\Setting;
+use Livewire\Component;
 use App\Models\Whatsapp;
 use App\Models\Transaksi;
-use Mary\Traits\Toast;
-use Livewire\Component;
 use App\Models\WhatsappPesan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -162,8 +163,9 @@ class Setor extends Component
             DB::commit();
 
             $pesan = WhatsappPesan::where('jenis', 'setor')->first();
+            $setting = Setting::where('nama', 'whatsapp_api')->first();
 
-            if ($nasabah->wa &&  $pesan->status == 'aktif')
+            if ($nasabah->wa &&  $pesan->status == 'aktif' && $setting->isi == 1)
                 $this->whatapps($nasabah, $setor);
 
             $this->reset('transaksi', 'nasabah', 'setor', 'sisa', 'rekening', 'keterangan',  'modal', 'nasabah_id', 'password');

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Setting;
 
+use Mary\Traits\Toast;
 use App\Models\Setting;
 use Livewire\Component;
 
@@ -9,11 +10,25 @@ use Livewire\Component;
 class Tabungan extends Component
 {
 
-    public $tanggal, $biaya, $minimal, $habis;
+    use Toast;
+
+    public $tanggal, $biaya, $minimal, $habis, $saldo_id;
 
     public function mount()
     {
-        $setting = Setting::whereIn('nama', ['biaya_tanggal', 'biaya_admin', 'saldo_minimal', 'saldo_habis'])->get();
+
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+
+        $saldo_id = null;
+
+        if (!$admin) {
+            $saldo_id = $user->saldo_id;
+        }
+
+        $this->saldo_id = $saldo_id;
+
+        $setting = Setting::whereIn('nama', ['biaya_tanggal', 'biaya_admin', 'saldo_minimal', 'saldo_habis'])->where('saldo_id', $saldo_id)->get();
 
 
         $this->tanggal = $setting[0]->isi;
@@ -30,12 +45,18 @@ class Tabungan extends Component
             'minimal' => 'required|min:1',
         ]);
 
-        Setting::where("nama", "biaya_tanggal")->update(["isi" => $this->tanggal]);
-        Setting::where("nama", "biaya_admin")->update(["isi" => $this->biaya]);
-        Setting::where("nama", "saldo_minimal")->update(["isi" => $this->minimal]);
-        Setting::where("nama", "saldo_habis")->update(["isi" => $this->habis]);
+        $saldo_id = $this->saldo_id;
 
-        session()->flash('pesan', 'Setting berhasil disimpan');
+        Setting::where('saldo_id', $saldo_id)->where("nama", "biaya_tanggal")->update(["isi" => $this->tanggal]);
+        Setting::where('saldo_id', $saldo_id)->where("nama", "biaya_admin")->update(["isi" => $this->biaya]);
+        Setting::where('saldo_id', $saldo_id)->where("nama", "saldo_minimal")->update(["isi" => $this->minimal]);
+        Setting::where('saldo_id', $saldo_id)->where("nama", "saldo_habis")->update(["isi" => $this->habis]);
+
+        $this->success(
+            'Setting berhasil disimpan',
+            timeout: 5000,
+            position: 'toast-top toast-end'
+        );
     }
 
     public function render()

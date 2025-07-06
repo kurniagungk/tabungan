@@ -11,6 +11,7 @@ class WhatsappPesan extends Model
     protected $table = 'whatsapp_pesan';
 
     protected $fillable = [
+        'saldo_id',
         'jenis',
         'pesan',
         'status',

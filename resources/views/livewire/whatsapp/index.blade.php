@@ -5,7 +5,7 @@
             <x-select label="Lembaga" wire:model.live="saldo_id" :options="$dataSaldo" option-value="id" option-label="nama" />
         @endrole
 
-        @if ($server)
+        @if ($server && $saldo_id)
             <div class="">
                 <div>
                     <label class="label mt-5">Status</label>
@@ -13,46 +13,49 @@
                         <input type="checkbox" class="toggle toggle-success" wire:model.live="status">
                         <span class="label-text">Aktifkan WhatsApp Session</span>
                     </label>
+                </div>
 
-                    @if ($status)
-                        <div class="mt-6 space-y-3">
-                            <h4 class="text-lg font-semibold">To use WhatsApp on your computer:</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                <li>Open WhatsApp on your phone</li>
-                                <li>
-                                    Tap <strong>Menu</strong> or <strong>Settings</strong> and select <strong>Linked
-                                        Devices</strong>
-                                </li>
-                                <li>Point your phone to this screen to capture the code</li>
-                            </ul>
+                @if ($status)
+                    <div class="mt-6 space-y-3">
+                        <h4 class="text-lg font-semibold">To use WhatsApp on your computer:</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>Open WhatsApp on your phone</li>
+                            <li>
+                                Tap <strong>Menu</strong> or <strong>Settings</strong> and select <strong>Linked
+                                    Devices</strong>
+                            </li>
+                            <li>Point your phone to this screen to capture the code</li>
+                        </ul>
 
+
+                    </div>
+
+
+
+                    @if ($qr)
+                        <div class="flex justify-center items-center mt-5">
+                            <img src="{{ $qr }}" alt="QR Code"
+                                class="rounded-lg shadow-lg w-72 border border-base-300">
+                        </div>
+
+
+                        <div class="flex  items-center">
+                            <x-button label=" refresh QR" wire:click="findSesion"
+                                class="btn btn-error btn-sm mt-4 mx-auto" spinner />
+                        </div>
+                    @else
+                        <div id="loading" class="flex justify-center h-96 ">
+                            <x-loading class="loading-infinity loading-xl" />
+                        </div>
+                    @endif
+
+                    @if ($sesion)
+                        <div class="flex  items-center">
+                            <x-button label="Ganti Nomor" wire:click="dc" class="btn btn-error btn-sm mt-4 mx-auto"
+                                spinner />
 
                         </div>
                     @endif
-                </div>
-
-                @if ($status && $qr)
-                    <div class="flex justify-center items-center mt-5">
-                        <img src="{{ $qr }}" alt="QR Code"
-                            class="rounded-lg shadow-lg w-72 border border-base-300">
-                    </div>
-                @else
-                    <div id="loading" class="flex justify-center h-96 ">
-                        <x-loading class="loading-infinity loading-xl" />
-                    </div>
-                @endif
-
-                @if ($sesion)
-                    <div class="flex  items-center">
-                        <x-button label="Ganti Nomor" wire:click="dc" class="btn btn-error btn-sm mt-4 mx-auto"
-                            spinner />
-
-                    </div>
-                @else
-                    <div class="flex  items-center">
-                        <x-button label=" refresh QR" wire:click="findSesion" class="btn btn-error btn-sm mt-4 mx-auto"
-                            spinner />
-                    </div>
                 @endif
             </div>
         @else

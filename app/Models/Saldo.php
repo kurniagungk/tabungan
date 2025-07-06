@@ -24,6 +24,16 @@ class Saldo extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'saldo_id', 'id');
+    }
+
+    public function whatsappPesan()
+    {
+        return $this->hasMany(WhatsappPesan::class, 'saldo_id', 'id');
+    }
+
+    public function setting()
+    {
+        return $this->hasMany(Setting::class,   'saldo_id', 'id');
     }
 }

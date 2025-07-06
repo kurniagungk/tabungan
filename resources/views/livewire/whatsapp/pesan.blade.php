@@ -15,6 +15,7 @@
             <p class="">{saldo} = Saldo Nasabah</p>
             <p class="">{jumlah} = Nominal Tarik / Setor Tunai</p>
             <p class="">{tanggal} = Tanggal Transaksi</p>
+
         </div>
     </div>
 

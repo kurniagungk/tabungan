@@ -19,8 +19,6 @@ class Index extends Component
     public $qr;
     public $sesion = false;
     public $server = true;
-    public $whatsappUrl;
-    public $whatsappKey;
     public $whatsappSession;
     public $saldo_id;
 
@@ -41,8 +39,7 @@ class Index extends Component
         }
 
 
-        $this->whatsappUrl = Env('WHATSAPP_API_URL');
-        $this->whatsappKey = Env('WHATSAPP_API_KEY');
+
 
         $setting = Setting::where('nama', 'whatsapp_api')->first();
 
@@ -50,6 +47,21 @@ class Index extends Component
             $this->status = false;
         else
             $this->status = true;
+    }
+
+    public function whatsapp()
+    {
+
+        $whatsappUrl = Env('WHATSAPP_API_URL');
+        $whatsappKey = Env('WHATSAPP_API_KEY');
+
+
+        return [
+
+            'whatsappUrl' => $whatsappUrl,
+            'whatsappKey' => $whatsappKey
+
+        ];
     }
 
     public function updatedSaldoId()
@@ -75,12 +87,16 @@ class Index extends Component
 
     public function deleteSession()
     {
+
+
+        $whatsapp = $this->whatsapp();
+
         $sesion = Http::withHeaders(
             [
                 'Content-Type' => 'application/json',
-                'x-api-key' => $this->whatsappKey
+                'x-api-key' => $whatsapp["whatsappKey"]
             ]
-        )->delete($this->whatsappUrl . '/sessions/' . $this->whatsappSession);
+        )->delete($whatsapp["whatsappUrl"] . '/sessions/' . $this->whatsappSession);
 
         $this->sesion = false;
     }
@@ -88,14 +104,16 @@ class Index extends Component
     public function findSesion()
     {
 
+        $whatsapp = $this->whatsapp();
+
         try {
 
             $sesion = Http::withHeaders(
                 [
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->whatsappKey
+                    'x-api-key' => $whatsapp["whatsappKey"]
                 ]
-            )->get($this->whatsappUrl . '/sessions/' . $this->whatsappSession);
+            )->get($whatsapp["whatsappUrl"] . '/sessions/' . $this->whatsappSession);
 
 
 
@@ -115,12 +133,16 @@ class Index extends Component
 
     public function createSession()
     {
+
+
+        $whatsapp = $this->whatsapp();
+
         $create = Http::withHeaders(
             [
                 'Content-Type' => 'application/json',
-                'x-api-key' => $this->whatsappKey
+                'x-api-key' => $whatsapp["whatsappKey"]
             ]
-        )->post($this->whatsappUrl . '/sessions/add', [
+        )->post($whatsapp["whatsappUrl"] . '/sessions/add', [
             'sessionId' => $this->whatsappSession,
         ]);
 
@@ -131,12 +153,17 @@ class Index extends Component
 
     public function statusSession()
     {
+
+
+
+        $whatsapp = $this->whatsapp();
+
         $status = Http::withHeaders(
             [
                 'Content-Type' => 'application/json',
-                'x-api-key' => $this->whatsappKey
+                'x-api-key' => $whatsapp["whatsappKey"]
             ]
-        )->get($this->whatsappUrl . '/sessions/' . $this->whatsappSession . '/status');
+        )->get($whatsapp["whatsappUrl"] . '/sessions/' . $this->whatsappSession . '/status');
 
 
 
