@@ -143,11 +143,6 @@ class Create extends Component
                     'keterangan' => 'Setor Awal'
                 ]);
 
-                $saldo = Saldo::where('id', $this->saldo_id)->first();
-                $saldo->saldo += $this->saldo;
-                $saldo->save();
-
-
                 Transaksi::create([
                     'debit' => $this->saldo,
                     'keterangan' => 'tabungan',

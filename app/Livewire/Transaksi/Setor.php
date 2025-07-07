@@ -131,7 +131,6 @@ class Setor extends Component
 
 
         $this->validate();
-
         $nasabah = $this->nasabah;
         try {
 
@@ -142,17 +141,13 @@ class Setor extends Component
             $nasabah->saldo += $this->setor;
             $nasabah->save();
 
+
             $setor =  $nasabah->transaksi()->create([
                 'user_id' => Auth::id(),
                 'debit' => $this->setor,
                 'ref' => 'tabungan',
                 'keterangan' => $this->keterangan
             ]);
-
-            // Lock saldo
-            $saldo = Saldo::where('id', $nasabah->saldo_id)->lockForUpdate()->first();
-            $saldo->saldo += $this->setor;
-            $saldo->save();
 
             Transaksi::create([
                 'debit' => $this->setor,

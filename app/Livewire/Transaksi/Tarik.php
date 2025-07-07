@@ -130,10 +130,6 @@ class Tarik extends Component
                 'keterangan' => $this->keterangan
             ]);
 
-            // Kunci baris saldo agar aman dari race condition
-            $saldo = Saldo::where('id', $nasabah->saldo_id)->lockForUpdate()->first();
-            $saldo->saldo -= $this->tarik;
-            $saldo->save();
 
             Transaksi::create([
                 'credit' => $this->tarik,

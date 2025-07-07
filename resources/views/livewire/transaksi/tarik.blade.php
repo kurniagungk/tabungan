@@ -1,7 +1,7 @@
 <div>
     <x-card title="Tarik Tunai" shadow class="col-span-5">
         <form wire:submit.prevent="find">
-            <x-input label="No Rekening" wire:model="rekening" autofocus>
+            <x-input label="No Rekening" wire:model="rekening" autofocus autocomplete="off">
                 <x-slot:append>
                     {{-- Add `join-item` to all appended elements --}}
                     <x-button icon="o-magnifying-glass" class="join-item btn-primary" type="submit" />
