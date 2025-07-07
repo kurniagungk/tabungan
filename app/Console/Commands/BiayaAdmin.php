@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Biaya;
+use App\Models\Biaya;
 
 use App\Models\Nasabah;
 
@@ -46,28 +46,41 @@ class BiayaAdmin extends Command
      */
     public function handle()
     {
-        $nasabah = Nasabah::get();
+        $saldo = Saldo::get();
 
-        $biaya_admin = Setting::where('nama', 'biaya_admin')->first();
-        $tanggal = Setting::where('nama', 'biaya_tanggal')->first();
+        foreach ($saldo as $data) {
+            $this->biaya($data);
+        }
+    }
 
-        $biaya_cek = Biaya::whereMonth('created_at', date('m'))->first();
+    public function biaya($lembaga)
+    {
 
 
-        if (!$biaya_cek)
+        $nasabah = Nasabah::where('saldo_id', $lembaga->id)->get();
 
+        $biaya_admin = Setting::where('saldo_id', $lembaga->id)->where('nama', 'biaya_admin')->first();
+        $tanggal = Setting::where('saldo_id', $lembaga->id)->where('nama', 'biaya_tanggal')->first();
+        $biaya_cek = Biaya::where('saldo_id', $lembaga->id)->whereMonth('created_at', date('m'))->first();
+
+        if ($biaya_admin->isi < 1) {
+            $this->info("Biaya admin belum diatur untuk {$lembaga->nama}........");
+            return;
+        }
+
+        if (!$biaya_cek) {
             try {
 
-                $this->info('Proses ........');
+                $this->info("Proses {$lembaga->nama}........");
 
                 DB::beginTransaction();
 
                 $biaya = Biaya::create([
                     'tanggal' => date('Y-m-d'),
-                    'jumlah' => 0
+                    'jumlah' => 0,
+                    'saldo_id' => $lembaga->id
                 ]);
 
-                $saldo = Saldo::where('nama', 'tabungan')->first();
 
                 $jumlah = 0;
 
@@ -80,10 +93,6 @@ class BiayaAdmin extends Command
                             continue;
 
                         if ($data->saldo < $biaya_admin->isi || $data->saldo == $biaya_admin->isi) {
-
-
-                            $saldo->saldo -= $data->saldo;
-
 
                             Transaksi::create([
                                 'credit' => $data->saldo,
@@ -103,7 +112,6 @@ class BiayaAdmin extends Command
                             continue;
                         }
 
-                        $data->saldo -= $saldo->isi;
 
                         $data->save();
 
@@ -115,8 +123,6 @@ class BiayaAdmin extends Command
                         ]);
 
 
-                        $saldo->saldo -= $biaya_admin->isi;
-                        $saldo->save();
 
 
                         Transaksi::create([
@@ -133,16 +139,15 @@ class BiayaAdmin extends Command
 
                     DB::commit();
 
-                    $this->info('Berhasil');
+                    $this->info("Berhasil {$lembaga->nama}........");
                 } else {
-                    $this->info('Belum waktunya');
+                    $this->info("Belum waktunya {$lembaga->nama}........");
                 }
             } catch (\Throwable $th) {
-                dd($th);
-                $this->info('Gagal');
+                DB::rollBack();
+                $this->info("Gagal {$lembaga->nama}........");
             }
-
-        else
+        } else
             $this->info('Sudah melakukan penarikan biaya admin');
     }
 }

@@ -14,5 +14,6 @@ class Biaya extends Model
     protected $fillable = [
         'tanggal',
         'jumlah',
+        'saldo_id'
     ];
 }

@@ -37,7 +37,7 @@ class Index extends Component
     {
 
         $this->validate([
-            'nama' => 'required',
+            'nama' => 'required|unique:saldo,nama',
         ]);
 
 
