@@ -1,11 +1,15 @@
 <div>
     <x-card title="laporan Transaksi" shadow>
         <div class="grid grid-cols-1 md:grid-cols-7 gap-5 content-center">
-            <div class="col-span-1 md:col-span-3">
-                <x-input type="date" wire:model="dari" />
+            <div class="col-span-1 md:col-span-2">
+                <x-input type="date" wire:model="dari" label="Dari" />
             </div>
-            <div class="col-span-1 md:col-span-3">
-                <x-input wire:model="sampai" type="date" />
+            <div class="col-span-1 md:col-span-2">
+                <x-input wire:model="sampai" type="date" label="Sampai" />
+            </div>
+            <div class="col-span-1 md:col-span-2">
+                <x-select label="Lembaga" wire:model="lembaga_id" :options="$lembaga" option-value="id"
+                    option-label="nama" :disabled="!auth()->user()->hasRole('admin')" />
             </div>
             <div class="grid content-end ">
                 <x-button icon="o-magnifying-glass" label="Lihat" class="btn-primary" wire:click="laporan" spinner />

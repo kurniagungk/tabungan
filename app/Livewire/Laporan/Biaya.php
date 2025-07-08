@@ -5,7 +5,7 @@ namespace App\Livewire\Laporan;
 use App\Models\Nasabah;
 
 use App\Models\Saldo;
-use App\Biaya as BiayaModal;
+use App\Models\Biaya as BiayaModal;
 use App\Exports\LaporanBiaya;
 use Maatwebsite\Excel\Facades\Excel;
 use Livewire\Component;
@@ -20,9 +20,17 @@ class Biaya extends Component
     public $saldo;
     public $nasabah;
     public $biaya;
+    public $lembaga_id;
 
     public function mount()
     {
+
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+        if (!$admin) {
+            $this->lembaga_id = $user->saldo_id;
+        }
+
         $this->tanggal = date('Y-m');
         $this->laporan();
     }
@@ -32,10 +40,13 @@ class Biaya extends Component
         $bulan = substr($this->tanggal, 5);
 
         $this->cetak = date("Y-m-d H:i:s");
-        $saldo = Saldo::where('nama', 'tabungan')->first();
-        $nasabah = Nasabah::count();
+        $nasabahData = Nasabah::where('saldo_id', $this->lembaga_id);
+
+        $saldo = $nasabahData->sum('saldo');
+        $nasabah = $nasabahData->count();
         $biaya = BiayaModal::whereMonth('tanggal',  $bulan)->first();
-        $this->saldo =  $saldo->saldo;
+
+        $this->saldo =  $saldo;
         $this->nasabah =  $nasabah;
         $this->biaya =  $biaya?->jumlah;
     }
@@ -53,6 +64,9 @@ class Biaya extends Component
 
     public function render()
     {
-        return view('livewire.laporan.biaya');
+
+        $lembaga = Saldo::get();
+
+        return view('livewire.laporan.biaya', compact('lembaga'));
     }
 }

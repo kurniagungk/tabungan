@@ -63,14 +63,17 @@
                     <x-menu-item title="NASABAH" icon="s-user-group" link="/nasabah" />
 
 
-                    <x-menu-sub title="LAPORAN" icon="o-document-text">
-                        <x-menu-item title="Transaksi" icon="o-clipboard" link="{{ route('laporan.transaksi') }}" />
-                    </x-menu-sub>
+
                     <x-menu-sub title="TRANSAKSI" icon="o-credit-card">
                         <x-menu-item title="Setor Tunai" icon="o-arrow-down-circle"
                             link="{{ route('transaksi.setor') }}" />
                         <x-menu-item title="Tarik Tunai" icon="o-arrow-up-circle"
                             link="{{ route('transaksi.tarik') }}" />
+                    </x-menu-sub>
+
+                    <x-menu-sub title="LAPORAN" icon="o-document-text">
+                        <x-menu-item title="Transaksi" icon="o-clipboard" link="{{ route('laporan.transaksi') }}" />
+                        <x-menu-item title="Biaya Admin" icon="o-banknotes" link="{{ route('laporan.biaya') }}" />
                     </x-menu-sub>
 
                     <x-menu-sub title="WHATSAPP" icon="o-chat-bubble-oval-left">

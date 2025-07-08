@@ -11,7 +11,8 @@
 
         <x-input label="Saldo Minimal" type="number" wire:model.live="minimal" name="minimal" :error="$errors->first('minimal')" />
 
-        <x-textarea label="WA Saldo Habis" wire:model.live="habis" name="habis" :error="$errors->first('habis')" rows="5" />
+        <x-textarea label="WA Saldo Habis" wire:model.live="habis" name="habis" :error="$errors->first('habis')" rows="5"
+            class="hidden" />
 
         <div class="flex justify-end gap-2 mt-5">
             <x-button type="submit" color="success" size="sm">Simpan</x-button>

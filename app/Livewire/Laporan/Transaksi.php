@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Laporan;
 
+use App\Models\Saldo;
 use Livewire\Component;
-use App\Models\Nasabah_transaksi;
 use App\Exports\LaporanTransaksi;
+use App\Models\Nasabah_transaksi;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -14,12 +15,21 @@ class Transaksi extends Component
     public $transaksi;
     public $show = false;
     public $dari, $sampai;
+    public $lembaga_id;
 
 
     public function mount()
     {
         $this->dari = date('Y-m-d');
         $this->sampai = date('Y-m-d');
+
+
+
+        $user = auth()->user();
+        $admin = $user->hasRole('admin');
+        if (!$admin) {
+            $this->lembaga_id = $user->saldo_id;
+        }
     }
 
     public function laporan()
@@ -27,14 +37,13 @@ class Transaksi extends Component
 
         $this->transaksi = null;
 
-        $user = auth()->user();
-        $admin = $user->hasRole('admin');
+        $lembaga_id = $this->lembaga_id;
+
 
         $transaksi = Nasabah_transaksi::whereBetween('created_at', [$this->dari . ' 00:00:00', $this->sampai . ' 23:59:59'])
-            ->withWhereHas('nasabah', function ($query) use ($user, $admin) {
-                $query->select('id', 'rekening', 'nama', 'saldo_id')->when(!$admin, function ($query) use ($user) {
-                    $query->where('saldo_id', $user->saldo_id);
-                });
+            ->withWhereHas('nasabah', function ($query) use ($lembaga_id) {
+                $query->select('id', 'rekening', 'nama', 'saldo_id')
+                    ->where('saldo_id', $lembaga_id);
             })->get();
 
         $this->transaksi = $transaksi;
@@ -60,6 +69,8 @@ class Transaksi extends Component
 
     public function render()
     {
-        return view('livewire.laporan.transaksi');
+        $lembaga = Saldo::get();
+
+        return view('livewire.laporan.transaksi', compact('lembaga'));
     }
 }
