@@ -7,9 +7,6 @@
                     <x-button icon="o-pencil" wire:click="openModal({{ $saldo->id }})" class="btn-sm btn-warning" />
                 </div>
             @endscope
-            @scope('cell_saldo', $saldo)
-                {{ $price = Number::currency($saldo->saldo, 'Rp.') }}
-            @endscope
         </x-table>
 
         <x-slot:menu>

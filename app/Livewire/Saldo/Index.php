@@ -102,7 +102,6 @@ class Index extends Component
 
         $headers = [
             ['key' => 'nama', 'label' => 'Nama'],
-            ['key' => 'saldo', 'label' => 'Saldo'],
         ];
 
 
