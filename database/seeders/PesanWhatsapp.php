@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Saldo;
 use App\Models\WhatsappPesan;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -35,6 +36,30 @@ class PesanWhatsapp extends Seeder
                     'status' => $template['status'],
                 ]
             );
+        }
+
+        $dataSaldo = Saldo::get();
+
+        // dd($dataSaldo);
+
+        foreach ($dataSaldo as $s) {
+
+
+
+            $defaultPesan = WhatsappPesan::whereNull('saldo_id')
+                ->get();
+
+            foreach ($defaultPesan as $pesan) {
+                WhatsappPesan::firstOrCreate([
+                    'saldo_id' => $s->id,
+                    'jenis' => $pesan->jenis,
+                ], [
+
+                    'pesan' => $pesan->pesan,
+
+                    'status' => $pesan->status
+                ]);
+            }
         }
     }
 }

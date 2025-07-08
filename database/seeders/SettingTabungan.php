@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Saldo;
 use App\Models\Setting;
+use App\Models\WhatsappPesan;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -31,6 +33,28 @@ class SettingTabungan extends Seeder
                 ['nama' => $setting['nama']],
                 ['isi' => $setting['isi']]
             );
+        }
+
+        $dataSaldo = Saldo::with('whatsappPesan', 'setting')->get();
+
+        // dd($dataSaldo);
+
+        foreach ($dataSaldo as $s) {
+
+
+
+            $defaultSettings = Setting::whereNull('saldo_id')
+                ->get();
+
+            foreach ($defaultSettings as $default) {
+                Setting::firstOrCreate([
+                    'saldo_id' => $s->id,
+                    'nama' => $default->nama,
+                ], [
+
+                    'isi' => $default->isi,
+                ]);
+            }
         }
     }
 }
