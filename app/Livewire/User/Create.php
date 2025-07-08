@@ -52,7 +52,9 @@ class Create extends Component
             'saldo_id' => $this->saldo_id,
         ]);
 
-        $save->assignRole($this->role_id);
+        $role = Role::find($this->role_id);
+
+        $save->assignRole($role->name);
 
         $this->toast(
             type: 'success',
