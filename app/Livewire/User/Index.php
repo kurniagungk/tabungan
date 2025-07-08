@@ -41,12 +41,13 @@ class Index extends Component
 
         $users = User::when(!$admin, function ($query) use ($user) {
             return $query->where('saldo_id', $user->saldo_id);
-        })->with('saldo:id,nama')->paginate($this->perPage);
+        })->with('saldo:id,nama', 'roles')->paginate($this->perPage);
 
         $headers = [
             ['key' => 'name', 'label' => 'Nama'],
             ['key' => 'email', 'label' => 'E-mail'],
-            ['key' => 'saldo.nama', 'label' => 'Saldo']
+            ['key' => 'saldo.nama', 'label' => 'Lembaga'],
+            ['key' => 'peran', 'label' => 'Peran']
         ];
 
 

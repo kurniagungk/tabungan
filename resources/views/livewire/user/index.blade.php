@@ -7,6 +7,12 @@
                 <x-button icon="o-pencil" link="/user/{{ $user->id }}/edit" class="btn-sm btn-warning" />
             </div>
         @endscope
+
+        @scope('cell_peran', $user)
+            @foreach ($user->roles as $role)
+                <x-badge value=" {{ $role->name }}" class="badge-error badge-dash" />
+            @endforeach
+        @endscope
     </x-table>
 
     <x-slot:menu>
