@@ -41,7 +41,7 @@ class Create extends Component
     public $pasword = 1234;
     public $card;
     public $photoUrl;
-    public $wa = false;
+    public $wa = 0;
 
 
     public function updatedphoto()
@@ -277,8 +277,8 @@ class Create extends Component
         ];
 
         $waSelect = [
-            ['id' => true, 'name' => 'Ya',],
-            ['id' => false, 'name' => 'Tidak',]
+            ['id' => 1, 'name' => 'Ya',],
+            ['id' => 0, 'name' => 'Tidak',]
         ];
 
         $dataSaldo = Saldo::all()->prepend((object)[
