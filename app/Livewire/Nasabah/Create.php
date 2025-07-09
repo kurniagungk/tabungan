@@ -251,7 +251,7 @@ class Create extends Component
 
                     Storage::disk('public')->put("photos/{$filename}", $imageResponse->body());
 
-                    $this->photoUrl = "/photos/{$filename}";
+                    $this->photoUrl = "photos/{$filename}";
                     $this->photo = null;
                 } else {
                     // fallback jika gambar gagal diambil
