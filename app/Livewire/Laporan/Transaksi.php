@@ -6,6 +6,7 @@ use App\Models\Saldo;
 use Livewire\Component;
 use App\Exports\LaporanTransaksi;
 use App\Models\Nasabah_transaksi;
+use Livewire\Attributes\Validate;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -15,6 +16,8 @@ class Transaksi extends Component
     public $transaksi;
     public $show = false;
     public $dari, $sampai;
+
+    #[Validate('required')]
     public $lembaga_id;
 
 
@@ -35,10 +38,11 @@ class Transaksi extends Component
     public function laporan()
     {
 
+        $this->validate();
+
         $this->transaksi = null;
 
         $lembaga_id = $this->lembaga_id;
-
 
         $transaksi = Nasabah_transaksi::whereBetween('created_at', [$this->dari . ' 00:00:00', $this->sampai . ' 23:59:59'])
             ->withWhereHas('nasabah', function ($query) use ($lembaga_id) {
@@ -69,7 +73,10 @@ class Transaksi extends Component
 
     public function render()
     {
-        $lembaga = Saldo::get();
+        $lembaga = Saldo::get()->prepend((object)[
+            'id' => '',
+            'nama' => 'Pilih Lembaga'
+        ]);;
 
         return view('livewire.laporan.transaksi', compact('lembaga'));
     }

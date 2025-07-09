@@ -15,7 +15,7 @@
 
 
 
-        <x-input label="No Hp (Whatsapp)" wire:model="telepon" type="number" prefix="+62"/>
+        <x-input label="No Hp (Whatsapp)" wire:model="telepon" type="number" prefix="+62" />
 
         <x-select label="Jenis Kelamin" wire:model="jenis_kelamin" :options="$jenis_kelamins" icon="o-user" />
 
@@ -37,21 +37,23 @@
             <x-select label="Lembaga" wire:model="saldo_id" :options="$dataSaldo" option-value="id" option-label="nama" />
         @endrole
 
+        <x-textarea label="Alamat" wire:model="alamat" hint="Max 1000 chars" rows="5" />
+
         @if ($photoUrl != null)
-            <div wire:key="api">
+            <div wire:key="api" class="mt-5">
                 <x-file wire:model="photo" accept="image/png, image/jpeg" class="flex justify-center">
-                    <img src="{{ asset('storage/' . $photoUrl) }}" class=" h-20 rounded-lg mx-auto" />
+                    <img src="{{ asset('storage/' . $photoUrl) }}" class=" h-40 rounded-lg mx-auto" />
                 </x-file>
             </div>
         @else
-            <div wire:key="local">
+            <div wire:key="local" class="mt-5">
                 <x-file wire:model="photo" accept="image/png, image/jpeg" class="flex justify-center">
                     <img src="{{ $photo?->temporaryUrl() ?? '/images/upload.png' }}" class=" h-20 rounded-lg mx-auto" />
                 </x-file>
             </div>
         @endif
 
-        <x-textarea label="Alamat" wire:model="alamat" hint="Max 1000 chars" rows="5" />
+
 
     </div>
 

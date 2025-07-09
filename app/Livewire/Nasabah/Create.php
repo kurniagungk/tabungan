@@ -41,7 +41,7 @@ class Create extends Component
     public $pasword = 1234;
     public $card;
     public $photoUrl;
-    public $wa = "tidak";
+    public $wa = false;
 
 
     public function updatedphoto()
@@ -238,7 +238,7 @@ class Create extends Component
             $this->tempat_lahir = $data['tempat_lahir'];
             $this->tanggal_lahir = $data['tanggal_lahir'];
             $this->alamat = $data['alamat'];
-            $this->telepon = $data['no_hp'];
+            $this->telepon = preg_replace('/^0/', '', $data['no_hp']);
             $this->jenis_kelamin = $data['jenis_kelamin'] == 'L' ? 'Laki-Laki' : 'Perempuan';
             $this->nama_wali = $data['nama_ibu'];
 
@@ -277,13 +277,13 @@ class Create extends Component
         ];
 
         $waSelect = [
-            ['id' => 'iya', 'name' => 'Ya',],
-            ['id' => 'tidak', 'name' => 'Tidak',]
+            ['id' => true, 'name' => 'Ya',],
+            ['id' => false, 'name' => 'Tidak',]
         ];
 
         $dataSaldo = Saldo::all()->prepend((object)[
             'id' => '',
-            'nama' => 'Pilih Saldo'
+            'nama' => 'Pilih Lembaga'
         ]);
 
         return view('livewire.nasabah.create', compact('jenis_kelamins', 'waSelect', 'dataSaldo'));

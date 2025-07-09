@@ -20,7 +20,7 @@ class Setor extends Component
 
     public $rekening;
     public $nasabah;
-    public $setor;
+    public $setor = 0;
     public $sisa;
     public $tanggal;
     public $keterangan;
