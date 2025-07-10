@@ -51,7 +51,14 @@ class KirimPesanWhatsappCommand extends Command
                 continue;
             }
 
-            $telepon = preg_replace('/\D/', '', $nasabah->telepon); // bersihkan ke angka saja
+            $telepon = preg_replace('/\D/', '', $nasabah->telepon); // Hanya angka
+
+            // Jika dimulai dengan "0", ubah ke "62"
+            if (strpos($telepon, '0') === 0) {
+                $telepon = '62' . substr($telepon, 1);
+            }
+
+            // Format ke JID WhatsApp
             $jid = $telepon . '@s.whatsapp.net';
 
             try {
@@ -67,7 +74,6 @@ class KirimPesanWhatsappCommand extends Command
                     ]
                 ]);
 
-                Log::info($response->json());
 
                 if (isset($response['status'])) {
                     $pesan->update(['status' => 'berhasil']);
