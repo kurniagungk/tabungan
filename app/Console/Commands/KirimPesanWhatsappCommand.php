@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Whatsapp;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class KirimPesanWhatsappCommand extends Command
 {
@@ -65,6 +66,8 @@ class KirimPesanWhatsappCommand extends Command
                         'text' => $pesan->pesan
                     ]
                 ]);
+
+                Log::info($response->json());
 
                 if (isset($response['status'])) {
                     $pesan->update(['status' => 'berhasil']);
