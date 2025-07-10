@@ -178,12 +178,13 @@ class Tarik extends Component
         if (!$wa || $wa->status == "tidak")
             return;
 
-        $replace = ['{nama}', '{saldo}', '{jumlah}', '{tanggal}'];
+        $replace = ['{nama}', '{saldo}', '{jumlah}', '{tanggal}', '{keterangan}'];
         $variable = [
             $nasabah->nama,
             'Rp. ' . number_format($nasabah->saldo, 2, ',', '.'),
-            'Rp. ' . number_format($this->tarik, 2, ',', '.'),
-            date('d-m-Y H:i', strtotime($transaksi->created_at))
+            'Rp. ' . number_format($this->setor, 2, ',', '.'),
+            date('d-m-Y H:i', strtotime($transaksi->created_at)),
+            $this->keterangan ?: '-'
 
         ];
         $pesan = str_replace($replace, $variable, $wa->pesan);
