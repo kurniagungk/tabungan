@@ -51,14 +51,16 @@ class KirimPesanWhatsappCommand extends Command
                 continue;
             }
 
-            $telepon = preg_replace('/\D/', '', $nasabah->telepon); // Hanya angka
+            $telepon = preg_replace('/\D/', '', $nasabah->telepon); // Ambil hanya angka
 
-            // Jika dimulai dengan "0", ubah ke "62"
             if (strpos($telepon, '0') === 0) {
+                // Jika dimulai dengan 0, ganti ke 62
                 $telepon = '62' . substr($telepon, 1);
+            } elseif (strpos($telepon, '62') !== 0) {
+                // Jika tidak dimulai dengan 62, tambahkan 62 di depan
+                $telepon = '62' . $telepon;
             }
 
-            // Format ke JID WhatsApp
             $jid = $telepon . '@s.whatsapp.net';
 
             try {
