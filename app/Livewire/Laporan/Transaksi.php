@@ -40,6 +40,13 @@ class Transaksi extends Component
 
         $this->validate();
 
+        $start = \Carbon\Carbon::parse($this->dari);
+        $end = \Carbon\Carbon::parse($this->sampai);
+
+        if ($start->diffInDays($end) > 30) {
+            return  $this->addError('sampai', 'Rentang tanggal tidak boleh lebih dari 30 hari.');
+        }
+
         $this->transaksi = null;
 
         $lembaga_id = $this->lembaga_id;
@@ -67,7 +74,7 @@ class Transaksi extends Component
             'sampai' => $this->sampai
         ];
 
-        return Excel::download(new LaporanTransaksi($data), 'Laporam Biaya.xlsx');
+        return Excel::download(new LaporanTransaksi($data), 'Laporam Transaksi' . date('Y-m-d H:i') . '.xlsx');
     }
 
 
@@ -76,7 +83,7 @@ class Transaksi extends Component
         $lembaga = Saldo::get()->prepend((object)[
             'id' => '',
             'nama' => 'Pilih Lembaga'
-        ]);;
+        ]);
 
         return view('livewire.laporan.transaksi', compact('lembaga'));
     }

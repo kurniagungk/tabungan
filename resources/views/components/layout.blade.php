@@ -72,6 +72,8 @@
                     </x-menu-sub>
 
                     <x-menu-sub title="LAPORAN" icon="o-document-text">
+                        <x-menu-item title="Transaksi Per Hari" icon="o-calendar-days"
+                            link="{{ route('laporan.perhari') }}" />
                         <x-menu-item title="Transaksi" icon="o-clipboard" link="{{ route('laporan.transaksi') }}" />
                         <x-menu-item title="Biaya Admin" icon="o-banknotes" link="{{ route('laporan.biaya') }}" />
                     </x-menu-sub>

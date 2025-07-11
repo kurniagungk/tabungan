@@ -29,7 +29,7 @@ class Chart extends Component
         $awal = date('Y-m-d', strtotime('-30 days'));
 
         $transaksi = Nasabah_transaksi::select(DB::raw('sum(debit) as setor, sum(credit) as tarik, date(created_at) as day'))
-            ->whereBetween('updated_at', [$awal, $akhir])
+            ->whereBetween('created_at', [$awal, $akhir])
             ->groupBy('day')
             ->when(!$admin, function ($query) use ($saldo) {
                 return $query->whereIn('user_id', $saldo->pluck('id'));

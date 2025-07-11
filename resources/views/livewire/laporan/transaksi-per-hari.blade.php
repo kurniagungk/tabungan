@@ -1,0 +1,79 @@
+<div>
+    <x-card title="laporan Transaksi" shadow>
+        <div class="grid grid-cols-1 md:grid-cols-7 gap-5 content-center">
+            <div class="col-span-1 md:col-span-2">
+                <x-input type="date" wire:model="dari" label="Dari" />
+            </div>
+            <div class="col-span-1 md:col-span-2">
+                <x-input wire:model="sampai" type="date" label="Sampai" />
+            </div>
+            <div class="col-span-1 md:col-span-2">
+                <x-select label="Lembaga" wire:model="lembaga_id" :options="$lembaga" option-value="id"
+                    option-label="nama" :disabled="!auth()->user()->hasRole('admin')" />
+            </div>
+            <div class="grid content-end ">
+                <x-button icon="o-magnifying-glass" label="Lihat" class="btn-primary" wire:click="laporan" spinner />
+            </div>
+        </div>
+    </x-card>
+    @if ($show)
+        <x-card title="Data" shadow class="mt-5">
+
+            <x-slot:menu>
+                <x-button icon="o-share" class="btn btn-success" wire:click="export" />
+            </x-slot:menu>
+            <div class="p-6 overflow-x-auto">
+                <table class="table table-zebra">
+                    <thead>
+                        <tr>
+                            <th colspan="2">PERIODE</th>
+                            <th colspan="3">{{ $dari }} - {{ $sampai }}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Total Setor</th>
+                            <th colspan="3">{{ Number::currency($transaksi->sum('setor'), 'Rp.') }}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Total Tarik</th>
+                            <th colspan="3">{{ Number::currency($transaksi->sum('tarik'), 'Rp.') }}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Total Selisih</th>
+                            <th colspan="3">
+                                {{ Number::currency($transaksi->sum('setor') - $transaksi->sum('tarik'), 'Rp.') }}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="5"></th>
+                        </tr>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Setor</th>
+                            <th>Tarik</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @php $jumlah = 0; @endphp
+                        @foreach ($transaksi as $tr)
+                            @php
+                                $jumlah += $tr->setor - $tr->tarik;
+                            @endphp
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $tr->day }}</td>
+                                <td>{{ Number::currency($tr->setor, 'Rp.') }}</td>
+                                <td>{{ Number::currency($tr->tarik, 'Rp.') }}</td>
+                                <td>{{ Number::currency($jumlah, 'Rp.') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+        </x-card>
+    @endif
+
+</div>
