@@ -65,12 +65,14 @@ class KirimPesanWhatsappCommand extends Command
 
             $jid = $telepon . '@s.whatsapp.net';
 
+            $url = $whatsappUrl . '/' . urlencode($lembaga->nama) . '/messages/send';
+
             try {
 
                 $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
                     'x-api-key' => $whatsappKey,
-                ])->post($whatsappUrl . '/' . $lembaga->nama . '/' . '/messages/send', [
+                ])->post($url, [
                     'jid' => $jid, // ganti dengan ID grup sebenarnya
                     'type' => 'number',
                     'message' => [
