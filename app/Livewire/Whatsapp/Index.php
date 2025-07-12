@@ -88,7 +88,7 @@ class Index extends Component
     public function deleteSession()
     {
 
-
+        $session = rawurlencode($this->whatsappSession);
         $whatsapp = $this->whatsapp();
 
         $sesion = Http::withHeaders(
@@ -96,7 +96,7 @@ class Index extends Component
                 'Content-Type' => 'application/json',
                 'x-api-key' => $whatsapp["whatsappKey"]
             ]
-        )->delete($whatsapp["whatsappUrl"] . '/sessions/' . $this->whatsappSession);
+        )->delete($whatsapp["whatsappUrl"] . '/sessions/' .  $session);
 
         $this->sesion = false;
     }
@@ -104,7 +104,11 @@ class Index extends Component
     public function findSesion()
     {
 
+
+
         $whatsapp = $this->whatsapp();
+
+        $session = rawurlencode($this->whatsappSession);
 
         try {
 
@@ -113,7 +117,7 @@ class Index extends Component
                     'Content-Type' => 'application/json',
                     'x-api-key' => $whatsapp["whatsappKey"]
                 ]
-            )->get($whatsapp["whatsappUrl"] . '/sessions/' . $this->whatsappSession);
+            )->get($whatsapp["whatsappUrl"] . '/sessions/' .  $session);
 
 
 
@@ -154,7 +158,7 @@ class Index extends Component
     public function statusSession()
     {
 
-
+        $session = rawurlencode($this->whatsappSession);
 
         $whatsapp = $this->whatsapp();
 
@@ -163,7 +167,7 @@ class Index extends Component
                 'Content-Type' => 'application/json',
                 'x-api-key' => $whatsapp["whatsappKey"]
             ]
-        )->get($whatsapp["whatsappUrl"] . '/sessions/' . $this->whatsappSession . '/status');
+        )->get($whatsapp["whatsappUrl"] . '/sessions/' .  $session . '/status');
 
 
 
@@ -193,13 +197,11 @@ class Index extends Component
     public function render()
     {
 
-        $user = auth()->user();
-        $admin = $user->hasRole('admin');
+        $saldo_id = $this->saldo_id;
 
-        $pesan = Whatsapp::withWhereHas('nasabah', function ($query) use ($user, $admin) {
-            $query->select('id', 'nama', 'saldo_id')->when(!$admin, function ($query) use ($user) {
-                $query->where('saldo_id', $user->saldo_id);
-            });
+
+        $pesan = Whatsapp::withWhereHas('nasabah', function ($query) use ($saldo_id) {
+            $query->select('id', 'nama', 'saldo_id')->where('saldo_id', $saldo_id);
         })->orderBy('created_at', 'desc')->paginate(10);
 
         $headers = [
