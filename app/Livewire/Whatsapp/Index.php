@@ -21,6 +21,9 @@ class Index extends Component
     public $server = true;
     public $whatsappSession;
     public $saldo_id;
+    public $statusId = 'semua';
+
+    public array $selected = [];
 
 
 
@@ -193,15 +196,31 @@ class Index extends Component
         $this->findSesion();
     }
 
+    public function ulangi($id)
+    {
+        Whatsapp::where('id', $id)->update(['status' => 'pending']);
+    }
+
+
+    public function ulangiAll()
+    {
+
+        $id = $this->selected;
+
+        Whatsapp::whereIn('id', $id)->where('status', 'gagal')->update(['status' => 'pending']);
+    }
 
     public function render()
     {
 
         $saldo_id = $this->saldo_id;
+        $statusId = $this->statusId;
 
 
         $pesan = Whatsapp::withWhereHas('nasabah', function ($query) use ($saldo_id) {
             $query->select('id', 'nama', 'saldo_id')->where('saldo_id', $saldo_id);
+        })->when($this->statusId != 'semua', function ($query) use ($statusId) {
+            return $query->where('status', $statusId);
         })->orderBy('created_at', 'desc')->paginate(10);
 
         $headers = [
@@ -215,6 +234,13 @@ class Index extends Component
             'nama' => 'Pilih Saldo'
         ]);
 
-        return view('livewire.whatsapp.index', compact('pesan', 'headers', 'dataSaldo'));
+        $statusSelect = [
+            ['value' => 'semua', 'label' => 'Semua'],
+            ['value' => 'pending', 'label' => 'Pending'],
+            ['value' => 'gagal', 'label' => 'Gagal'],
+            ['value' => 'berhasil', 'label' => 'Berhasil'],
+        ];
+
+        return view('livewire.whatsapp.index', compact('pesan', 'headers', 'dataSaldo', 'statusSelect'));
     }
 }

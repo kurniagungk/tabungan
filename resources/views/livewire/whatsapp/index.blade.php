@@ -72,8 +72,25 @@
     </x-card>
 
     <x-card title="Pesan" shadow separator class="col-span-1 md:col-span-3">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="col-span-1">
+                <x-select label="Status Pesan" wire:model.live="statusId" :options="$statusSelect" option-value="value"
+                    option-label="label" />
+            </div>
+
+            @if ($selected)
+                <div class="col-span-1 flex items-end">
+                    <x-button label="Ulangi {{ count($selected) }}" class="btn-warning" icon="o-check"
+                        wire:click="ulangiAll" spinner />
+                </div>
+            @endif
+        </div>
+
+
+
         <x-table :headers="$headers" :rows="$pesan" striped class="mt-5" with-pagination per-page="perPage"
-            :per-page-values="[10, 15, 20]">
+            wire:model.live="selected" selectable :per-page-values="[10, 15, 20]">
 
             @scope('cell_status', $pesan)
                 @if ($pesan->status == 'pending')
@@ -84,6 +101,13 @@
                 @endif
                 @if ($pesan->status == 'berhasil')
                     <span class="badge badge-success">Berhasil</span>
+                @endif
+            @endscope
+
+            @scope('actions', $pesan)
+                @if ($pesan->status == 'gagal')
+                    <x-button icon="o-arrow-path" wire:click="ulangi('{{ $pesan->id }}')" spinner
+                        class="btn-sm btn-warning" />
                 @endif
             @endscope
 

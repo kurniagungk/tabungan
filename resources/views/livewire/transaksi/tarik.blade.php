@@ -105,7 +105,7 @@
         $wire.on('transaksi', () => {
             setTimeout(function() {
                 const setorInput = document.querySelector(
-                    'input[wire\\:model\\.live\\.debounce\\.250ms="tarik"]');
+                    'input[data-model="tarik"]');
 
                 setorInput.scrollIntoView({
                     behavior: 'smooth',
