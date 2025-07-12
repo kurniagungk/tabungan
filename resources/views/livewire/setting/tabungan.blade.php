@@ -4,10 +4,17 @@
     @endif
 
     <form wire:submit.prevent="store" class="space-y-4">
+
+        @role('admin')
+            <x-select label="Lembaga" wire:model.live="saldo_id" :options="$dataSaldo" option-value="id" option-label="nama" />
+        @endrole
+
+
         <x-input label="Tanggal Pengambilan Biaya Admin" type="number" wire:model.live="tanggal" name="tanggal"
             :error="$errors->first('tanggal')" />
 
-        <x-input label="Biaya Admin Per Bulan" type="number" wire:model.live="biaya" name="biaya" :error="$errors->first('biaya')" />
+        <x-input label="Biaya Admin Per Bulan" type="number" wire:model.live="biaya" name="biaya"
+            :error="$errors->first('biaya')" />
 
         <x-input label="Saldo Minimal" type="number" wire:model.live="minimal" name="minimal" :error="$errors->first('minimal')" />
 
