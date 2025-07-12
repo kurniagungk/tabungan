@@ -43,6 +43,8 @@ class KirimPesanWhatsappCommand extends Command
 
         foreach ($whatsapps as $pesan) {
             $nasabah = $pesan->nasabah;
+            $lembaga = $nasabah->lembaga;
+
 
             if (!$nasabah || !$nasabah->telepon) {
                 $pesan->update(['status' => 'failed']);
@@ -68,7 +70,7 @@ class KirimPesanWhatsappCommand extends Command
                 $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
                     'x-api-key' => $whatsappKey,
-                ])->post($whatsappUrl . '/tabungan/messages/send', [
+                ])->post($whatsappUrl . '/' . $lembaga->nama . '/' . '/messages/send', [
                     'jid' => $jid, // ganti dengan ID grup sebenarnya
                     'type' => 'number',
                     'message' => [

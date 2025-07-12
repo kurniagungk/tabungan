@@ -53,4 +53,9 @@ class Nasabah extends Model
             $nasabah->id = Str::uuid();
         });
     }
+
+    public function lembaga()
+    {
+        return $this->belongsTo(Saldo::class, 'saldo_id', 'id');
+    }
 }
