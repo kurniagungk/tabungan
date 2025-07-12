@@ -82,7 +82,7 @@ class KirimPesanWhatsappCommand extends Command
                     $this->info("Berhasil kirim untuk ID: {$pesan->id}");
                 } else {
                     $pesan->update(['status' => 'gagal']);
-                    $this->error("Gagal kirim untuk ID: {$pesan->id}");
+                    $this->error("Gagal kirim untuk ID: {$pesan->id}" . ' - ' . $response->json());
                 }
             } catch (\Exception $e) {
                 $pesan->update(['status' => 'gagal']);
