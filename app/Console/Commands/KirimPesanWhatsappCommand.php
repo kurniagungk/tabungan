@@ -65,7 +65,7 @@ class KirimPesanWhatsappCommand extends Command
 
             $jid = $telepon . '@s.whatsapp.net';
 
-            $url = $whatsappUrl . '/' . urlencode($lembaga->nama) . '/messages/send';
+            $url = $whatsappUrl . '/' . rawurlencode($lembaga->nama) . '/messages/send';
 
             try {
 
