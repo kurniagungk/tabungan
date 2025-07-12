@@ -132,6 +132,9 @@ class Create extends Component
             $nasabah = Nasabah::create($data);
 
             if ($this->saldo > 0) {
+
+
+
                 $nasabah->saldo += $this->saldo;
 
                 $nasabah->save();
@@ -154,7 +157,7 @@ class Create extends Component
 
             $pesan = WhatsappPesan::where('jenis', 'setor')->first();
 
-            if ($nasabah->wa &&  $pesan->status == 'aktif' && $nasabah->saldo > 0)
+            if ($nasabah->wa &&  $pesan->status == 'aktif' && $this->saldo > 0)
                 $this->whatapps($nasabah, $setor);
 
             $this->toast(
@@ -169,7 +172,6 @@ class Create extends Component
             );
         } catch (\Exception $e) {
             DB::rollBack();
-
             $this->toast(
                 type: 'error',
                 title: 'Gagal Menambahkan Data',
@@ -190,6 +192,7 @@ class Create extends Component
 
         $wa = WhatsappPesan::where('jenis', 'setor')->first();
 
+
         if (!$wa || $wa->status == "tidak")
             return;
 
@@ -197,9 +200,9 @@ class Create extends Component
         $variable = [
             $nasabah->nama,
             'Rp. ' . number_format($nasabah->saldo, 2, ',', '.'),
-            'Rp. ' . number_format($this->setor, 2, ',', '.'),
+            'Rp. ' . number_format($transaksi->setor, 2, ',', '.'),
             date('d-m-Y H:i', strtotime($transaksi->created_at)),
-            $this->keterangan ?: '-'
+            $transaksi->keterangan ?: '-'
 
         ];
         $pesan = str_replace($replace, $variable, $wa->pesan);
