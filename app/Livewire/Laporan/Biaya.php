@@ -40,15 +40,13 @@ class Biaya extends Component
         $bulan = substr($this->tanggal, 5);
 
         $this->cetak = date("Y-m-d H:i:s");
-        $nasabahData = Nasabah::where('saldo_id', $this->lembaga_id);
+        $nasabah = Nasabah::where('saldo_id', $this->lembaga_id)->count();
 
-        $saldo = $nasabahData->sum('saldo');
-        $nasabah = $nasabahData->count();
-        $biaya = BiayaModal::whereMonth('tanggal',  $bulan)->first();
+        $biaya = BiayaModal::whereMonth('tanggal',  $bulan)->where('saldo_id', $this->lembaga_id)->first();
 
-        $this->saldo =  $saldo;
+
         $this->nasabah =  $nasabah;
-        $this->biaya =  $biaya?->jumlah;
+        $this->biaya =  $biaya?->jumlah ?? 0;
     }
 
     public function export()

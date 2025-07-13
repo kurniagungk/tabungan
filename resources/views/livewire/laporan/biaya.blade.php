@@ -27,21 +27,15 @@
                     <td>Tanggal Cetak</td>
                     <td>{{ $cetak }}</td>
                 </tr>
-                <tr>
-                    <td>Total Saldo Awal</td>
-                    <td>Rp. {{ number_format($saldo + $biaya, 2, ',', '.') }}</td>
-                </tr>
+
                 <tr>
                     <td>Jumlah Nasabah</td>
                     <td>{{ $nasabah }}</td>
                 </tr>
+
                 <tr>
-                    <td>BIAYA ADMIN</td>
+                    <td>Total Biaya Admin</td>
                     <td>Rp. {{ number_format($biaya, 2, ',', '.') }}</td>
-                </tr>
-                <tr>
-                    <td>Total Saldo Akhir</td>
-                    <td>Rp. {{ number_format($saldo, 2, ',', '.') }}</td>
                 </tr>
 
             </tbody>
