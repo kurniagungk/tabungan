@@ -111,6 +111,11 @@
                 @endif
             @endscope
 
+            @scope('cell_nasabah.nama', $pesan)
+                <a class="link link-info" href="{{ route('nasabah.show', $pesan->nasabah->id) }}"
+                    wire:navigate>{{ $pesan->nasabah->nama }}</a>
+            @endscope
+
 
         </x-table>
     </x-card>

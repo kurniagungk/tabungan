@@ -37,7 +37,9 @@
             </div>
             <div class="flex">
                 <h3 class="w-40 font-bold">TELEPON</h3>
-                <h3>: {{ $nasabah->telepon }}</h3>
+                <h3>: <a class="link link-success" href="https://api.whatsapp.com/send?phone=62{{ $nasabah->telepon }}"
+                        target="_blank">{{ $nasabah->telepon }}</a></h3>
+
             </div>
             <div class="flex">
                 <h3 class="w-40 font-bold">STATUS</h3>
