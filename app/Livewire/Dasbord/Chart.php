@@ -34,6 +34,9 @@ class Chart extends Component
             ->when(!$admin, function ($query) use ($saldo) {
                 return $query->whereIn('user_id', $saldo->pluck('id'));
             })
+            ->whereHas('nasabah', function ($query) use ($user) {
+                return $query->where('status', 'aktif');
+            })
             ->orderBy('day')
             ->get();
 
