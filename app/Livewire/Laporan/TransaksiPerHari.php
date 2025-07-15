@@ -62,7 +62,8 @@ class TransaksiPerHari extends Component
                 $query->select(DB::raw(1))
                     ->from('nasabah')
                     ->whereColumn('nasabah.id', 'nasabah_transaksi.nasabah_id')
-                    ->where('saldo_id', $lembaga_id);
+                    ->where('saldo_id', $lembaga_id)
+                    ->where('status', 'aktif');
             })
             ->groupByRaw('DATE(created_at)')
             ->orderBy('day')

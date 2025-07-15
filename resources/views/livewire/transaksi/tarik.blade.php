@@ -4,10 +4,12 @@
             <x-input label="No Rekening" wire:model="rekening" autofocus autocomplete="off">
                 <x-slot:append>
                     {{-- Add `join-item` to all appended elements --}}
+                    <x-button icon="o-qr-code" class="join-item btn-primary" wire:click="$js.startScan" />
                     <x-button icon="o-magnifying-glass" class="join-item btn-primary" type="submit" />
                 </x-slot:append>
             </x-input>
         </form>
+        <div id="reader" class="mt-4 w-full max-w-md mx-auto rounded-lg overflow-hidden" wire:ignore></div>
     </x-card>
     @if ($transaksi)
         <div class="mt-5 grid grid-cols-1 md:grid-cols-5 gap-2 pb-5" wire:key="{{ $nasabah->id }}">
@@ -138,6 +140,7 @@
         let html5QrCode = null;
         let isScanning = false;
         let rekening = null;
+        let scanTimeout = null;
 
 
         $js('startScan', () => {
@@ -151,6 +154,7 @@
                 html5QrCode.stop().then(() => {
                     document.getElementById(qrRegionId).innerHTML = "";
                     isScanning = false;
+                    clearTimeout(scanTimeout);
                     console.log("QR scanning stopped.");
                 }).catch(err => {
                     console.error("Stop failed", err);
@@ -163,29 +167,54 @@
                         qrbox: 250
                     },
                     (decodedText, decodedResult) => {
-
-
-
-                        if (rekening != decodedText)
-
+                        if (rekening != decodedText) {
                             if ($wire.nasabah == null) {
                                 rekening = decodedText;
                                 $wire.set('rekening', decodedText);
                                 $wire.find();
                             }
 
-                        setTimeout(() => {
-                            rekening = null;
-                        }, 10000);
+                            setTimeout(() => {
+                                rekening = null;
+                            }, 10000);
+                        }
 
-
+                        // Reset auto-stop timer every successful scan
+                        clearTimeout(scanTimeout);
+                        scanTimeout = setTimeout(() => {
+                            if (isScanning) {
+                                html5QrCode.stop().then(() => {
+                                    document.getElementById(qrRegionId).innerHTML = "";
+                                    isScanning = false;
+                                    console.log(
+                                        "QR scanning auto-stopped after 30s of inactivity.");
+                                }).catch(err => {
+                                    console.error("Auto stop failed", err);
+                                });
+                            }
+                        }, 30000);
                     },
                     (errorMessage) => {
-                        // console.warn(`QR error: ${errorMessage}`);
+                        // QR decode error, ignored
                     }
                 ).then(() => {
                     isScanning = true;
                     console.log("QR scanning started.");
+
+                    // Set auto-stop timer on start
+                    clearTimeout(scanTimeout);
+                    scanTimeout = setTimeout(() => {
+                        if (isScanning) {
+                            html5QrCode.stop().then(() => {
+                                document.getElementById(qrRegionId).innerHTML = "";
+                                isScanning = false;
+                                console.log(
+                                    "QR scanning auto-stopped after 30s of inactivity.");
+                            }).catch(err => {
+                                console.error("Auto stop failed", err);
+                            });
+                        }
+                    }, 30000);
                 }).catch(err => {
                     alert("Camera start error: " + err);
                 });

@@ -15,6 +15,7 @@ class Whatsapp extends Model
 
     protected $fillable = [
         'id',
+        'transaksi_id',
         'nasabah_id',
         'pesan',
         'status',

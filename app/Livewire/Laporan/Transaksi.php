@@ -54,7 +54,8 @@ class Transaksi extends Component
         $transaksi = Nasabah_transaksi::whereBetween('created_at', [$this->dari . ' 00:00:00', $this->sampai . ' 23:59:59'])
             ->withWhereHas('nasabah', function ($query) use ($lembaga_id) {
                 $query->select('id', 'rekening', 'nama', 'saldo_id')
-                    ->where('saldo_id', $lembaga_id);
+                    ->where('saldo_id', $lembaga_id)
+                    ->where('status', 'aktif');
             })->get();
 
         $this->transaksi = $transaksi;

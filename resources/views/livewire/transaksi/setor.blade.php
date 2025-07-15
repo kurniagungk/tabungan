@@ -141,6 +141,7 @@
         let html5QrCode = null;
         let isScanning = false;
         let rekening = null;
+        let scanTimeout = null;
 
 
         $js('startScan', () => {
@@ -154,6 +155,7 @@
                 html5QrCode.stop().then(() => {
                     document.getElementById(qrRegionId).innerHTML = "";
                     isScanning = false;
+                    clearTimeout(scanTimeout);
                     console.log("QR scanning stopped.");
                 }).catch(err => {
                     console.error("Stop failed", err);
@@ -166,29 +168,54 @@
                         qrbox: 250
                     },
                     (decodedText, decodedResult) => {
-
-
-
-                        if (rekening != decodedText)
-
+                        if (rekening != decodedText) {
                             if ($wire.nasabah == null) {
                                 rekening = decodedText;
                                 $wire.set('rekening', decodedText);
                                 $wire.find();
                             }
 
-                        setTimeout(() => {
-                            rekening = null;
-                        }, 10000);
+                            setTimeout(() => {
+                                rekening = null;
+                            }, 10000);
+                        }
 
-
+                        // Reset auto-stop timer every successful scan
+                        clearTimeout(scanTimeout);
+                        scanTimeout = setTimeout(() => {
+                            if (isScanning) {
+                                html5QrCode.stop().then(() => {
+                                    document.getElementById(qrRegionId).innerHTML = "";
+                                    isScanning = false;
+                                    console.log(
+                                        "QR scanning auto-stopped after 30s of inactivity.");
+                                }).catch(err => {
+                                    console.error("Auto stop failed", err);
+                                });
+                            }
+                        }, 30000);
                     },
                     (errorMessage) => {
-                        // console.warn(`QR error: ${errorMessage}`);
+                        // QR decode error, ignored
                     }
                 ).then(() => {
                     isScanning = true;
                     console.log("QR scanning started.");
+
+                    // Set auto-stop timer on start
+                    clearTimeout(scanTimeout);
+                    scanTimeout = setTimeout(() => {
+                        if (isScanning) {
+                            html5QrCode.stop().then(() => {
+                                document.getElementById(qrRegionId).innerHTML = "";
+                                isScanning = false;
+                                console.log(
+                                    "QR scanning auto-stopped after 30s of inactivity.");
+                            }).catch(err => {
+                                console.error("Auto stop failed", err);
+                            });
+                        }
+                    }, 30000);
                 }).catch(err => {
                     alert("Camera start error: " + err);
                 });

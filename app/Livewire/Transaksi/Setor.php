@@ -120,6 +120,7 @@ class Setor extends Component
 
         Whatsapp::create([
             'nasabah_id' => $nasabah->id,
+            'transaksi_id' => $transaksi->id,
             'pesan' => $pesan,
             'status' => 'pending'
         ]);

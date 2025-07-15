@@ -182,7 +182,7 @@ class Tarik extends Component
         $variable = [
             $nasabah->nama,
             'Rp. ' . number_format($nasabah->saldo, 2, ',', '.'),
-            'Rp. ' . number_format($this->setor, 2, ',', '.'),
+            'Rp. ' . number_format($this->tarik, 2, ',', '.'),
             date('d-m-Y H:i', strtotime($transaksi->created_at)),
             $this->keterangan ?: '-'
 
@@ -191,6 +191,7 @@ class Tarik extends Component
 
         Whatsapp::create([
             'nasabah_id' => $nasabah->id,
+            'transaksi_id' => $transaksi->id,
             'pesan' => $pesan,
             'status' => 'pending'
         ]);
@@ -200,7 +201,6 @@ class Tarik extends Component
 
     public function render()
     {
-
         return view('livewire.transaksi.tarik');
     }
 }
