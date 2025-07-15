@@ -53,17 +53,8 @@ class KirimPesanWhatsappCommand extends Command
                 continue;
             }
 
-            $telepon = preg_replace('/\D/', '', $nasabah->telepon); // Ambil hanya angka
 
-            if (strpos($telepon, '0') === 0) {
-                // Jika dimulai dengan 0, ganti ke 62
-                $telepon = '62' . substr($telepon, 1);
-            } elseif (strpos($telepon, '62') !== 0) {
-                // Jika tidak dimulai dengan 62, tambahkan 62 di depan
-                $telepon = '62' . $telepon;
-            }
-
-            $jid = $telepon . '@s.whatsapp.net';
+            $jid = $nasabah->telepon_whatsapp . '@s.whatsapp.net';
 
             $url = $whatsappUrl . '/' . rawurlencode($lembaga->nama) . '/messages/send';
 

@@ -54,6 +54,21 @@ class Nasabah extends Model
         });
     }
 
+    public function getTeleponWhatsappAttribute()
+    {
+        $nomor = preg_replace('/[^0-9]/', '', $this->telepon);
+
+        if (preg_match('/^0/', $nomor)) {
+            return '62' . substr($nomor, 1);
+        } elseif (preg_match('/^62/', $nomor)) {
+            return $nomor;
+        } elseif (preg_match('/^\+62/', $nomor)) {
+            return substr($nomor, 1);
+        } else {
+            return $nomor;
+        }
+    }
+
     public function lembaga()
     {
         return $this->belongsTo(Saldo::class, 'saldo_id', 'id');
