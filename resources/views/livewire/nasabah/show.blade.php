@@ -1,5 +1,10 @@
 <div class="grid grid-cols-1 md:grid-cols-8 gap-5">
     <x-card title="Detail" shadow class="col-span-3">
+
+        <x-slot:menu>
+            <x-button icon="o-pencil" link="/nasabah/{{ $nasabah->id }}/edit" class="btn-sm btn-warning" />
+        </x-slot:menu>
+
         <img src="{{ asset('storage/' . $nasabah->foto) }}" class=" h-50 rounded-lg mx-auto" />
         <div class="mx-5 my-10 space-y-2">
             <div class="flex">
@@ -44,7 +49,7 @@
                 <h3>:
                     <a class="link link-success"
                         href="https://api.whatsapp.com/send?phone={{ $nasabah->telepon_whatsapp }}" target="_blank">
-                        {{ $nasabah->telepon }}
+                        {{ $nasabah->telepon_whatsapp }}
                     </a>
                 </h3>
             </div>

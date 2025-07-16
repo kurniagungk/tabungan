@@ -65,7 +65,7 @@ class Nasabah extends Model
         } elseif (preg_match('/^\+62/', $nomor)) {
             return substr($nomor, 1);
         } else {
-            return $nomor;
+            return '62' . $nomor;
         }
     }
 
