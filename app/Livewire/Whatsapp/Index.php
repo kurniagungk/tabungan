@@ -199,6 +199,7 @@ class Index extends Component
     public function ulangi($id)
     {
         Whatsapp::where('id', $id)->update(['status' => 'pending']);
+        $this->selected = [];
     }
 
 
