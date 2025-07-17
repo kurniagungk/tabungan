@@ -24,6 +24,7 @@ class Index extends Component
     public function openModal($id)
     {
         $this->nama = Saldo::find($id)?->nama;
+        $this->saldoId = $id;
         $this->modal = true;
     }
 
@@ -37,7 +38,7 @@ class Index extends Component
     {
 
         $this->validate([
-            'nama' => 'required|unique:saldo,nama',
+            'nama' => 'required|unique:saldo,nama,' . $this->saldoId,
         ]);
 
 
@@ -46,6 +47,7 @@ class Index extends Component
             DB::beginTransaction();
 
             $saldo = Saldo::find($this->saldoId);
+
             if (!$saldo) {
                 $saldo = new Saldo();
             }
@@ -76,8 +78,10 @@ class Index extends Component
 
             DB::commit();
 
+            $this->saldoId = null;
+
             $this->success(
-                'Berhasil Menambahkan Lembaga',
+                'Berhasil',
                 timeout: 5000,
                 position: 'toast-top toast-end'
             );
