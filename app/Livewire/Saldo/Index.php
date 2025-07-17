@@ -102,10 +102,11 @@ class Index extends Component
 
     public function render()
     {
-        $saldo = Saldo::Paginate($this->perPage);
+        $saldo = Saldo::withCount('nasabah')->Paginate($this->perPage);
 
         $headers = [
             ['key' => 'nama', 'label' => 'Nama'],
+            ['key' => 'nasabah_count', 'label' => 'Nasabah'],
         ];
 
 
