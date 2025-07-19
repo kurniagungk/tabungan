@@ -56,7 +56,7 @@ class Transaksi extends Component
                 $query->select('id', 'rekening', 'nama', 'saldo_id')
                     ->where('saldo_id', $lembaga_id)
                     ->where('status', 'aktif');
-            })->orderBy('created_at', 'desc')->get();
+            })->orderBy('created_at')->get();
 
         $this->transaksi = $transaksi;
         $this->show = true;
