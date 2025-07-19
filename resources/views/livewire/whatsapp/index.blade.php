@@ -3,14 +3,16 @@
 
         @role('admin')
             <x-select label="Lembaga" wire:model.live="saldo_id" :options="$dataSaldo" option-value="id" option-label="nama" />
-            <x-select label="Whatsapp Session"
-                hint="jika ingin menggunakan 1 WhatsApp untuk beberapa laembaga maka samakan WhatsApp Session"
-                :options="$dataSaldo" wire:model="whatsappSession" option-value="nama" option-label="nama">
-                <x-slot:append>
-                    {{-- Add `join-item` to all appended elements --}}
-                    <x-button label="save" wire:click="saveSessionNama" class="join-item btn-primary" />
-                </x-slot:append>
-            </x-select>
+            @if ($saldo_id)
+                <x-select label="Whatsapp Session"
+                    hint="jika ingin menggunakan 1 WhatsApp untuk beberapa laembaga maka samakan WhatsApp Session"
+                    :options="$dataSaldo" wire:model="whatsappSession" option-value="nama" option-label="nama">
+                    <x-slot:append>
+                        {{-- Add `join-item` to all appended elements --}}
+                        <x-button label="save" wire:click="saveSessionNama" class="join-item btn-primary" />
+                    </x-slot:append>
+                </x-select>
+            @endif
         @endrole
 
         @if ($server && $saldo_id)
