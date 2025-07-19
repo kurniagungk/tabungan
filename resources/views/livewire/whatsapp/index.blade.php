@@ -3,9 +3,27 @@
 
         @role('admin')
             <x-select label="Lembaga" wire:model.live="saldo_id" :options="$dataSaldo" option-value="id" option-label="nama" />
+            <x-select label="Whatsapp Session"
+                hint="jika ingin menggunakan 1 WhatsApp untuk beberapa laembaga maka samakan WhatsApp Session"
+                :options="$dataSaldo" wire:model="whatsappSession" option-value="nama" option-label="nama">
+                <x-slot:append>
+                    {{-- Add `join-item` to all appended elements --}}
+                    <x-button label="save" wire:click="saveSessionNama" class="join-item btn-primary" />
+                </x-slot:append>
+            </x-select>
         @endrole
 
         @if ($server && $saldo_id)
+            @role('petugas')
+                <x-input label="Whatsapp Session" disabled value="{{ $whatsappSession }}">
+                    <x-slot:append>
+                        {{-- Add `join-item` to all appended elements --}}
+                        <x-button label="Reset" icon="o-arrow-path" wire:click="resetSesionNama"
+                            class="join-item btn-primary" />
+                    </x-slot:append>
+                </x-input>
+            @endrole
+
             <div class="">
                 <div>
                     <label class="label mt-5">Status</label>
@@ -14,6 +32,8 @@
                         <span class="label-text">Aktifkan WhatsApp Session</span>
                     </label>
                 </div>
+
+
 
                 @if ($status)
                     <div class="mt-6 space-y-3">
@@ -77,6 +97,7 @@
             <div class="col-span-1">
                 <x-select label="Status Pesan" wire:model.live="statusId" :options="$statusSelect" option-value="value"
                     option-label="label" />
+
             </div>
 
             @if ($selected)

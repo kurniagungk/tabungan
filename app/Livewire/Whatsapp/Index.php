@@ -4,6 +4,7 @@ namespace App\Livewire\Whatsapp;
 
 use App\Models\Saldo;
 
+use Mary\Traits\Toast;
 use App\Models\Setting;
 use Livewire\Component;
 use App\Models\Whatsapp;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Http;
 
 class Index extends Component
 {
-    use WithPagination;
+    use WithPagination,   Toast;
 
     public $perPage = 10;
     public $status;
@@ -33,24 +34,31 @@ class Index extends Component
 
         $user = auth()->user();
         $admin = $user->hasRole('admin');
+        $saldo_id = null;
         if (!$admin) {
 
             $saldo = Saldo::where('id', $user->saldo_id)->first();
 
-            $this->whatsappSession = $saldo->nama;
             $this->saldo_id = $user->saldo_id;
         }
 
 
 
 
-        $setting = Setting::where('nama', 'whatsapp_api')->first();
+        $setting = Setting::where('nama', 'whatsapp_api')->where('saldo_id',  $this->saldo_id)->first();
+
+        $settingSesion = Setting::where('nama', 'whatsapp_session')->where('saldo_id', $this->saldo_id)->first();
+
+        $this->whatsappSession = $settingSesion ? $settingSesion->isi : null;
+
 
         if ($setting->isi == 0)
             $this->status = false;
         else
             $this->status = true;
     }
+
+
 
     public function whatsapp()
     {
@@ -72,6 +80,12 @@ class Index extends Component
         $saldo = Saldo::find($this->saldo_id);
         $this->whatsappSession = $saldo->nama;
         $this->qr = null;
+
+        $settingSesion = Setting::where('nama', 'whatsapp_session')->where('saldo_id', $this->saldo_id)->first();
+
+        $this->whatsappSession = $settingSesion ? $settingSesion->isi : null;
+
+
         $this->dispatch('qr');
     }
 
@@ -211,6 +225,46 @@ class Index extends Component
         Whatsapp::whereIn('id', $id)->where('status', 'gagal')->update(['status' => 'pending']);
     }
 
+    public function saveSessionNama()
+    {
+        $this->validate([
+            'whatsappSession' => 'required'
+        ]);
+
+        $setting = Setting::updateOrCreate(
+            ['nama' => 'whatsapp_session', 'saldo_id' => $this->saldo_id],
+            ['isi' => $this->whatsappSession]
+        );
+
+        $this->dispatch('qr');
+
+        $this->success(
+            'WhatsApp Session berhasil disimpan.',
+            timeout: 5000,
+            position: 'toast-top toast-end'
+        );
+    }
+
+    public function resetSesionNama()
+    {
+
+        $saldo = Saldo::find($this->saldo_id);
+        $this->whatsappSession = $saldo->nama;
+
+        Setting::updateOrCreate(
+            ['nama' => 'whatsapp_session', 'saldo_id' => $this->saldo_id],
+            ['isi' => $this->whatsappSession]
+        );
+
+
+        $this->dispatch('qr');
+        $this->success(
+            'WhatsApp Session berhasil direset.',
+            timeout: 5000,
+            position: 'toast-top toast-end'
+        );
+    }
+
     public function render()
     {
 
@@ -241,6 +295,8 @@ class Index extends Component
             ['value' => 'gagal', 'label' => 'Gagal'],
             ['value' => 'berhasil', 'label' => 'Berhasil'],
         ];
+
+
 
         return view('livewire.whatsapp.index', compact('pesan', 'headers', 'dataSaldo', 'statusSelect'));
     }

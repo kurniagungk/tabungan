@@ -25,6 +25,7 @@ class SettingTabungan extends Seeder
             ['nama' => 'socker_io', 'isi' => 'http://localhost:3000/'],
             ['nama' => 'saldo_habis', 'isi' => 'asd'],
             ['nama' => 'whatsapp_api', 'isi' => '0'],
+            ['nama' => 'whatsapp_session', 'isi' => ''],
         ];
 
 
@@ -47,12 +48,20 @@ class SettingTabungan extends Seeder
                 ->get();
 
             foreach ($defaultSettings as $default) {
+
+
+                $isi = $default->isi;
+
+                if ($default->nama == 'whatsapp_session') {
+                    $isi = $s->nama;
+                }
+
                 Setting::firstOrCreate([
                     'saldo_id' => $s->id,
                     'nama' => $default->nama,
                 ], [
 
-                    'isi' => $default->isi,
+                    'isi' => $isi,
                 ]);
             }
         }

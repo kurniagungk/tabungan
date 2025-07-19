@@ -53,10 +53,11 @@ class KirimPesanWhatsappCommand extends Command
                 continue;
             }
 
+            $settingsing = $lembaga->setting()->where('nama', 'whatsapp_session')->first();
 
             $jid = $nasabah->telepon_whatsapp . '@s.whatsapp.net';
 
-            $url = $whatsappUrl . '/' . rawurlencode($lembaga->nama) . '/messages/send';
+            $url = $whatsappUrl . '/' . rawurlencode($settingsing->isi) . '/messages/send';
 
             try {
 
