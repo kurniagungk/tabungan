@@ -41,7 +41,16 @@ class KirimPesanWhatsappCommand extends Command
         $whatsappUrl = Env('WHATSAPP_API_URL');
         $whatsappKey = Env('WHATSAPP_API_KEY');
 
+        $jumlah = 0;
+
         foreach ($whatsapps as $pesan) {
+
+
+            if ($jumlah >= 10) {
+                $this->info('Mencapai batas pengiriman pesan, berhenti sejenak.');
+                return;
+            }
+
             $nasabah = $pesan->nasabah;
             $lembaga = $nasabah->lembaga;
 
@@ -86,6 +95,8 @@ class KirimPesanWhatsappCommand extends Command
                 $this->error("Error kirim untuk ID: {$pesan->id} - {$jid}. Pesan error: " . $e->getMessage());
                 Log::error($e);
             }
+
+            $jumlah++;
         }
     }
 }
