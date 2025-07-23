@@ -32,6 +32,12 @@ class KirimPesanWhatsappJob implements ShouldQueue
 
     public function handle(): void
     {
+
+        if ($this->pesan->status == 'berhasil') {
+            Log::info("Pesan WhatsApp ID {$this->pesan->id} sudah berhasil, melewati pengiriman.");
+            return;
+        }
+
         $nasabah = $this->pesan->nasabah;
         $lembaga = $nasabah?->lembaga;
 
