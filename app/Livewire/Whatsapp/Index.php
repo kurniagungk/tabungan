@@ -9,6 +9,7 @@ use App\Models\Setting;
 use Livewire\Component;
 use App\Models\Whatsapp;
 use Livewire\WithPagination;
+use App\Jobs\KirimPesanWhatsappJob;
 use Illuminate\Support\Facades\Http;
 
 class Index extends Component
@@ -212,7 +213,13 @@ class Index extends Component
 
     public function ulangi($id)
     {
-        Whatsapp::where('id', $id)->update(['status' => 'pending']);
+        $whatsapp = Whatsapp::find($id);
+
+        $whatsapp->status = 'pending';
+        $whatsapp->save();
+
+        KirimPesanWhatsappJob::dispatch($whatsapp);
+
         $this->selected = [];
     }
 
@@ -222,7 +229,16 @@ class Index extends Component
 
         $id = $this->selected;
 
-        Whatsapp::whereIn('id', $id)->where('status', 'gagal')->update(['status' => 'pending']);
+        $whatsapp = Whatsapp::whereIn('id', $id)->where('status', 'gagal')->get();
+
+        foreach ($whatsapp as $pesan) {
+            $pesan->status = 'pending';
+            $pesan->save();
+
+            KirimPesanWhatsappJob::dispatch($pesan);
+        }
+
+        $this->selected = [];
     }
 
     public function saveSessionNama()
