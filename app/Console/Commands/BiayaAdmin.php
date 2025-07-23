@@ -14,6 +14,7 @@ use App\Models\WhatsappPesan;
 use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use App\Jobs\KirimPesanWhatsappJob;
 use Illuminate\Support\Facades\Auth;
 
 class BiayaAdmin extends Command
@@ -170,10 +171,12 @@ class BiayaAdmin extends Command
         ];
         $pesan = str_replace($replace, $variable, $wa->pesan);
 
-        Whatsapp::create([
+        $whatsapp = Whatsapp::create([
             'nasabah_id' => $nasabah->id,
             'pesan' => $pesan,
             'status' => 'pending'
         ]);
+
+        KirimPesanWhatsappJob::dispatch($whatsapp);
     }
 }

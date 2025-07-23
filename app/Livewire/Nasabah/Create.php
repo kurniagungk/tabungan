@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use App\Models\WhatsappPesan;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
+use App\Jobs\KirimPesanWhatsappJob;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -207,12 +208,14 @@ class Create extends Component
         ];
         $pesan = str_replace($replace, $variable, $wa->pesan);
 
-        Whatsapp::create([
+        $whatsapp = Whatsapp::create([
             'nasabah_id' => $nasabah->id,
             'transaksi_id' => $transaksi->id,
             'pesan' => $pesan,
             'status' => 'pending'
         ]);
+
+        KirimPesanWhatsappJob::dispatch($whatsapp);
     }
 
     public function updatedfoto()
