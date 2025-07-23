@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         RateLimiter::for('kirim-wa', function () {
-            return Limit::perTwoMinutes(10);
+            return Limit::perMinutes(2, 10);
         });
     }
 }
