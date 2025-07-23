@@ -29,6 +29,8 @@ class KirimPesanWhatsappCommand extends Command
     public function handle()
     {
 
+        $this->info('start kirim pesan whatsapp');
+
         $status = $this->argument('status');
 
         $whatsapps = Whatsapp::where('status', $status)->get();

@@ -3,10 +3,11 @@
 namespace App\Livewire\Nasabah;
 
 use App\Models\Nasabah;
-use App\Models\Nasabah_transaksi;
 use Livewire\Component;
 use App\Models\Whatsapp;
 use App\Models\WhatsappPesan;
+use App\Models\Nasabah_transaksi;
+use App\Jobs\KirimPesanWhatsappJob;
 
 class Show extends Component
 {
@@ -33,7 +34,12 @@ class Show extends Component
 
     public function ulangi($id)
     {
-        Whatsapp::where('transaksi_id', $id)->update(['status' => 'pending']);
+        $whatsapp =  Whatsapp::where('transaksi_id', $id)->first();
+
+        $whatsapp->status = 'pending';
+        $whatsapp->save();
+
+        KirimPesanWhatsappJob::dispatch($whatsapp);
     }
 
 
@@ -65,12 +71,14 @@ class Show extends Component
         ];
         $pesan = str_replace($replace, $variable, $wa->pesan);
 
-        Whatsapp::create([
+        $whatsapp =  Whatsapp::create([
             'nasabah_id' => $nasabah->id,
             'transaksi_id' => $transaksi->id,
             'pesan' => $pesan,
             'status' => 'pending'
         ]);
+
+        KirimPesanWhatsappJob::dispatch($whatsapp);
     }
 
     public function render()
