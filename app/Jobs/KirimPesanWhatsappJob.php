@@ -43,6 +43,7 @@ class KirimPesanWhatsappJob implements ShouldQueue
 
         if (!$nasabah || !$nasabah->telepon || !$lembaga) {
             $this->pesan->update(['status' => 'gagal']);
+            Log::error("Error WA ID {$this->pesan->id}: " . "Nasabah atau Lembaga tidak ditemukan.");
             return;
         }
 
