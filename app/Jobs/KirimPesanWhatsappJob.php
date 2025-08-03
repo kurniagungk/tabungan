@@ -15,6 +15,8 @@ class KirimPesanWhatsappJob implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
+    public $tries = 3;
+
     /**
      * Create a new job instance.
      */
