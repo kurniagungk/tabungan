@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/nasabah', 'Api@getNasabag');
-Route::get('/saldo', 'Api@getSaldo');
-Route::post('transaksi/mitra', 'Api@transaksaMitra');
+Route::get('/nasabah', [Api::class, 'getNasabag']);
+Route::get('/saldo', [Api::class, 'getSaldo']);
+Route::post('transaksi/mitra', [Api::class, 'transaksaMitra']);
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
