@@ -89,7 +89,7 @@ class Chart extends Component
                 ],
             ],
             'labels' => $labels,
-        ;
+        ];
 
         // Mengirimkan data chart melalui event 'chart-transaksi'.
         $this->dispatch('chart-transaksi', chart: $data);
