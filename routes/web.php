@@ -167,6 +167,7 @@ Route::group(['middleware' => ['auth', 'role:admin|petugas']], function () {
     Route::get('/home', \App\Livewire\Dasbord\Index::class)->name('home');
     Route::get('/whatapps', \App\Livewire\Whatsapp\Index::class)->name('whatsapp');
     Route::get('/whatapps/pesan', \App\Livewire\Whatsapp\Pesan::class)->name('whatsapp.pesan');
+    Route::get('/whatapps/chat', \App\Livewire\Whatsapp\Chat::class)->name('whatsapp.chat');
 });
 
 

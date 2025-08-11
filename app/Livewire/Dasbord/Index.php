@@ -43,8 +43,6 @@ class Index extends Component
             'tidak' => $tidak,
         ];
 
-
-
         return view('livewire.dasbord.index', compact('data'));
     }
 }
