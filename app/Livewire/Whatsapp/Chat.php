@@ -6,19 +6,66 @@ use App\Models\Saldo;
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
 
+/**
+ * Komponen Livewire untuk antarmuka obrolan WhatsApp.
+ *
+ * Komponen ini memungkinkan pengguna untuk berinteraksi dengan API WhatsApp,
+ * mengambil kontak, pesan obrolan, dan mengirim pesan.
+ */
 class Chat extends Component
 {
 
+    /**
+     * ID Saldo yang dipilih.
+     *
+     * @var int|null
+     */
     public  $saldo_id;
 
+    /**
+     * Sesi WhatsApp yang digunakan.
+     *
+     * Biasanya diambil dari nama Saldo.
+     * @var string|null
+     */
     public  $whatsappSession;
 
+    /**
+     * Daftar kontak WhatsApp yang tersedia.
+     *
+     * @var array
+     */
     public  $contacts = [];
+
+    /**
+     * Daftar pesan obrolan yang ditampilkan.
+     *
+     * @var array
+     */
     public  $chats = [];
 
+    /**
+     * ID kontak yang saat ini dipilih.
+     *
+     * @var string|null
+     */
     public $contactId;
+
+    /**
+     * Pesan yang akan dikirim.
+     *
+     * @var string|null
+     */
     public $message;
 
+    /**
+     * Siklus hidup component, dipanggil setelah component di-mount.
+     *
+     * Mengambil informasi user dan menentukan saldo_id berdasarkan role user.
+     * Hanya user non-admin yang memiliki saldo_id.
+     *
+     * @return void
+     */
     public function mount()
     {
 
@@ -32,6 +79,13 @@ class Chat extends Component
         }
     }
 
+    /**
+     * Mengembalikan konfigurasi API WhatsApp.
+     *
+     * Mengambil URL dan Key API WhatsApp dari environment variables.
+     *
+     * @return array
+     */
     public function whatsapp()
     {
 
@@ -47,6 +101,14 @@ class Chat extends Component
         ];
     }
 
+    /**
+     * Mengambil daftar kontak WhatsApp dari API.
+     *
+     * Menggunakan `whatsappSession` untuk mengambil daftar kontak terkait.
+     * Menyimpan daftar kontak ke properti `$contacts`.
+     *
+     * @return void
+     */
     public function getContact()
     {
         $whatsapp = $this->whatsapp();
@@ -72,6 +134,15 @@ class Chat extends Component
         }
     }
 
+    /**
+     * Menetapkan kontak yang dipilih dan mengambil riwayat obrolan.
+     *
+     * Menggunakan `contactId` dan `whatsappSession` untuk mengambil daftar pesan.
+     * Menyimpan daftar pesan ke properti `$chats` dan mengirimkan event `chat-loaded`.
+     *
+     * @param string $id ID kontak yang dipilih.
+     * @return void
+     */
     public function setContact($id)
     {
 
@@ -101,6 +172,14 @@ class Chat extends Component
         $this->getContact();
     }
 
+    /**
+     * Dipanggil ketika `$saldo_id` diperbarui.
+     *
+     * Mengambil nama Saldo berdasarkan `$saldo_id` dan menetapkannya ke `$whatsappSession`.
+     * Kemudian memanggil `getContact()` untuk memperbarui daftar kontak.
+     *
+     * @return void
+     */
     public function updatedSaldoId()
     {
         $saldo = Saldo::find($this->saldo_id);
@@ -108,6 +187,14 @@ class Chat extends Component
         $this->getContact();
     }
 
+    /**
+     * Mengirim pesan ke kontak yang dipilih.
+     *
+     * Membuat struktur data pesan (chat) dan menambahkannya ke awal array `$chats`.
+     * Mereset properti `$message` setelah pesan ditambahkan.
+     *
+     * @return void
+     */
     public function sendMessage()
     {
 
@@ -128,6 +215,14 @@ class Chat extends Component
         array_unshift($this->chats, $chat);
     }
 
+    /**
+     * Merender tampilan komponen.
+     *
+     * Mengambil semua data Saldo dan menambahkannya ke tampilan.
+     * Menyiapkan opsi "default Setting" sebagai opsi pertama.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function render()
     {
         $dataSaldo = Saldo::all()->prepend((object)[
