@@ -4,6 +4,7 @@ namespace App\Livewire\Whatsapp;
 
 use App\Models\Saldo;
 use App\Models\Setting;
+use App\Models\Whatsapp;
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
 
@@ -37,6 +38,8 @@ class Chat extends Component
      * @var array
      */
     public  $contacts = [];
+
+
 
     /**
      * Daftar pesan obrolan yang ditampilkan.
@@ -203,9 +206,6 @@ class Chat extends Component
     public function sendMessage()
     {
 
-
-
-
         $chat = [
             'key' => [
                 'fromMe' => true,
@@ -215,9 +215,27 @@ class Chat extends Component
             ]
         ];
 
-        $this->reset('message');
+        $whatsapp = $this->whatsapp();
+        $session = rawurlencode($this->whatsappSession);
 
-        array_unshift($this->chats, $chat);
+        try {
+
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'x-api-key' => $whatsapp["whatsappKey"],
+            ])->post($whatsapp["whatsappUrl"], [
+                'jid' => $this->contactId,
+                'type' => 'number',
+                'message' => ['text' => $this->message]
+            ]);
+
+            if (isset($response->json()['error'])) {
+            } else {
+            }
+        } catch (\Exception $ex) {
+        }
+
+        $this->reset('message');
     }
 
     /**
@@ -234,6 +252,8 @@ class Chat extends Component
             'id' => null,
             'nama' => 'deafult Setting',
         ]);
+
+
 
 
         return view('livewire.whatsapp.chat', [
