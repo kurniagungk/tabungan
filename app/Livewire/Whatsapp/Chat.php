@@ -3,6 +3,7 @@
 namespace App\Livewire\Whatsapp;
 
 use App\Models\Saldo;
+use App\Models\Setting;
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
 
@@ -77,6 +78,10 @@ class Chat extends Component
         if (!$admin) {
             $saldo_id = $user->saldo_id;
         }
+
+        $settingSesion = Setting::where('nama', 'whatsapp_session')->where('saldo_id', $this->saldo_id)->first();
+
+        $this->whatsappSession = $settingSesion ? $settingSesion->isi : null;
     }
 
     /**
@@ -123,8 +128,6 @@ class Chat extends Component
                     'x-api-key' => $whatsapp["whatsappKey"]
                 ]
             )->get($whatsapp["whatsappUrl"] . '/' .  $session . '/contacts');
-
-
 
             if (isset($contacts->json()['error'])) {
             } else {
@@ -183,7 +186,9 @@ class Chat extends Component
     public function updatedSaldoId()
     {
         $saldo = Saldo::find($this->saldo_id);
-        $this->whatsappSession = $saldo->nama;
+        $settingSesion = Setting::where('nama', 'whatsapp_session')->where('saldo_id', $saldo->id)->first();
+        $this->whatsappSession = $settingSesion ? $settingSesion->isi : null;
+
         $this->getContact();
     }
 
