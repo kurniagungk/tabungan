@@ -1,0 +1,7 @@
+name: laravel-livewire
+version: 0.0.1
+schema: v1
+docs:
+  - name: Laravel-Livewire
+    startUrl: https://livewire.laravel.com/docs
+

@@ -1,0 +1,6 @@
+name: Mary UI
+version: 0.0.1
+schema: v1
+docs:
+  - name: Mary UI
+    startUrl: https://mary-ui.com/docs/installation
