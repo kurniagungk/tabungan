@@ -1,194 +1,96 @@
-<div class="row">
-    <div class="col-xl col-lg">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h5 class="m-0 font-weight-bold text-primary">Jurnal Umum</h5>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Export File :</div>
-                        <a class="dropdown-item" href="#">PDF</a>
-                        <a class="dropdown-item" href="#">Excell</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
+<x-card title="Jurnal Umum">
+    <x-slot:header>
+        <x-dropdown>
+            <x-dropdown.header>Export File :</x-dropdown.header>
+            <x-dropdown.link href="#">PDF</x-dropdown.link>
+            <x-dropdown.link href="#">Excel</x-dropdown.link>
+            <x-dropdown.divider />
+            <x-dropdown.link href="#">Something else here</x-dropdown.link>
+        </x-dropdown>
+    </x-slot:header>
 
-                <div class="row">
-                    <div class="col-xl-7 col-lg-7">
-                        <div class="card shadow mb-8">
-                            <div class="card-body">
+    <x-row>
+        <x-col desktop="7">
+            <x-card>
+                <x-form wire:submit="filter">
+                    <x-form.group label="Periode">
+                        <x-input type="date" wire:model.live="awal" label="Awal" />
+                        <x-input type="date" wire:model.live="akhir" label="Akhir" />
+                    </x-form.group>
 
-                                <form wire:submit="filter">
+                    <x-form.group label="Jenis Transaksi">
+                        <x-radio wire:model.live="jenisTransaksi" name="jenisTransaksi" value="" label="Semua" />
+                        <x-radio wire:model.live="jenisTransaksi" name="jenisTransaksi" value="setor" label="Setor" />
+                        <x-radio wire:model.live="jenisTransaksi" name="jenisTransaksi" value="tarik" label="Tarik" />
+                    </x-form.group>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">periode</label>
-                                        <div class="col-sm-4">
-                                            <input wire:model.live='awal' type="date"
-                                                class="form-control @error('awal') is-invalid @enderror" id="">
-                                            @error('awal')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <input wire:model.live='akhir' type="date"
-                                                class="form-control @error('akhir') is-invalid @enderror" id="">
-                                            @error('akhir')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
+                    <x-form.group label="Mitra">
+                        <x-select wire:model.live='selectMitra' :options="$mitra" option-label="name" option-value="id"
+                            label="Pilih Mitra" />
+                    </x-form.group>
 
-                                    <div class="form-group row">
-                                        <label for="staticEmail2" class="col-sm-2 col-form-label">Jenis
-                                            Transaksi</label>
+                    <x-slot:footer>
+                        <x-button type="submit" icon="fas fa-filter" color="info">Filter</x-button>
+                    </x-slot:footer>
+                </x-form>
+            </x-card>
+        </x-col>
 
-                                        <div class="col-sm-10">
-                                            <div class="form-check form-check-inline">
-                                                <input wire:model.live="jenisTransaksi" class="form-check-input" type="radio"
-                                                    name="inlineRadioOptions" id="inlineRadio1" value="" checked>
-                                                <label class="form-check-label" for="inlineRadio1">Semua</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input wire:model.live="jenisTransaksi" class="form-check-input" type="radio"
-                                                    name="inlineRadioOptions" id="inlineRadio2" value="setor">
-                                                <label class="form-check-label" for="inlineRadio2">Setor</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input wire:model.live="jenisTransaksi" class="form-check-input" type="radio"
-                                                    name="inlineRadioOptions" id="inlineRadio3" value="tarik">
-                                                <label class="form-check-label" for="inlineRadio3">Tarik</label>
-                                            </div>
-                                        </div>
-                                    </div>
+        <x-col desktop="5">
+            <x-card>
+                <x-description-list>
+                    <x-description term="Periode">{{ $awal ?? '' }} - {{ $akhir ?? '' }}
+                    </x-description>
+                    <x-description term="Total Setor">{{ $totalSetor ?? '' }}</x-description>
+                    <x-description term="Total Tarik">{{ $totalTarik ?? '' }}</x-description>
+                    <x-description term="Saldo">{{ $totalSetor - $totalTarik ?? '' }}</x-description>
+                </x-description-list>
+
+                <x-slot:footer>
+                    <x-button wire:click='export' icon="fas fa-download" color="warning">Export</x-button>
+                </x-slot:footer>
+            </x-card>
+        </x-col>
+    </x-row>
 
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">mitra</label>
-                                        <div class="col-sm-4">
-                                            <select wire:model.live='selectMitra' id="inputState" class="form-control">
-                                                <option value="">Semua </option>
-                                                @foreach ($mitra as $m)
-                                                    <option value="{{ $m->id }}">{{ $m->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+    <x-table :headers="$headers" :rows="$transaksi">
+        @scope('cell_no', $t, $loop)
+        {{ $loop->index + 1 }}
+        @endscope
 
+        @scope('cell_id', $t)
+        {{ substr($t->id, 0, 8) }}
+        @endscope
 
+        @scope('cell_created_at', $t)
+        {{ $t->created_at }}
+        @endscope
 
-                                    <br>
+        @scope('cell_nasabah.nis', $t)
+        {{ $t->nasabah->nis }}
+        @endscope
 
-                                    <center>
-                                        <button type="submit" class="btn btn-info btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-filter"></i>
-                                            </span>
-                                            <span class="text">Filter</span>
-                                        </button>
-                                    </center>
+        @scope('cell_nasabah.nama', $t)
+        {{ $t->nasabah->nama }}
+        @endscope
 
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+        @scope('cell_jenis', $t)
+        {{ $t->jenis }}
+        @endscope
 
-                    <div class="col-xl-5 col-lg-5">
-                        <div class="card shadow mb-4">
-                            <div class="card-body">
-                                <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-4 col-form-label">Periode</label>
-                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
-                                    <label for="staticEmail" class="col-sm-3 col-form-label">{{ $awal ?? '' }}</label>
-                                    <label for="staticEmail" class="col-sm-1 col-form-label"> - </label>
-                                    <label for="staticEmail" class="col-sm-3 col-form-label">{{ $akhir ?? '' }}</label>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-4 col-form-label">Total Setor : </label>
-                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
-                                    <label for="staticEmail"
-                                        class="col-sm-7 col-form-label">{{ $totalSetor ?? '' }}</label>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-4 col-form-label">Total Tarik : </label>
-                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
-                                    <label for="staticEmail"
-                                        class="col-sm-7 col-form-label">{{ $totalTarik ?? '' }}</label>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-4 col-form-label">Saldo : </label>
-                                    <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
-                                    <label for="staticEmail"
-                                        class="col-sm-3 col-form-label">{{ $totalSetor - $totalTarik ?? '' }}</label>
-                                </div>
+        @scope('cell_mitra.name', $t)
+        {{ $t->mitra->name }}
+        @endscope
 
-                                <center>
-                                    <button wire:click='export' class="btn btn-warning btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-download"></i>
-                                        </span>
-                                        <span class="text">Export</span>
-                                    </button>
-                                </center>
+        @scope('cell_jumlah', $t)
+        {{ $t->jumlah }}
+        @endscope
 
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>ID Transaksi</th>
-                                <th>Tanggal</th>
-                                <th>Rekening</th>
-                                <th>Nama</th>
-                                <th>Jenis</th>
-                                <th>Sumber</th>
-                                <th>Jumlah</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($transaksi)
-                                @forelse ($transaksi as $t)
-                                    <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ substr($t->id, 0, 8) }}</td>
-                                        <td>{{ $t->created_at }}</td>
-                                        <td>{{ $t->nasabah->nis }}</td>
-                                        <td>{{ $t->nasabah->nama }}</td>
-                                        <td>{{ $t->jenis }}</td>
-                                        <td>{{ $t->mitra->name }}</td>
-                                        <td>{{ $t->jumlah }}</td>
-
-                                    </tr>
-                                @empty
-                                @endforelse
-                            @else
-                                <tr>
-                                    <td></td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+        <x-slot:empty>
+            <x-table.row>
+                <x-table.cell colspan="8" class="text-center">Tidak ada data</x-table.cell>
+            </x-table.row>
+        </x-slot:empty>
+    </x-table>
+</x-card>

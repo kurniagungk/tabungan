@@ -44,3 +44,4 @@ name: Laravel/11x Rules
 - Utilize Laravel's event and listener system for decoupled code functionality.
 - Apply database transactions to maintain data integrity.
 - Use Laravel's scheduling features for managing recurring tasks.
+- gunakan bahasa indonesia

@@ -79,6 +79,17 @@ class Umum extends Component
     public function render()
     {
         $mitra = User::latest()->get();
-        return view('livewire.laporan.umum', compact('mitra'));
+
+        $headers = [
+            ['key' => 'no', 'label' => 'No'],
+            ['key' => 'id', 'label' => 'ID Transaksi'],
+            ['key' => 'created_at', 'label' => 'Tanggal'],
+            ['key' => 'nasabah.nis', 'label' => 'Rekening'],
+            ['key' => 'nasabah.nama', 'label' => 'Nama'],
+            ['key' => 'jenis', 'label' => 'Jenis'],
+            ['key' => 'mitra.name', 'label' => 'Sumber'],
+            ['key' => 'jumlah', 'label' => 'Jumlah'],
+        ];
+        return view('livewire.laporan.umum', compact('mitra', 'headers'));
     }
 }
