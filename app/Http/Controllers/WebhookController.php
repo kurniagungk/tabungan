@@ -199,10 +199,10 @@ class WebhookController extends Controller
             $tanggal = $item->created_at->format('d-m-Y H:i');
 
             // Tentukan jenis transaksi
-            if ($item->credit > 0) {
+            if ($item->debit > 0) {
                 $jenis  = 'Setor Tunai';
                 $jumlah = 'Rp. ' . number_format($item->credit, 2, ',', '.');
-            } elseif ($item->debit > 0) {
+            } elseif ($item->credit > 0) {
                 $jenis  = 'Tarik Tunai';
                 $jumlah = 'Rp. ' . number_format($item->debit, 2, ',', '.');
             } else {
