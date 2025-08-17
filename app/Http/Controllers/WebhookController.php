@@ -201,10 +201,10 @@ class WebhookController extends Controller
             // Tentukan jenis transaksi
             if ($item->debit > 0) {
                 $jenis  = 'Setor Tunai';
-                $jumlah = 'Rp. ' . number_format($item->credit, 2, ',', '.');
+                $jumlah = 'Rp. ' . number_format($item->debit, 2, ',', '.');
             } elseif ($item->credit > 0) {
                 $jenis  = 'Tarik Tunai';
-                $jumlah = 'Rp. ' . number_format($item->debit, 2, ',', '.');
+                $jumlah = 'Rp. ' . number_format($item->credit, 2, ',', '.');
             } else {
                 $jenis  = 'Transaksi';
                 $jumlah = 'Rp. 0,00';
