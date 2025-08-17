@@ -62,6 +62,7 @@ class WebhookController extends Controller
 
         $saldo = Saldo::where('nama', $sessionId)->first();
         if (!$saldo) {
+            Log::warning('Saldo not found for sessionId: ' . $sessionId);
             return response()->json(['message' => 'Saldo not found'], 404);
         }
 

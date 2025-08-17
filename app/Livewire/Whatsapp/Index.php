@@ -23,7 +23,7 @@ class Index extends Component
     public $server = true;
     public $whatsappSession;
     public $saldo_id;
-    public $hook;
+    public $whatsappHook;
     public $statusId = 'semua';
 
     public array $selected = [];
@@ -60,7 +60,7 @@ class Index extends Component
         else
             $this->status = true;
 
-        $this->hook = $hook->isi == 1 ? true : false;
+        $this->whatsappHook = $hook->isi == 1 ? true : false;
     }
 
 
@@ -87,9 +87,12 @@ class Index extends Component
         $this->qr = null;
 
         $settingSesion = Setting::where('nama', 'whatsapp_session')->where('saldo_id', $this->saldo_id)->first();
+        $hook = Setting::where('nama', 'whatsapp_webhook')->where('saldo_id',  $this->saldo_id)->first();
+        $setting = Setting::where('nama', 'whatsapp_api')->where('saldo_id',  $this->saldo_id)->first();
 
         $this->whatsappSession = $settingSesion ? $settingSesion->isi : null;
-
+        $this->whatsappHook = $hook->isi == 1 ? true : false;
+        $this->status = $setting->isi == 1 ? true : false;
 
         $this->dispatch('qr');
     }
@@ -107,11 +110,11 @@ class Index extends Component
         }
     }
 
-    public function updatedHook()
+    public function updatedWhatsappHook()
     {
 
         $setting = Setting::where('nama', 'whatsapp_webhook')->where('saldo_id', $this->saldo_id)->update([
-            'isi' => $this->hook
+            'isi' => $this->whatsappHook
         ]);
     }
 
@@ -171,6 +174,9 @@ class Index extends Component
 
         $whatsapp = $this->whatsapp();
 
+        $appUrl = config('app.url');
+
+
         $create = Http::withHeaders(
             [
                 'Content-Type' => 'application/json',
@@ -178,6 +184,7 @@ class Index extends Component
             ]
         )->post($whatsapp["whatsappUrl"] . '/sessions/add', [
             'sessionId' => $this->whatsappSession,
+            'webhookUrl' =>  $appUrl . '/api/webhooks/whatsapp',
         ]);
 
 

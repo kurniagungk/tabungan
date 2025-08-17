@@ -31,14 +31,15 @@
             <div>
                 <label class="label mt-5">Status</label>
                 <label class="cursor-pointer label justify-start gap-3">
-                    <input type="checkbox" class="toggle toggle-success" wire:model.live="status">
+                    <x-toggle class="toggle toggle-success" wire:model.live="status" />
                     <span class="label-text">Aktifkan WhatsApp Session</span>
                 </label>
             </div>
             <div>
                 <label class="label mt-5">Whatsapp Bot</label>
                 <label class="cursor-pointer label justify-start gap-3">
-                    <input type="checkbox" class="toggle toggle-success" wire:model.live="hook">
+                    <x-toggle class="toggle toggle-success" wire:model.live="whatsappHook" />
+
                     <span class="label-text">Aktifkan WhatsApp BOT</span>
                 </label>
             </div>
