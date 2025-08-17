@@ -17,4 +17,9 @@ class Setting extends Model
         'nama',
         'isi',
     ];
+
+    public function saldo()
+    {
+        return $this->belongsTo(Saldo::class);
+    }
 }

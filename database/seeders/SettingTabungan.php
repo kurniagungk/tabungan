@@ -26,6 +26,7 @@ class SettingTabungan extends Seeder
             ['nama' => 'saldo_habis', 'isi' => 'asd'],
             ['nama' => 'whatsapp_api', 'isi' => '0'],
             ['nama' => 'whatsapp_session', 'isi' => ''],
+            ['nama' => 'whatsapp_webhook', 'isi' => '0'],
         ];
 
 

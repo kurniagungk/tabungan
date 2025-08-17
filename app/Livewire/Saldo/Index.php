@@ -58,6 +58,9 @@ class Index extends Component
             $defaultSettings = Setting::whereNull('saldo_id')->get();
 
             foreach ($defaultSettings as $default) {
+                if ($default->nama == 'whatsapp_session') {
+                    $default->isi = $saldo->nama; // Set default webhook ke non-aktif
+                }
                 Setting::create([
                     'saldo_id' => $saldo->id, // gunakan $saldo, bukan $s
                     'nama' => $default->nama,

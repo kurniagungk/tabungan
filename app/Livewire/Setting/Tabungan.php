@@ -13,7 +13,7 @@ class Tabungan extends Component
 
     use Toast;
 
-    public $tanggal, $biaya, $minimal, $habis, $saldo_id;
+    public $tanggal, $biaya, $minimal, $habis, $saldo_id, $hook;
 
     public function mount()
     {
@@ -38,13 +38,14 @@ class Tabungan extends Component
 
         $saldo_id = $this->saldo_id;
 
-        $setting = Setting::whereIn('nama', ['biaya_tanggal', 'biaya_admin', 'saldo_minimal', 'saldo_habis'])->where('saldo_id', $saldo_id)->get();
+        $setting = Setting::whereIn('nama', ['biaya_tanggal', 'biaya_admin', 'saldo_minimal', 'saldo_habis', 'whatsapp_webhook'])->where('saldo_id', $saldo_id)->get();
 
 
         $this->tanggal = $setting[0]->isi;
         $this->biaya = $setting[1]->isi;
         $this->minimal = $setting[2]->isi;
         $this->habis = $setting[3]->isi;
+        $this->hook = $setting[4]->isi;
     }
 
     public function updatedSaldoId()
@@ -66,6 +67,7 @@ class Tabungan extends Component
         Setting::where('saldo_id', $saldo_id)->where("nama", "biaya_admin")->update(["isi" => $this->biaya]);
         Setting::where('saldo_id', $saldo_id)->where("nama", "saldo_minimal")->update(["isi" => $this->minimal]);
         Setting::where('saldo_id', $saldo_id)->where("nama", "saldo_habis")->update(["isi" => $this->habis]);
+        Setting::where('saldo_id', $saldo_id)->where("nama", "whatsapp_webhook")->update(["isi" => $this->hook]);
 
         $this->success(
             'Setting berhasil disimpan',

@@ -23,6 +23,7 @@ class Index extends Component
     public $server = true;
     public $whatsappSession;
     public $saldo_id;
+    public $hook;
     public $statusId = 'semua';
 
     public array $selected = [];
@@ -47,6 +48,7 @@ class Index extends Component
 
 
         $setting = Setting::where('nama', 'whatsapp_api')->where('saldo_id',  $this->saldo_id)->first();
+        $hook = Setting::where('nama', 'whatsapp_webhook')->where('saldo_id',  $this->saldo_id)->first();
 
         $settingSesion = Setting::where('nama', 'whatsapp_session')->where('saldo_id', $this->saldo_id)->first();
 
@@ -57,6 +59,8 @@ class Index extends Component
             $this->status = false;
         else
             $this->status = true;
+
+        $this->hook = $hook->isi == 1 ? true : false;
     }
 
 
@@ -93,7 +97,7 @@ class Index extends Component
 
     public function updatedStatus()
     {
-        $setting = Setting::where('nama', 'whatsapp_api')->update([
+        $setting = Setting::where('nama', 'whatsapp_api')->where('saldo_id', $this->saldo_id)->update([
             'isi' => $this->status
         ]);
 
@@ -101,6 +105,14 @@ class Index extends Component
             $this->deleteSession();
             $this->status = false;
         }
+    }
+
+    public function updatedHook()
+    {
+
+        $setting = Setting::where('nama', 'whatsapp_webhook')->where('saldo_id', $this->saldo_id)->update([
+            'isi' => $this->hook
+        ]);
     }
 
     public function deleteSession()

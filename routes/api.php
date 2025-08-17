@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,7 @@ use App\Http\Controllers\Api;
 |
 */
 
+Route::post('/webhooks/whatsapp', [WebhookController::class, 'handleWebhook'])->name('webhooks.whatsapp');
 
 Route::get('/nasabah', [Api::class, 'getNasabag']);
 Route::get('/saldo', [Api::class, 'getSaldo']);

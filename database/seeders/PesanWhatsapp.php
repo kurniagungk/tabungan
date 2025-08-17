@@ -25,6 +25,16 @@ class PesanWhatsapp extends Seeder
                 'pesan' => "📥 *Setor Tunai Berhasil*\n\nNama: {nama}\nJumlah: {jumlah}\nTanggal: {tanggal}\n💰 Sisa Saldo: {saldo}\n📝 Keterangan: {keterangan}\n\nSilakan konfirmasi jika ada yang tidak sesuai.",
                 'status' => 'aktif',
             ],
+            [
+                'jenis' => 'saldo',
+                'pesan' => "📊 Cek Saldo\n\nNama: {nama}\n\n💰 Saldo Saat Ini: Rp. {saldo}\n\nTanggal: {tanggal}\n\nSilakan konfirmasi jika ada yang tidak sesuai.",
+                'status' => 'aktif',
+            ],
+            [
+                'jenis' => 'mutasi',
+                'pesan' => "📑 Mutasi Rekening\n\nNama: {nama}\n\n💰 Saldo Saat Ini: Rp. {saldo}\n\nTanggal Cetak: {tanggal}\n\nTransaksi Terakhir:\n\n{mutasi}\n\nSilakan konfirmasi jika ada yang tidak sesuai.",
+                'status' => 'aktif',
+            ],
         ];
 
 
