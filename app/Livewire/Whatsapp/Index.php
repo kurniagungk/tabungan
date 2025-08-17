@@ -100,8 +100,10 @@ class Index extends Component
 
     public function updatedStatus()
     {
+        $value = $this->status ? 1 : 0;
+
         $setting = Setting::where('nama', 'whatsapp_api')->where('saldo_id', $this->saldo_id)->update([
-            'isi' => $this->status
+            'isi' => $value
         ]);
 
         if ($this->status == 0 && $this->sesion == true) {
@@ -113,8 +115,10 @@ class Index extends Component
     public function updatedWhatsappHook()
     {
 
+        $value = $this->whatsappHook ? 1 : 0;
+
         $setting = Setting::where('nama', 'whatsapp_webhook')->where('saldo_id', $this->saldo_id)->update([
-            'isi' => $this->whatsappHook
+            'isi' => $value
         ]);
     }
 
