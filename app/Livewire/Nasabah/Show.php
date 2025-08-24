@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Nasabah;
 
+use Mary\Traits\Toast;
 use App\Models\Nasabah;
 use Livewire\Component;
 use App\Models\Whatsapp;
@@ -11,6 +12,8 @@ use App\Jobs\KirimPesanWhatsappJob;
 
 class Show extends Component
 {
+
+    use Toast;
 
 
     public $nasabah;
@@ -46,9 +49,9 @@ class Show extends Component
     public function kirimWa($id)
     {
 
+        $nasabah = $this->nasabah;
 
-
-        $transaksi = Nasabah_transaksi::find($id);
+        $transaksi = Nasabah_transaksi::find($nasabah->id);
         $nasabah = $transaksi->nasabah;
 
         $jenis = $transaksi->debit > 0 ? 'tarik' : 'setor';
@@ -79,6 +82,69 @@ class Show extends Component
         ]);
 
         KirimPesanWhatsappJob::dispatch($whatsapp);
+
+        $this->success('Pesan WhatsApp berhasil dikirim');
+    }
+
+    public function mutasi()
+    {
+        $nasabah = $this->nasabah;
+        $transaksi = Nasabah_transaksi::where('nasabah_id', $nasabah->id)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        $mutasiText = '';
+
+        foreach ($transaksi->reverse() as $item) {
+            $tanggal = $item->created_at->format('d-m-Y H:i');
+
+            // Tentukan jenis transaksi
+            if ($item->debit > 0) {
+                $jenis  = 'Setor Tunai';
+                $jumlah = 'Rp. ' . number_format($item->debit, 2, ',', '.');
+            } elseif ($item->credit > 0) {
+                $jenis  = 'Tarik Tunai';
+                $jumlah = 'Rp. ' . number_format($item->credit, 2, ',', '.');
+            } else {
+                $jenis  = 'Transaksi';
+                $jumlah = 'Rp. 0,00';
+            }
+
+            $keterangan = $item->keterangan ?? '-';
+
+            $mutasiText .= "Tanggal   : {$tanggal}\n";
+            $mutasiText .= "Jenis     : {$jenis}\n";
+            $mutasiText .= "Jumlah    : {$jumlah}\n";
+            $mutasiText .= "Keterangan: {$keterangan}\n\n";
+        }
+
+
+
+        // Ambil template pesan mutasi dari tabel whatsapp_pesan
+        $wa = WhatsappPesan::where('jenis', 'mutasi')->first();
+
+        $replace = ['{nama}', '{saldo}', '{tanggal}', '{mutasi}'];
+        $variable = [
+            $nasabah->nama,
+            'Rp. ' . number_format($nasabah->saldo, 2, ',', '.'),
+            now()->format('d-m-Y H:i'),
+            trim($mutasiText),
+        ];
+
+        // Replace semua placeholder di template
+        $pesan = str_replace($replace, $variable, $wa->pesan);
+
+        $whatsapp =  Whatsapp::create([
+            'nasabah_id' => $nasabah->id,
+            'transaksi_id' => null,
+            'pesan' => $pesan,
+            'status' => 'pending'
+        ]);
+
+        KirimPesanWhatsappJob::dispatch($whatsapp);
+
+        $this->success('Pesan Mutasi berhasil dikirim');
     }
 
     public function render()

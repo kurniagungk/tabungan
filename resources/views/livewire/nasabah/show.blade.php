@@ -73,11 +73,11 @@
         </div>
 
         @if ($errors->any())
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
         @endif
 
     </x-card>
@@ -108,38 +108,38 @@
                 </tr>
 
                 @php
-                    $saldo = $saldoHistori['debit'] - $saldoHistori['credit'];
+                $saldo = $saldoHistori['debit'] - $saldoHistori['credit'];
                 @endphp
 
                 @foreach ($transaksi->reverse() as $tr)
-                    @php
-                        $saldo += $tr->debit - $tr->credit;
-                    @endphp
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $tr->created_at }}</td>
-                        <td>{{ $tr->keterangan }}</td>
-                        <td>Rp. {{ number_format($tr->debit, 2, ',', '.') }}</td>
-                        <td>Rp. {{ number_format($tr->credit, 2, ',', '.') }}</td>
-                        <td>Rp. {{ number_format($saldo, 2, ',', '.') }}</td>
-                        <td>
-                            @if ($tr->whatsapp)
-                                @if ($tr->whatsapp->status == 'gagal')
-                                    <x-button icon="o-arrow-path" class="btn-error btn-sm"
-                                        wire:click="ulangi('{{ $tr->id }}')"></x-button>
-                                @elseif($tr->whatsapp->status == 'pending')
-                                    <x-badge value="pending" class="badge-warning" />
-                                @else
-                                    <x-badge value="Berhasil" class="badge-success" />
-                                @endif
-                            @else
-                                <x-button icon="o-paper-airplane" class="btn-primary btn-sm"
-                                    wire:click="kirimWa('{{ $tr->id }}')"></x-button>
-                            @endif
-                        <td>
+                @php
+                $saldo += $tr->debit - $tr->credit;
+                @endphp
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $tr->created_at }}</td>
+                    <td>{{ $tr->keterangan }}</td>
+                    <td>Rp. {{ number_format($tr->debit, 2, ',', '.') }}</td>
+                    <td>Rp. {{ number_format($tr->credit, 2, ',', '.') }}</td>
+                    <td>Rp. {{ number_format($saldo, 2, ',', '.') }}</td>
+                    <td>
+                        @if ($tr->whatsapp)
+                        @if ($tr->whatsapp->status == 'gagal')
+                        <x-button icon="o-arrow-path" class="btn-error btn-sm" wire:click="ulangi('{{ $tr->id }}')">
+                        </x-button>
+                        @elseif($tr->whatsapp->status == 'pending')
+                        <x-badge value="pending" class="badge-warning" />
+                        @else
+                        <x-badge value="Berhasil" class="badge-success" />
+                        @endif
+                        @else
+                        <x-button icon="o-paper-airplane" class="btn-primary btn-sm"
+                            wire:click="kirimWa('{{ $tr->id }}')"></x-button>
+                        @endif
+                    <td>
 
 
-                    </tr>
+                </tr>
                 @endforeach
 
                 <tr class="bg-base-200
@@ -153,6 +153,13 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="mt-10 flex justify-end">
+            <x-button label="Kirim 5 Mutasi Terakhir" class="btn-success" icon="o-chat-bubble-left-ellipsis"
+                wire:click="mutasi" />
+        </div>
+
+
 
     </x-card>
 

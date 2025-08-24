@@ -26,5 +26,5 @@ Homestead.json
 .github/
 .vscode/
 .kilocode/
-.continue/mcpServers/new-mcp-server.yaml
-.continue/mcpServers/laravel-boost.yaml
+.continue/
+
