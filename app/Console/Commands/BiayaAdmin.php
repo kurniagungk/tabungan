@@ -154,7 +154,6 @@ class BiayaAdmin extends Command
     {
 
 
-
         $wa = WhatsappPesan::where('jenis', 'tarik')->first();
 
         if (!$wa || $wa->status == "tidak")
@@ -164,7 +163,7 @@ class BiayaAdmin extends Command
         $variable = [
             $nasabah->nama,
             'Rp. ' . number_format($nasabah->saldo, 2, ',', '.'),
-            'Rp. ' . number_format($transaksi->tarik, 2, ',', '.'),
+            'Rp. ' . number_format($transaksi->credit, 2, ',', '.'),
             date('d-m-Y H:i', strtotime($transaksi->created_at)),
             $transaksi->keterangan ?: '-'
 
