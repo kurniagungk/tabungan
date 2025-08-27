@@ -91,7 +91,7 @@ class WebhookController extends Controller
                         substr($nomer, 2),             // 8xxx
                     ];
                     $nasabah = Nasabah::whereIn('telepon', $variants)->first();
-                    if ($nasabah) {
+                    if ($nasabah && $nasabah->saldo_id == $saldo->id) {
                         $pesan = strtolower($pesan);
                         if ($pesan == "saldo") {
                             $this->whatapps($nasabah, "Saldo Anda adalah: " . $nasabah->saldo);

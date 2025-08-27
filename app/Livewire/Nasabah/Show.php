@@ -52,7 +52,6 @@ class Show extends Component
         $nasabah = $this->nasabah;
 
         $transaksi = Nasabah_transaksi::find($nasabah->id);
-        $nasabah = $transaksi->nasabah;
 
         $jenis = $transaksi->debit > 0 ? 'tarik' : 'setor';
 

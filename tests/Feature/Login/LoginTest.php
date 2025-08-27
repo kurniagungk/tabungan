@@ -1,6 +1,6 @@
 <?php
 
-it('returns a successful response', function () {
+it('may welcome the user', function () {
     $page = visit('/');
 
     $page->assertPathIs('/');

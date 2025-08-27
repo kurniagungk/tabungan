@@ -19,6 +19,7 @@
         "vite-plugin-static-copy": "^3.0.2"
     },
     "dependencies": {
+        "playwright": "^1.55.0",
         "tinymce": "^7.9.1"
     }
 }
