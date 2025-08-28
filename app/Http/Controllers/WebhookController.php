@@ -80,9 +80,9 @@ class WebhookController extends Controller
 
             $pesan = $message['message']['conversation'] ?? null;
 
-            $pesan = trim($pesan);
+            $pesan = strtolower(trim($pesan));
 
-            if (in_array(strtolower($pesan), ["saldo", "mutasi"])) {
+            if (in_array($pesan, ["saldo", "mutasi"])) {
                 $nomer = $message['key']['remoteJid'] ?? null;
                 if ($nomer) {
                     $nomer = preg_replace('/[^0-9]/', '', $nomer); // Hanya ambil angka
