@@ -124,18 +124,21 @@ class Chat extends Component
         $session = rawurlencode($this->whatsappSession);
 
         try {
+            $cacheKey = 'whatsapp_contacts_' . $session;
+            $this->contacts = cache()->remember($cacheKey, now()->addMinutes(60), function () use ($whatsapp, $session) {
+                $contacts = Http::withHeaders(
+                    [
+                        'Content-Type' => 'application/json',
+                        'x-api-key' => $whatsapp["whatsappKey"]
+                    ]
+                )->get($whatsapp["whatsappUrl"] . '/' .  $session . '/contacts');
 
-            $contacts = Http::withHeaders(
-                [
-                    'Content-Type' => 'application/json',
-                    'x-api-key' => $whatsapp["whatsappKey"]
-                ]
-            )->get($whatsapp["whatsappUrl"] . '/' .  $session . '/contacts');
-
-            if (isset($contacts->json()['error'])) {
-            } else {
-                $this->contacts = $contacts->json()['data'];
-            }
+                if (isset($contacts->json()['error'])) {
+                    return [];
+                } else {
+                    return $contacts->json()['data'];
+                }
+            });
         } catch (\Exception $ex) {
         }
     }

@@ -80,8 +80,9 @@ class WebhookController extends Controller
 
             $pesan = $message['message']['conversation'] ?? null;
 
+            $pesan = trim($pesan);
 
-            if ($pesan == "saldo" || "mutasi") {
+            if (in_array(strtolower($pesan), ["saldo", "mutasi"])) {
                 $nomer = $message['key']['remoteJid'] ?? null;
                 if ($nomer) {
                     $nomer = preg_replace('/[^0-9]/', '', $nomer); // Hanya ambil angka
@@ -92,7 +93,7 @@ class WebhookController extends Controller
                     ];
                     $nasabah = Nasabah::whereIn('telepon', $variants)->first();
                     if ($nasabah && $nasabah->saldo_id == $saldo->id) {
-                        $pesan = strtolower($pesan);
+
                         if ($pesan == "saldo") {
                             $this->whatapps($nasabah, "Saldo Anda adalah: " . $nasabah->saldo);
                         } elseif ($pesan == "mutasi") {
