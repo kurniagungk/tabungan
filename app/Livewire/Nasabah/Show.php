@@ -77,6 +77,7 @@ class Show extends Component
             'nasabah_id' => $nasabah->id,
             'transaksi_id' => $transaksi->id,
             'pesan' => $pesan,
+            'jenis' => $jenis,
             'status' => 'pending'
         ]);
 
@@ -138,6 +139,7 @@ class Show extends Component
             'nasabah_id' => $nasabah->id,
             'transaksi_id' => null,
             'pesan' => $pesan,
+            'jenis' => 'mutasi',
             'status' => 'pending'
         ]);
 

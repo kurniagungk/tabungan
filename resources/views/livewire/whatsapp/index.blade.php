@@ -134,6 +134,10 @@
             @endif
             @endscope
 
+            @scope('cell_jenis', $pesan)
+            <span class="badge-primary badge-soft">{{$pesan->jenis}}</span>
+            @endscope
+
             @scope('actions', $pesan)
             @if ($pesan->status == 'gagal')
             <x-button icon="o-arrow-path" wire:click="ulangi('{{ $pesan->id }}')" spinner class="btn-sm btn-warning" />

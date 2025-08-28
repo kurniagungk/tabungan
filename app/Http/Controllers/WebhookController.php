@@ -181,6 +181,7 @@ class WebhookController extends Controller
             'nasabah_id' => $nasabah->id,
             'transaksi_id' => null,
             'pesan' => $pesan,
+            'jenis' => 'saldo',
             'status' => 'pending'
         ]);
 
@@ -239,6 +240,7 @@ class WebhookController extends Controller
             'nasabah_id' => $nasabah->id,
             'transaksi_id' => null,
             'pesan' => $pesan,
+            'jenis' => 'mutasi',
             'status' => 'pending'
         ]);
 

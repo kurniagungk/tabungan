@@ -320,6 +320,7 @@ class Index extends Component
         $headers = [
             ['key' => 'nasabah.nama', 'label' => 'Nasabah'],
             ['key' => 'status', 'label' => 'Status'],
+            ['key' => 'jenis', 'label' => 'Jenis'],
             ['key' => 'created_at', 'label' => ' tanggal']
         ];
 

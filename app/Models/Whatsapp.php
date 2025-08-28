@@ -18,6 +18,7 @@ class Whatsapp extends Model
         'transaksi_id',
         'nasabah_id',
         'pesan',
+        'jenis',
         'status',
     ];
 
