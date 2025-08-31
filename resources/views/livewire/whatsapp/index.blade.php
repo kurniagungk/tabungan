@@ -109,6 +109,12 @@
 
             </div>
 
+            <div class="col-span-1">
+                <x-select label="Jenis Pesan" wire:model.live="jenisId" :options="$jenisSelect" option-value="value"
+                    option-label="label" />
+            </div>
+
+
             @if ($selected)
             <div class="col-span-1 flex items-end">
                 <x-button label="Ulangi {{ count($selected) }}" class="btn-warning" icon="o-check"

@@ -25,6 +25,7 @@ class Index extends Component
     public $saldo_id;
     public $whatsappHook;
     public $statusId = 'semua';
+    public $jenisId = 'semua';
 
     public array $selected = [];
 
@@ -306,15 +307,17 @@ class Index extends Component
 
     public function render()
     {
-
         $saldo_id = $this->saldo_id;
         $statusId = $this->statusId;
+        $jenisId = $this->jenisId;
 
 
         $pesan = Whatsapp::withWhereHas('nasabah', function ($query) use ($saldo_id) {
             $query->select('id', 'nama', 'saldo_id')->where('saldo_id', $saldo_id);
         })->when($this->statusId != 'semua', function ($query) use ($statusId) {
             return $query->where('status', $statusId);
+        })->when($this->jenisId != 'semua', function ($query) use ($jenisId) {
+            return $query->where('jenis', $jenisId);
         })->orderBy('created_at', 'desc')->paginate(10);
 
         $headers = [
@@ -336,8 +339,15 @@ class Index extends Component
             ['value' => 'berhasil', 'label' => 'Berhasil'],
         ];
 
+        $jenisSelect = [
+            ['value' => 'semua', 'label' => 'Semua'],
+            ['value' => 'setor', 'label' => 'Setor'],
+            ['value' => 'tarik', 'label' => 'Tarik'],
+            ['value' => 'saldo', 'label' => 'Saldo'],
+            ['value' => 'mutasi', 'label' => 'Mutasi'],
+        ];
 
 
-        return view('livewire.whatsapp.index', compact('pesan', 'headers', 'dataSaldo', 'statusSelect'));
+        return view('livewire.whatsapp.index', compact('pesan', 'headers', 'dataSaldo', 'statusSelect', 'jenisSelect'));
     }
 }
