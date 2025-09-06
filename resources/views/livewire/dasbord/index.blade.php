@@ -8,13 +8,16 @@
             color="text-success" />
         <x-stat title="Saldo Nasabah Aktif" value="{{ Number::currency($data['aktif'], 'Rp.') }}" icon="o-credit-card"
             tooltip="Hello" color="text-warning" />
-        <x-stat title="Saldo Nasabah Non Aktif" value="{{ Number::currency($data['tidak'], 'Rp.') }}" icon="o-banknotes"
-            tooltip="Hello" color="text-error" />
+        <x-stat title="WhatsApp Api" value="{{ $whatsappSessionStatus }}" icon="o-chat-bubble-left-ellipsis"
+            color="text-error" />
     </div>
 
     <livewire:dasbord.chart />
+    @role('admin')
+    <livewire:dasbord.whatsapp />
+    @endrole
 </div>
 
 @assets
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 @endassets

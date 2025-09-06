@@ -2,8 +2,16 @@
 
 namespace App\Livewire\Dasbord;
 
+use App\Models\Setting;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use App\Models\Nasabah;
 use Livewire\Component;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Komponen Livewire untuk menampilkan dashboard.
@@ -16,6 +24,82 @@ use Livewire\Component;
  */
 class Index extends Component
 {
+    public string $whatsappSessionStatus;
+
+    public function mount()
+    {
+        $this->whatsappSessionStatus = $this->fetchSessions();
+    }
+
+    protected function whatsapp(): array
+    {
+        return [
+            'whatsappUrl' =>  env('WHATSAPP_API_URL'),
+            'whatsappKey' => env('WHATSAPP_API_KEY'),
+        ];
+    }
+
+    protected function fetchSessions(): string
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $whatsappConfig = $this->whatsapp();
+        $cacheKey = 'whatsapp_session_status_' . $user->saldo_id;
+
+        return Cache::remember($cacheKey, 60 * 60, function () use ($user, $whatsappConfig) {
+            $item = Setting::query()
+                ->where('nama', 'whatsapp_session')
+                ->where('saldo_id', $user->saldo_id)
+                ->first();
+
+
+            if (!$item) {
+                return 'tidak aktif'; // Nilai default jika tidak ada item
+            }
+
+            $sessionId = trim((string) $item->isi);
+            $encodedSessionId = rawurlencode($sessionId);
+
+            $whatsappSessionStatus = 'tidak aktif'; // Default value
+
+            try {
+                $resp = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'x-api-key' => $whatsappConfig['whatsappKey'] ?? '',
+                ])
+                    ->timeout(10)
+                    ->retry(2, 150)
+                    ->get(rtrim($whatsappConfig['whatsappUrl'] ?? '', '/') . "/sessions/{$encodedSessionId}/status");
+
+                $json = $resp->json() ?? [];
+
+                // kalau API balikin error, langsung offline
+                if (isset($json['error'])) {
+                    $whatsappSessionStatus = 'tidak aktif'; // Asumsikan offline karena error
+                } else {
+                    $raw = strtolower((string) Arr::get($json, 'status', 'offline'));
+
+                    // normalisasi status
+                    // AUTHENTICATED -> dianggap online
+                    $isOn = in_array($raw, ['connected', 'online', 'authenticated'], true);
+                    $whatsappSessionStatus = $isOn ? 'aktif' : 'tidak aktif'; // Set status berdasarkan $isOn
+                }
+            } catch (\Throwable $e) {
+                // kalau request gagal total
+                Log::error('Failed to fetch session status for session ID: ' . $sessionId, [
+                    'exception' => $e,
+                ]);
+
+                $whatsappSessionStatus = 'tidak aktif'; // Asumsikan offline karena error
+            }
+
+            return $whatsappSessionStatus;
+        });
+    }
+
+
+
+
     /**
      * Merender view komponen.
      *
@@ -59,7 +143,9 @@ class Index extends Component
             'tidak' => $tidak,
         ];
 
+        $sessionsData = $this->fetchSessions();
+
         // Merender view 'livewire.dasbord.index' dan meneruskan data ke view.
-        return view('livewire.dasbord.index', ['data' => $data]);
+        return view('livewire.dasbord.index', ['data' => $data, 'sessionsData' => $sessionsData]);
     }
 }
