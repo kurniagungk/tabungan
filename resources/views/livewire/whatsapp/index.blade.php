@@ -48,17 +48,18 @@
 
             @if ($status)
             <div class="mt-6 space-y-3">
-                <h4 class="text-lg font-semibold">To use WhatsApp on your computer:</h4>
+                <h4 class="text-lg font-semibold">Untuk menggunakan WhatsApp di komputer Anda:</h4>
                 <ul class="list-disc pl-5 text-sm space-y-1">
-                    <li>Open WhatsApp on your phone</li>
+                    <li>Buka WhatsApp di telepon Anda</li>
                     <li>
-                        Tap <strong>Menu</strong> or <strong>Settings</strong> and select <strong>Linked
-                            Devices</strong>
+                        Ketuk <strong>Menu</strong> atau <strong>Setelan</strong> dan pilih <strong>Perangkat
+                            Tertaut</strong>
                     </li>
-                    <li>Point your phone to this screen to capture the code</li>
+                    <li>Arahkan telepon Anda ke layar ini untuk memindai kode</li>
                 </ul>
-
-
+                <p class="text-sm">Jika Error! Coba lagi jam 00, 03, 09, 12, 15, 18, atau 21 lewat 1 menit. Jika masih
+                    error,
+                    hubungi Pengembang Aplikasi.</p>
             </div>
 
 
