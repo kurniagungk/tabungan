@@ -43,6 +43,8 @@ class KirimPesanWhatsappCommand extends Command
 
         foreach ($whatsapps as $pesan) {
 
+            $this->info('Mengirim pesan ID: ' . $pesan->id);
+
             try {
 
                 KirimPesanWhatsappJob::dispatch($pesan);
@@ -52,5 +54,7 @@ class KirimPesanWhatsappCommand extends Command
                 Log::error($e);
             }
         }
+
+        $this->info('Selesai mengirim pesan whatsapp');
     }
 }
