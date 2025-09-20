@@ -4,8 +4,9 @@ namespace App\Console\Commands;
 
 use App\Models\Whatsapp;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
+use App\Jobs\KirimPesanWhatsappJob;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 class KirimPesanWhatsappCommand extends Command
 {
@@ -40,65 +41,16 @@ class KirimPesanWhatsappCommand extends Command
             return;
         }
 
-        $whatsappUrl = Env('WHATSAPP_API_URL');
-        $whatsappKey = Env('WHATSAPP_API_KEY');
-
-        $jumlah = 0;
-
         foreach ($whatsapps as $pesan) {
-
-
-            if ($jumlah >= 10) {
-                $this->info('Mencapai batas pengiriman pesan, berhenti sejenak.');
-                return;
-            }
-
-            $nasabah = $pesan->nasabah;
-            $lembaga = $nasabah->lembaga;
-
-
-            if (!$nasabah || !$nasabah->telepon) {
-                $pesan->update(['status' => 'failed']);
-                $this->warn("Nasabah tidak valid untuk ID WhatsApp: {$pesan->id}");
-                $pesan->update(['status' => 'gagal']);
-                continue;
-            }
-
-            $settingsing = $lembaga->setting()->where('nama', 'whatsapp_session')->first();
-
-            $jid = $nasabah->telepon_whatsapp . '@s.whatsapp.net';
-
-            $url = $whatsappUrl . '/' . rawurlencode($settingsing->isi) . '/messages/send';
 
             try {
 
-                $response = Http::withHeaders([
-                    'Content-Type' => 'application/json',
-                    'x-api-key' => $whatsappKey,
-                ])->post($url, [
-                    'jid' => $jid, // ganti dengan ID grup sebenarnya
-                    'type' => 'number',
-                    'message' => [
-                        'text' => $pesan->pesan
-                    ]
-                ]);
-
-
-                if (isset($response['status'])) {
-                    $pesan->update(['status' => 'berhasil']);
-                    $this->info("Berhasil kirim untuk ID: {$pesan->id}");
-                } else {
-                    $pesan->update(['status' => 'gagal']);
-                    $this->error("Gagal kirim untuk ID: {$pesan->id}, {$jid}");
-                    Log::error($response->json());
-                }
+                KirimPesanWhatsappJob::dispatch($pesan);
+                $pesan->update(['status' => 'pending']);
             } catch (\Exception $e) {
-                $pesan->update(['status' => 'gagal']);
-                $this->error("Error kirim untuk ID: {$pesan->id} - {$jid}. Pesan error: " . $e->getMessage());
+
                 Log::error($e);
             }
-
-            $jumlah++;
         }
     }
 }
