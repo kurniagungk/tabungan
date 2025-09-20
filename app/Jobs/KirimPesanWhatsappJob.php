@@ -15,7 +15,7 @@ class KirimPesanWhatsappJob implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
-    public $tries = 3;
+    public $tries = 15;
 
     /**
      * Create a new job instance.
@@ -24,7 +24,9 @@ class KirimPesanWhatsappJob implements ShouldQueue
 
     public function middleware(): array
     {
-        return [new RateLimited('kirim-wa')];
+        return [
+            (new RateLimited('kirim-wa'))->releaseAfter(120),
+        ];
     }
 
     public function backoff(): array
