@@ -171,6 +171,7 @@ class BiayaAdmin extends Command
         $pesan = str_replace($replace, $variable, $wa->pesan);
 
         $whatsapp = Whatsapp::create([
+            'transaksi_id' => $transaksi->id,
             'nasabah_id' => $nasabah->id,
             'pesan' => $pesan,
             'status' => 'pending'
