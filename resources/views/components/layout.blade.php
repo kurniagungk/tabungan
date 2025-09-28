@@ -28,75 +28,75 @@
     {{-- MAIN --}}
     <x-main>
         @if ($user = auth()->user())
-            {{-- SIDEBAR --}}
-            <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
+        {{-- SIDEBAR --}}
+        <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
 
-                {{-- BRAND --}}
-                <x-app-brand class="px-5 pt-4" />
+            {{-- BRAND --}}
+            <x-app-brand class="px-5 pt-4" />
 
-                {{-- MENU --}}
-                <x-menu activate-by-route>
+            {{-- MENU --}}
+            <x-menu activate-by-route>
 
-                    {{-- User --}}
+                {{-- User --}}
 
-                    <x-menu-separator />
+                <x-menu-separator />
 
-                    <x-list-item :item="$user" value="name" sub-value="email" no-separator no-hover
-                        class="-mx-2 !-my-2 rounded">
-
-
-
-
-                        <x-slot:actions>
-                            <x-dropdown>
-
-                                <x-menu-item title="Theme" icon="o-swatch" @click.stop="setTheme()" />
-                                <x-menu-item title="Logout" icon="o-power" @click.prevent="fetchLogout()" />
-                            </x-dropdown>
-
-                        </x-slot:actions>
-                    </x-list-item>
-
-                    <x-menu-separator />
-
-
-                    <x-menu-item title="DASHBOARD" icon="s-home" link="/home" />
-                    <x-menu-item title="NASABAH" icon="s-user-group" link="/nasabah" />
+                <x-list-item :item="$user" value="name" sub-value="email" no-separator no-hover
+                    class="-mx-2 !-my-2 rounded">
 
 
 
-                    <x-menu-sub title="TRANSAKSI" icon="o-credit-card">
-                        <x-menu-item title="Setor Tunai" icon="o-arrow-down-circle"
-                            link="{{ route('transaksi.setor') }}" />
-                        <x-menu-item title="Tarik Tunai" icon="o-arrow-up-circle"
-                            link="{{ route('transaksi.tarik') }}" />
-                    </x-menu-sub>
 
-                    <x-menu-sub title="LAPORAN" icon="o-document-text">
-                        <x-menu-item title="Transaksi Per Hari" icon="o-calendar-days"
-                            link="{{ route('laporan.perhari') }}" />
-                        <x-menu-item title="Transaksi" icon="o-clipboard" link="{{ route('laporan.transaksi') }}" />
-                        <x-menu-item title="Biaya Admin" icon="o-banknotes" link="{{ route('laporan.biaya') }}" />
-                    </x-menu-sub>
+                    <x-slot:actions>
+                        <x-dropdown>
 
-                    <x-menu-sub title="WHATSAPP" icon="o-chat-bubble-oval-left">
-                        <x-menu-item title="API" icon="o-server" link="{{ route('whatsapp') }}" />
-                        <x-menu-item title="PESAN" icon="o-chat-bubble-bottom-center-text"
-                            link="{{ route('whatsapp.pesan') }}" />
+                            <x-menu-item title="Theme" icon="o-swatch" @click.stop="setTheme()" />
+                            <x-menu-item title="Logout" icon="o-power" @click.prevent="fetchLogout()" />
+                        </x-dropdown>
 
-                    </x-menu-sub>
+                    </x-slot:actions>
+                </x-list-item>
+
+                <x-menu-separator />
 
 
-                    <x-menu-item title="User" icon="s-user-plus" link="/user" />
-                    <x-menu-item title="Setting" icon="s-cog-8-tooth" link="/setting" />
-                    @role('admin')
-                        <x-menu-item title="Lembaga" icon="s-building-library" link="/saldo" />
-                    @endrole
+                <x-menu-item title="DASHBOARD" icon="s-home" link="/home" />
+                <x-menu-item title="NASABAH" icon="s-user-group" link="/nasabah" />
 
 
 
-                </x-menu>
-            </x-slot:sidebar>
+                <x-menu-sub title="TRANSAKSI" icon="o-credit-card">
+                    <x-menu-item title="Setor Tunai" icon="o-arrow-down-circle" link="{{ route('transaksi.setor') }}" />
+                    <x-menu-item title="Tarik Tunai" icon="o-arrow-up-circle" link="{{ route('transaksi.tarik') }}" />
+                </x-menu-sub>
+
+                <x-menu-sub title="LAPORAN" icon="o-document-text">
+                    <x-menu-item title="Transaksi Per Hari" icon="o-calendar-days"
+                        link="{{ route('laporan.perhari') }}" />
+                    <x-menu-item title="Transaksi" icon="o-clipboard" link="{{ route('laporan.transaksi') }}" />
+                    <x-menu-item title="Biaya Admin" icon="o-banknotes" link="{{ route('laporan.biaya') }}" />
+                    <x-menu-item title="Nasabah" icon="o-document-currency-dollar"
+                        link="{{ route('laporan.nasabah') }}" />
+                </x-menu-sub>
+
+                <x-menu-sub title="WHATSAPP" icon="o-chat-bubble-oval-left">
+                    <x-menu-item title="API" icon="o-server" link="{{ route('whatsapp') }}" />
+                    <x-menu-item title="PESAN" icon="o-chat-bubble-bottom-center-text"
+                        link="{{ route('whatsapp.pesan') }}" />
+
+                </x-menu-sub>
+
+
+                <x-menu-item title="User" icon="s-user-plus" link="/user" />
+                <x-menu-item title="Setting" icon="s-cog-8-tooth" link="/setting" />
+                @role('admin')
+                <x-menu-item title="Lembaga" icon="s-building-library" link="/saldo" />
+                @endrole
+
+
+
+            </x-menu>
+        </x-slot:sidebar>
         @endif
 
         {{-- The `$slot` goes here --}}
@@ -105,7 +105,7 @@
         </x-slot:content>
     </x-main>
 
-    {{--  TOAST area --}}
+    {{-- TOAST area --}}
     <x-toast />
 
 

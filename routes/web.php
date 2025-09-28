@@ -163,6 +163,7 @@ Route::group(['middleware' => ['auth', 'role:admin|petugas']], function () {
     Route::get('/laporan/biaya', \App\Livewire\Laporan\Biaya::class)->name('laporan.biaya');
     Route::get('/laporan/transaksi', \App\Livewire\Laporan\Transaksi::class)->name('laporan.transaksi');
     Route::get('/laporan/perhari', \App\Livewire\Laporan\TransaksiPerHari::class)->name('laporan.perhari');
+    Route::get('/laporan/nasabah', \App\Livewire\Laporan\Nasabah::class)->name('laporan.nasabah');
 
     Route::get('/home', \App\Livewire\Dasbord\Index::class)->name('home');
     Route::get('/whatapps', \App\Livewire\Whatsapp\Index::class)->name('whatsapp');

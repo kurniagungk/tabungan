@@ -83,7 +83,13 @@
     </x-card>
 
     <x-card title="Transaksi" shadow class="col-span-5">
-        <table class="table table-zebra table-sm">
+
+        <x-slot:menu>
+            <x-button icon="o-document-currency-dollar" class="btn btn-success"
+                link="{{ route('laporan.nasabah') . '?rekening=' . $nasabah->rekening }}" />
+        </x-slot:menu>
+
+        <table class=" table table-zebra table-sm">
             <thead class="bg-base-200 text-base font-semibold">
                 <tr>
                     <th>#</th>
