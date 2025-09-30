@@ -76,7 +76,9 @@ class Nasabah extends Component
 
         $this->totalSetor = (clone $query)->sum('debit');
         $this->totalTarik = (clone $query)->sum('credit');
-        $this->transaksi = $query->orderBy('created_at')->get();
+        $this->transaksi = $query->orderBy('created_at')->get()->map(function ($item) {
+            return $item instanceof \Illuminate\Database\Eloquent\Model ? $item : Nasabah_transaksi::find($item->id);
+        });
     }
 
     public function export()
