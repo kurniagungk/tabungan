@@ -5,7 +5,7 @@ namespace App\Livewire\Laporan;
 use Livewire\Component;
 use Livewire\Attributes\Url;
 use App\Exports\LaporanNasabah;
-use Illuminate\Support\Facades\DB;
+use App\Models\Nasabah_transaksi;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Nasabah as ModelsNasabah;
 
@@ -67,8 +67,8 @@ class Nasabah extends Component
             return;
         }
 
-        $query = DB::table('nasabah_transaksi')
-            ->where('nasabah_id', $this->nasabah->id)
+        $query = Nasabah_transaksi::where('nasabah_id', $this->nasabah->id)
+            ->with('user')
             ->whereBetween('created_at', [
                 $this->tanggal_dari . ' 00:00:00',
                 $this->tanggal_sampai . ' 23:59:59'
