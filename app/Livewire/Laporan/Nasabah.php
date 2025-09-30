@@ -67,18 +67,19 @@ class Nasabah extends Component
             return;
         }
 
-        $query = Nasabah_transaksi::where('nasabah_id', $this->nasabah->id)
-            ->with('user')
+        $transaksi = Nasabah_transaksi::with('user')
+            ->where('nasabah_id', $this->nasabah->id)
             ->whereBetween('created_at', [
                 $this->tanggal_dari . ' 00:00:00',
-                $this->tanggal_sampai . ' 23:59:59'
-            ]);
+                $this->tanggal_sampai . ' 23:59:59',
+            ])
+            ->orderBy('created_at')
+            ->get();
 
-        $this->totalSetor = (clone $query)->sum('debit');
-        $this->totalTarik = (clone $query)->sum('credit');
-        $this->transaksi = $query->orderBy('created_at')->get()->map(function ($item) {
-            return $item instanceof \Illuminate\Database\Eloquent\Model ? $item : Nasabah_transaksi::find($item->id);
-        });
+        $this->transaksi = $transaksi;
+
+        $this->totalSetor = $transaksi->sum('debit');
+        $this->totalTarik  = $transaksi->sum('credit');
     }
 
     public function export()
