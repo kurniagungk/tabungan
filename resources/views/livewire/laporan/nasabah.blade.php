@@ -35,15 +35,18 @@
                     </tr>
                     <tr>
                         <td class="font-medium">Total Setor</td>
-                        <td colspan="4">{{ $totalSetor ? 'RP. ' . number_format($totalSetor, 2) : 'RP. 0.00' }}</td>
+                        <td colspan="4">{{ $transaksi->sum('debit') ? 'RP. ' . number_format($transaksi->sum('debit'),
+                            2) : 'RP. 0.00' }}</td>
                     </tr>
                     <tr>
                         <td class="font-medium">Total Tarik</td>
-                        <td colspan="4">{{ $totalTarik ? 'RP. ' . number_format($totalTarik, 2) : 'RP. 0.00' }}</td>
+                        <td colspan="4">{{ $transaksi->sum('credit') ? 'RP. ' . number_format($transaksi->sum('credit'),
+                            2) : 'RP. 0.00' }}</td>
                     </tr>
                     <tr>
                         <td class="font-medium">Total</td>
-                        <td colspan="4">{{ 'RP. ' . number_format($totalSetor - $totalTarik, 2) }}</td>
+                        <td colspan="4">{{ 'RP. ' . number_format($transaksi->sum('debit') - $transaksi->sum('credit'),
+                            2) }}</td>
                     </tr>
                     <tr>
                         <td colspan="5"></td>

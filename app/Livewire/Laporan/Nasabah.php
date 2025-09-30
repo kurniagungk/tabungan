@@ -81,8 +81,6 @@ class Nasabah extends Component
 
         $this->transaksi = $transaksi;
 
-        $this->totalSetor = $transaksi->sum('debit');
-        $this->totalTarik  = $transaksi->sum('credit');
         $this->show = true;
     }
 
