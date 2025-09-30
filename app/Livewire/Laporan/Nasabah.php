@@ -21,6 +21,7 @@ class Nasabah extends Component
     public $totalSetor = 0;
     public $totalTarik = 0;
     public $lembaga_id;
+    public $show = false;
 
     public function mount()
     {
@@ -41,6 +42,8 @@ class Nasabah extends Component
 
     public function filter()
     {
+
+        $this->show = false;
         $this->validate([
             'tanggal_dari' => 'required|date',
             'tanggal_sampai' => 'required|date',
@@ -80,6 +83,7 @@ class Nasabah extends Component
 
         $this->totalSetor = $transaksi->sum('debit');
         $this->totalTarik  = $transaksi->sum('credit');
+        $this->show = true;
     }
 
     public function export()

@@ -16,7 +16,7 @@
         </div>
     </x-card>
 
-    @if($transaksi)
+    @if($show)
     <x-card title="Data Transaksi" shadow class="mt-5">
         <x-slot:menu>
             <x-button icon="o-share" class="btn btn-success" wire:click="export" />
