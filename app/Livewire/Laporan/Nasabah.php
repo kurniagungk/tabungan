@@ -74,8 +74,8 @@ class Nasabah extends Component
                 $this->tanggal_sampai . ' 23:59:59'
             ]);
 
-        $this->totalSetor = $query->clone()->sum('debit');
-        $this->totalTarik = $query->clone()->sum('credit');
+        $this->totalSetor = (clone $query)->sum('debit');
+        $this->totalTarik = (clone $query)->sum('credit');
         $this->transaksi = $query->orderBy('created_at')->get();
     }
 
