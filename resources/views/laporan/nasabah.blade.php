@@ -30,6 +30,7 @@
             <th>Ambil</th>
             <th>Total</th>
             <th>Keterangan</th>
+            <th>Petugas</th>
         </tr>
     </thead>
     <tbody>
@@ -45,6 +46,7 @@
             <td>{{ Number::currency($tr->credit, 'Rp.') }}</td>
             <td>{{ Number::currency($total, 'Rp.') }}</td>
             <td>{{ $tr->keterangan ?? '-' }}</td>
+            <td>{{ $tr->user ? $tr->user->name : '-' }}</td>
         </tr>
         @endforeach
     </tbody>

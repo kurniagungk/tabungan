@@ -36,6 +36,7 @@
             <th>Simpan</th>
             <th>Total</th>
             <th>Keterangan</th>
+            <th>Petugas</th>
         </tr>
 
     </thead>
@@ -43,25 +44,26 @@
     <tbody>
 
         @php
-            $jumlah = 0;
+        $jumlah = 0;
         @endphp
 
         @foreach ($transaksi as $tr)
 
-            @php
-                $jumlah += $tr->debit - $tr->credit;
-            @endphp
+        @php
+        $jumlah += $tr->debit - $tr->credit;
+        @endphp
 
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $tr->created_at }}</td>
-                <td>{{ $tr->nasabah->rekening }}</td>
-                <td>{{ $tr->nasabah->nama }}</td>
-                <td>{{ $tr->credit }}</td>
-                <td>{{ $tr->debit }}</td>
-                <td>{{ $jumlah }}</td>
-                <td>{{ $tr->keterangan }}</td>
-            </tr>
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $tr->created_at }}</td>
+            <td>{{ $tr->nasabah->rekening }}</td>
+            <td>{{ $tr->nasabah->nama }}</td>
+            <td>{{ $tr->credit }}</td>
+            <td>{{ $tr->debit }}</td>
+            <td>{{ $jumlah }}</td>
+            <td>{{ $tr->keterangan }}</td>
+            <td>{{ $tr->user ? $tr->user->name : '-' }}</td>
+        </tr>
 
 
         @endforeach

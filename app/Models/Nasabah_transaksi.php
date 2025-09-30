@@ -37,6 +37,11 @@ class Nasabah_transaksi extends Model
         return $this->hasOne(Whatsapp::class, 'transaksi_id', 'id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 
     protected static function booted()
     {

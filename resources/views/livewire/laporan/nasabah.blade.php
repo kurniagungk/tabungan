@@ -54,6 +54,7 @@
                         <th>Simpan</th>
                         <th>Ambil</th>
                         <th>Keterangan</th>
+                        <th>Petugas</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,6 +70,7 @@
                         <td>{{ $tr->debit > 0 ? 'RP. ' . number_format($tr->debit, 2) : 'RP. 0.00' }}</td>
                         <td>{{ $tr->credit > 0 ? 'RP. ' . number_format($tr->credit, 2) : 'RP. 0.00' }}</td>
                         <td>{{ $tr->keterangan ?? '-' }}</td>
+                        <td>{{ $tr->user ? $tr->user->name : '-' }}</td>
                     </tr>
                     @endforeach
                     @endif
