@@ -97,8 +97,8 @@ class Chat extends Component
     public function whatsapp()
     {
 
-        $whatsappUrl = Env('WHATSAPP_API_URL');
-        $whatsappKey = Env('WHATSAPP_API_KEY');
+        $whatsappUrl = $whatsappUrl = config('whatsapp.api_url');
+        $whatsappKey = config('whatsapp.api_key');
 
 
         return [

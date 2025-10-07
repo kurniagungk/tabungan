@@ -58,8 +58,8 @@ class KirimPesanWhatsappJob implements ShouldQueue
         }
 
         $jid = $nasabah->telepon_whatsapp . '@s.whatsapp.net';
-        $whatsappUrl = Env('WHATSAPP_API_URL');
-        $whatsappKey = Env('WHATSAPP_API_KEY');
+        $whatsappUrl = $whatsappUrl = config('whatsapp.api_url');
+        $whatsappKey = config('whatsapp.api_key');
 
         $url = $whatsappUrl . '/' . rawurlencode($setting->isi) . '/messages/send';
 
