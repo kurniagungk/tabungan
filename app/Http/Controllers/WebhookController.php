@@ -26,7 +26,7 @@ class WebhookController extends Controller
         // Ambil body JSON mentah (array)
         $payload = $request->json()->all() ?? [];
 
-        $encryptionKey = env('WHATSAPP_API_KEY');
+        $encryptionKey = config('whatsapp.api_key');
 
         // Jika ada encryptedData, coba decrypt dengan skema ivHex:cipherHex (key = sha256(secret))
         if (isset($payload['encryptedData'])) {
