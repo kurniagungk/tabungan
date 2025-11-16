@@ -328,7 +328,7 @@ class Index extends Component
         ];
 
         $dataSaldo = Saldo::all()->prepend((object)[
-            'id' => '',
+            'nama_sesion' => null,
             'nama' => 'Pilih Saldo'
         ]);
 

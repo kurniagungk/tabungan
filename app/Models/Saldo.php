@@ -15,6 +15,7 @@ class Saldo extends Model
     protected $fillable = [
         'nama',
         'jumlah',
+        'nama_sesion',
     ];
 
     public function nasabah()

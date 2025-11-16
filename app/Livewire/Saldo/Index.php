@@ -9,6 +9,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\WhatsappPesan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Index extends Component
 {
@@ -52,6 +53,8 @@ class Index extends Component
                 $saldo = new Saldo();
             }
             $saldo->nama = $this->nama;
+            // Generate random string for nama_sesion
+            $saldo->nama_sesion = 'sesion_' . Str::random(10);
             $saldo->save();
 
             // Gunakan saldo yang sudah disimpan
