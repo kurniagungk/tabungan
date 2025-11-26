@@ -24,9 +24,10 @@ class Whatsapp extends Component
 
     protected function whatsapp(): array
     {
+
         return [
-            'whatsappUrl' =>  env('WHATSAPP_API_URL'),
-            'whatsappKey' => env('WHATSAPP_API_KEY'),
+            'whatsappUrl' =>  config('whatsapp.api_url'),
+            'whatsappKey' => config('whatsapp.api_key'),
         ];
     }
 
