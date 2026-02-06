@@ -20,6 +20,7 @@ Route::post('/webhooks/whatsapp', [WebhookController::class, 'handleWebhook'])->
 
 Route::get('/nasabah', [Api::class, 'getNasabag']);
 Route::get('/saldo', [Api::class, 'getSaldo']);
+Route::get('/nasabah/saldo-histori', [Api::class, 'getSaldoHistoriByNisn']);
 Route::post('transaksi/mitra', [Api::class, 'transaksaMitra']);
 
 
