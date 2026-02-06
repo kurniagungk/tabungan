@@ -8,7 +8,7 @@
     <title>{{ isset($title) ? $title . ' - ' . config('app.name') : config('app.name') }}</title>
     <link rel="icon" href="{{ asset('images/alkahfi.ico') }}" type="image/x-icon">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/initTheme.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="min-h-screen font-sans antialiased bg-base-200">
