@@ -17,6 +17,19 @@ return [
 
     /*
     |---------------------------------------------------------------------------
+    | Class Path
+    |---------------------------------------------------------------------------
+    |
+    | This value sets the root class path for Livewire component classes in
+    | your application. This value will change where component auto-discovery
+    | finds components. It's also referenced by the file creation commands.
+    |
+    */
+
+    'class_path' => app_path('Livewire'),
+
+    /*
+    |---------------------------------------------------------------------------
     | View Path
     |---------------------------------------------------------------------------
     |
@@ -30,15 +43,45 @@ return [
 
     /*
     |---------------------------------------------------------------------------
+    | Component Locations
+    |---------------------------------------------------------------------------
+    |
+    | Livewire supports scanning multiple folders for anonymous components. You
+    | can add as many paths as you wish to locate component views.
+    |
+    */
+
+    'component_locations' => [
+        resource_path('views/components'),
+        resource_path('views/livewire'),
+    ],
+
+    /*
+    |---------------------------------------------------------------------------
+    | Component Namespaces
+    |---------------------------------------------------------------------------
+    |
+    | Register additional component namespaces for anonymous components. This is
+    | useful for organizing components into logical namespaces.
+    |
+    */
+
+    'component_namespaces' => [
+        'layouts' => resource_path('views/layouts'),
+        'pages' => resource_path('views/pages'),
+    ],
+
+    /*
+    |---------------------------------------------------------------------------
     | Layout
     |---------------------------------------------------------------------------
     | The view that will be used as the layout when rendering a single component
-    | as an entire page via `Route::get('/post/create', CreatePost::class);`.
+    | as an entire page via `Route::livewire('/post/create', CreatePost::class);`.
     | In this case, the view returned by CreatePost will render into $slot.
     |
     */
 
-    'layout' => 'components.layout',
+    'component_layout' => 'components.layout',
 
     /*
     |---------------------------------------------------------------------------
@@ -50,7 +93,26 @@ return [
     |
     */
 
-    'lazy_placeholder' => null,
+    'component_placeholder' => null,
+
+    /*
+    |---------------------------------------------------------------------------
+    | Make Command
+    |---------------------------------------------------------------------------
+    | Livewire's make command supports generating different types of components.
+    | We keep class-based components for minimal migration impact.
+    |
+    */
+
+    'make_command' => [
+        'type' => 'class',
+        'emoji' => false,
+        'with' => [
+            'js' => false,
+            'css' => false,
+            'test' => false,
+        ],
+    ],
 
     /*
     |---------------------------------------------------------------------------
@@ -64,7 +126,7 @@ return [
     */
 
     'temporary_file_upload' => [
-        'disk' => null,        // Example: 'local', 's3'              | Default: 'default'
+        'disk' => env('LIVEWIRE_TEMPORARY_FILE_UPLOAD_DISK'),
         'rules' => null,       // Example: ['file', 'mimes:png,jpg']  | Default: ['required', 'file', 'max:12288'] (12MB)
         'directory' => null,   // Example: 'tmp'                      | Default: 'livewire-tmp'
         'middleware' => null,  // Example: 'throttle:5,1'             | Default: 'throttle:60,1'
@@ -160,6 +222,18 @@ return [
 
     /*
     |---------------------------------------------------------------------------
+    | Smart Wire Keys
+    |---------------------------------------------------------------------------
+    |
+    | Livewire can infer wire:key values for some elements to reduce the need
+    | for manual wire:key usage.
+    |
+    */
+
+    'smart_wire_keys' => true,
+
+    /*
+    |---------------------------------------------------------------------------
     | Pagination Theme
     |---------------------------------------------------------------------------
     |
@@ -170,4 +244,45 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
+
+    /*
+    |---------------------------------------------------------------------------
+    | Release Token
+    |---------------------------------------------------------------------------
+    |
+    | Use this token to force clients to refresh Livewire's frontend assets
+    | after a new deployment.
+    |
+    */
+
+    'release_token' => env('LIVEWIRE_RELEASE_TOKEN', 'a'),
+
+    /*
+    |---------------------------------------------------------------------------
+    | CSP Safe
+    |---------------------------------------------------------------------------
+    |
+    | Set to true if you are running Livewire in a Content Security Policy
+    | environment that disallows eval or inline scripts.
+    |
+    */
+
+    'csp_safe' => false,
+
+    /*
+    |---------------------------------------------------------------------------
+    | Payload Limits
+    |---------------------------------------------------------------------------
+    |
+    | These limits control the size and complexity of the JSON payloads sent
+    | between the browser and server.
+    |
+    */
+
+    'payload' => [
+        'max_size' => 1024 * 1024, // 1 MB
+        'max_nesting_depth' => 10,
+        'max_calls' => 50,
+        'max_components' => 20,
+    ],
 ];

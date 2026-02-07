@@ -33,7 +33,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Rp.</span>
                                     </div>
-                                    <input wire:model.blur="jumlah" id="jumlah" type="number" autofocus class="form-control form-control-user @error('jumlah') is-invalid @enderror">
+                                    <input wire:model.live.blur="jumlah" id="jumlah" type="number" autofocus class="form-control form-control-user @error('jumlah') is-invalid @enderror">
                                     @error('jumlah')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -112,13 +112,20 @@
 
 
 @push('scripts')
+
+@script
+
 <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+@endscript
+
+@script
+
 <script type="text/javascript">
-    window.livewire.on('nasabah', () => {
+    Livewire.on('nasabah', () => {
         document.getElementById("pin").focus();
     });
 
-    window.livewire.on('berhasil', () => {
+    Livewire.on('berhasil', () => {
         document.getElementById("jumlah").focus();
     });
 
@@ -147,5 +154,7 @@
 
     });
 </script>
+@endscript
+
 
 @endpush

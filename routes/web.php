@@ -142,41 +142,41 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth', 'role:admin|petugas']], function () {
 
-    Route::get('/nasabah/{nasabah}/show', \App\Livewire\Nasabah\Show::class)->name('nasabah.show');
-    Route::get('/nasabah', \App\Livewire\Nasabah\Index::class)->name('nasabah.index');
-    Route::get('/nasabah/{nasabah}/edit', \App\Livewire\Nasabah\Edit::class)->name('nasabah.edit');
-    Route::get('/nasabah/create', \App\Livewire\Nasabah\Create::class)->name('nasabah.create');
-    Route::get('/nasabah/import', \App\Livewire\Nasabah\Import::class)->name('nasabah.import');
+    Route::livewire('/nasabah/{nasabah}/show', \App\Livewire\Nasabah\Show::class)->name('nasabah.show');
+    Route::livewire('/nasabah', \App\Livewire\Nasabah\Index::class)->name('nasabah.index');
+    Route::livewire('/nasabah/{nasabah}/edit', \App\Livewire\Nasabah\Edit::class)->name('nasabah.edit');
+    Route::livewire('/nasabah/create', \App\Livewire\Nasabah\Create::class)->name('nasabah.create');
+    Route::livewire('/nasabah/import', \App\Livewire\Nasabah\Import::class)->name('nasabah.import');
 
-    Route::get('/user/{id}/edit', \App\Livewire\User\Edit::class)->name('user.edit');
-    Route::get('/user/create', \App\Livewire\User\Create::class)->name('user.create');
-    Route::get('/user', \App\Livewire\User\Index::class)->name('user');
-
-
+    Route::livewire('/user/{id}/edit', \App\Livewire\User\Edit::class)->name('user.edit');
+    Route::livewire('/user/create', \App\Livewire\User\Create::class)->name('user.create');
+    Route::livewire('/user', \App\Livewire\User\Index::class)->name('user');
 
 
 
 
-    Route::get('/transaksi/setor', \App\Livewire\Transaksi\Setor::class)->name('transaksi.setor');
-    Route::get('/transaksi/tarik', \App\Livewire\Transaksi\Tarik::class)->name('transaksi.tarik');
 
-    Route::get('/laporan/biaya', \App\Livewire\Laporan\Biaya::class)->name('laporan.biaya');
-    Route::get('/laporan/transaksi', \App\Livewire\Laporan\Transaksi::class)->name('laporan.transaksi');
-    Route::get('/laporan/perhari', \App\Livewire\Laporan\TransaksiPerHari::class)->name('laporan.perhari');
-    Route::get('/laporan/nasabah', \App\Livewire\Laporan\Nasabah::class)->name('laporan.nasabah');
 
-    Route::get('/home', \App\Livewire\Dasbord\Index::class)->name('home');
-    Route::get('/whatapps', \App\Livewire\Whatsapp\Index::class)->name('whatsapp');
-    Route::get('/whatapps/pesan', \App\Livewire\Whatsapp\Pesan::class)->name('whatsapp.pesan');
-    Route::get('/whatapps/chat', \App\Livewire\Whatsapp\Chat::class)->name('whatsapp.chat');
+    Route::livewire('/transaksi/setor', \App\Livewire\Transaksi\Setor::class)->name('transaksi.setor');
+    Route::livewire('/transaksi/tarik', \App\Livewire\Transaksi\Tarik::class)->name('transaksi.tarik');
+
+    Route::livewire('/laporan/biaya', \App\Livewire\Laporan\Biaya::class)->name('laporan.biaya');
+    Route::livewire('/laporan/transaksi', \App\Livewire\Laporan\Transaksi::class)->name('laporan.transaksi');
+    Route::livewire('/laporan/perhari', \App\Livewire\Laporan\TransaksiPerHari::class)->name('laporan.perhari');
+    Route::livewire('/laporan/nasabah', \App\Livewire\Laporan\Nasabah::class)->name('laporan.nasabah');
+
+    Route::livewire('/home', \App\Livewire\Dasbord\Index::class)->name('home');
+    Route::livewire('/whatapps', \App\Livewire\Whatsapp\Index::class)->name('whatsapp');
+    Route::livewire('/whatapps/pesan', \App\Livewire\Whatsapp\Pesan::class)->name('whatsapp.pesan');
+    Route::livewire('/whatapps/chat', \App\Livewire\Whatsapp\Chat::class)->name('whatsapp.chat');
 });
 
 
 Route::group(
     ['middleware' => ['auth', 'role:admin|petugas']],
     function () {
-        Route::get('/setting', \App\Livewire\Setting\Tabungan::class)->name('setting.tabungan');
-        Route::get('/saldo', \App\Livewire\Saldo\Index::class)->name('saldo');
+        Route::livewire('/setting', \App\Livewire\Setting\Tabungan::class)->name('setting.tabungan');
+        Route::livewire('/saldo', \App\Livewire\Saldo\Index::class)->name('saldo');
     }
 );
 

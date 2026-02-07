@@ -22,7 +22,7 @@
 
                 <form wire:submit="cari">
                     <div class="input-group">
-                        <input wire:model.blur="search" autofocus type="text" id="cari" class="form-control " placeholder="Input Nomor Induk...">
+                        <input wire:model.live.blur="search" autofocus type="text" id="cari" class="form-control " placeholder="Input Nomor Induk...">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="sumbit">
                                 <i class="fas fa-search fa-sm"></i>
@@ -201,9 +201,14 @@
 </div>
 
 @push('scripts')
+
+@script
+
 <script type="text/javascript">
-    window.livewire.on('export', () => {
+    Livewire.on('export', () => {
         window.open('{{route("export.mutasi")}}');
     })
 </script>
+@endscript
+
 @endpush

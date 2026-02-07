@@ -378,7 +378,8 @@
 </div>
 
 
-@push('scripts')
+@script
+
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
         var dataM = @this.get('dataPemasukan');
@@ -446,4 +447,5 @@
         });
     })
 </script>
-@endpush
+@endscript
+

@@ -94,6 +94,7 @@
 @endassets
 
 @script
+    
     <script>
         $wire.on('modal', () => {
             setTimeout(function() {
@@ -221,4 +222,4 @@
             }
         });
     </script>
-@endscript
+    @endscript

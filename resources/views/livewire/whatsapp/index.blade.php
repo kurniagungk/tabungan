@@ -168,6 +168,7 @@
 </div>
 
 @script
+    
     <script>
         document.addEventListener('livewire:navigated', () => {
             $wire.findSesion();
@@ -203,4 +204,4 @@
             once: true
         });
     </script>
-@endscript
+    @endscript

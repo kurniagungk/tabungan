@@ -7,7 +7,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use App\Models\Nasabah;
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
@@ -34,8 +33,8 @@ class Index extends Component
     protected function whatsapp(): array
     {
         return [
-            'whatsappUrl' =>  env('WHATSAPP_API_URL'),
-            'whatsappKey' => env('WHATSAPP_API_KEY'),
+            'whatsappUrl' => config('whatsapp.api_url'),
+            'whatsappKey' => config('whatsapp.api_key'),
         ];
     }
 

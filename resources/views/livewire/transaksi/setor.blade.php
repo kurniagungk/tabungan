@@ -92,10 +92,11 @@
 </div>
 
 @assets
-    <script script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 @endassets
 
 @script
+    
     <script>
         $wire.on('modal', () => {
             setTimeout(function() {
@@ -222,4 +223,4 @@
             }
         });
     </script>
-@endscript
+    @endscript

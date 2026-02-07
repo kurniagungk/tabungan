@@ -154,9 +154,14 @@
 </div>
 
 @push('scripts')
+
+@script
+
 <script type="text/javascript">
-    window.livewire.on('export', () => {
+    Livewire.on('export', () => {
         window.open('{{route("export.mitra")}}');
     })
 </script>
+@endscript
+
 @endpush

@@ -68,6 +68,7 @@
 </div>
 
 @script
+
 <script>
     document.addEventListener('livewire:navigated', () => {
           $wire.loadData();

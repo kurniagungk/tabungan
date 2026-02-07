@@ -19,6 +19,7 @@
 
 
 @script
+    
     <script>
         document.addEventListener('livewire:navigated', () => {
             console.log(123)
@@ -107,4 +108,4 @@
             once: true
         })
     </script>
-@endscript
+    @endscript
