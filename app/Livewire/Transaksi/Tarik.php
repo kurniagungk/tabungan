@@ -107,19 +107,19 @@ class Tarik extends Component
 
         $nasabah = $this->nasabah;
 
-
         $saldoMinimal = Setting::where('nama', 'saldo_minimal')->first();
-
-
-
-        if ($nasabah->saldo - $this->tarik <  $saldoMinimal->isi || $nasabah->saldo < $saldoMinimal->isi)
-            return  $this->addError('tarik', 'Saldo Kurang');
         try {
 
             DB::beginTransaction();
 
             // Kunci baris nasabah agar tidak bisa diakses proses lain sampai transaksi selesai
             $nasabah = Nasabah::where('id', $nasabah->id)->lockForUpdate()->first();
+
+            if ($nasabah->saldo - $this->tarik < $saldoMinimal->isi || $nasabah->saldo < $saldoMinimal->isi) {
+                DB::rollBack();
+                return $this->addError('tarik', 'Saldo Kurang');
+            }
+
             $nasabah->saldo -= $this->tarik;
             $nasabah->save();
 
