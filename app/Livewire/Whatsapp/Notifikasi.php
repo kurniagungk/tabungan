@@ -71,6 +71,11 @@ class Notifikasi extends Component
     {
         $this->validate();
 
+        $user = auth()->user();
+        if ($user && !$user->hasRole('admin')) {
+            $this->saldo_id = $user->saldo_id;
+        }
+
         if (!$this->saldo_id) {
             $this->error('Lembaga wajib dipilih.');
             return;
@@ -91,7 +96,7 @@ class Notifikasi extends Component
             $query->whereIn('id', $this->selected);
         }
 
-        $query->whereNotNull('telepon')->where('wa', true);
+        $query->whereNotNull('telepon')->where('telepon', '!=', '')->where('wa', true);
 
         $count = $service->sendToNasabahs($query->cursor(), $this->message, 'notifikasi');
 
@@ -109,7 +114,7 @@ class Notifikasi extends Component
     public function render()
     {
         $saldoId = $this->saldo_id;
-        $isAdmin = auth()->user()?->hasRole('admin') ?? false;
+        $isAdmin = auth()->user()?->hasRole('admin') === true;
 
         $nasabahQuery = Nasabah::query()
             ->when($saldoId, fn (Builder $q) => $q->where('saldo_id', $saldoId))

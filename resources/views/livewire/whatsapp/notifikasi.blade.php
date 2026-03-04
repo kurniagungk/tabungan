@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="col-span- md:col-span-3 pt-5 px-10">
+        <div class="col-span-1 md:col-span-3 pt-5 px-10">
             <p>Keterangan</p>
             <p class="">{nama} = Nama Nasabah</p>
             <p class="">{saldo} = Saldo Nasabah</p>
