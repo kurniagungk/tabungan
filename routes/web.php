@@ -169,6 +169,7 @@ Route::group(['middleware' => ['auth', 'role:admin|petugas']], function () {
     Route::livewire('/whatapps', \App\Livewire\Whatsapp\Index::class)->name('whatsapp');
     Route::livewire('/whatapps/pesan', \App\Livewire\Whatsapp\Pesan::class)->name('whatsapp.pesan');
     Route::livewire('/whatapps/chat', \App\Livewire\Whatsapp\Chat::class)->name('whatsapp.chat');
+    Route::livewire('/whatapps/notifikasi', \App\Livewire\Whatsapp\Notifikasi::class)->name('whatsapp.notifikasi');
 });
 
 
