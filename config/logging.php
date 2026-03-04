@@ -51,6 +51,12 @@ return [
     */
 
     'channels' => [
+        'deprecations' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/deprecations.log'),
+            'level' => env('LOG_DEPRECATIONS_LEVEL', 'notice'),
+            'replace_placeholders' => true,
+        ],
 
         'stack' => [
             'driver' => 'stack',

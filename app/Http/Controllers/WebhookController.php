@@ -79,8 +79,7 @@ class WebhookController extends Controller
             $message   = $payload["data"]['messages'] ?? null;
 
             $pesan = $message['message']['conversation'] ?? null;
-
-            $pesan = strtolower(trim($pesan));
+            $pesan = strtolower(trim((string) $pesan));
 
             if (in_array($pesan, ["saldo", "mutasi"])) {
                 $nomer = $message['key']['remoteJid'] ?? null;
