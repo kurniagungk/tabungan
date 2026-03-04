@@ -83,6 +83,7 @@
                     <x-menu-item title="API" icon="o-server" link="{{ route('whatsapp') }}" />
                     <x-menu-item title="PESAN" icon="o-chat-bubble-bottom-center-text"
                         link="{{ route('whatsapp.pesan') }}" />
+                    <x-menu-item title="NOTIFIKASI" icon="o-paper-airplane" link="{{ route('whatsapp.notifikasi') }}" />
 
                 </x-menu-sub>
 

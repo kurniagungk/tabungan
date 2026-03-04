@@ -345,6 +345,7 @@ class Index extends Component
             ['value' => 'tarik', 'label' => 'Tarik'],
             ['value' => 'saldo', 'label' => 'Saldo'],
             ['value' => 'mutasi', 'label' => 'Mutasi'],
+            ['value' => 'notifikasi', 'label' => 'Notifikasi'],
         ];
 
 
