@@ -114,7 +114,7 @@ class Notifikasi extends Component
     public function render()
     {
         $saldoId = $this->saldo_id;
-        $isAdmin = auth()->user()?->hasRole('admin') === true;
+        $isAdmin = auth()->user()?->hasRole('admin');
 
         $nasabahQuery = Nasabah::query()
             ->when($saldoId, fn (Builder $q) => $q->where('saldo_id', $saldoId))
