@@ -290,6 +290,8 @@ class Index extends Component
                 'phoneNumber' => $phone,
             ]);
 
+            $this->server = true;
+
             if (isset($create->json()['pairingCode'])) {
                 $this->pairingCode = $create->json()['pairingCode'];
             } else {
@@ -329,7 +331,12 @@ class Index extends Component
     public function dc()
     {
         $this->deleteSession();
-        $this->resetMetode();
+        // Inline reset (hindari resetMetode() yang akan men-delete sekali lagi)
+        $this->metode = null;
+        $this->pairingCode = null;
+        $this->phoneInput = '';
+        $this->phoneError = '';
+        $this->qr = null;
         $this->findSesion();
     }
 
