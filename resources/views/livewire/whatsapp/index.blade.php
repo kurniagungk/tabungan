@@ -64,20 +64,68 @@
 
 
 
-                    @if ($qr)
-                        <div class="flex justify-center items-center mt-5">
-                            <img src="{{ $qr }}" alt="QR Code"
-                                class="rounded-lg shadow-lg w-72 border border-base-300">
+                    {{-- State 1: belum pilih metode --}}
+                    @if (!$sesion && !$metode)
+                        <div class="mt-6">
+                            <h4 class="text-sm font-semibold mb-2">Pilih metode koneksi:</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <x-button label="QR Code" icon="o-qr-code" wire:click="pilihQr"
+                                    class="btn btn-primary" spinner />
+                                <x-button label="Pairing Code" icon="o-key" wire:click="pilihPairing"
+                                    class="btn btn-secondary" spinner />
+                            </div>
                         </div>
+                    @endif
 
+                    {{-- State 2: mode QR --}}
+                    @if (!$sesion && $metode === 'qr')
+                        @if ($qr)
+                            <div class="flex justify-center items-center mt-5">
+                                <img src="{{ $qr }}" alt="QR Code"
+                                    class="rounded-lg shadow-lg w-72 border border-base-300">
+                            </div>
 
-                        <div class="flex  items-center">
-                            <x-button label=" refresh QR" wire:click="findSesion"
-                                class="btn btn-error btn-sm mt-4 mx-auto" spinner />
-                        </div>
-                    @else
-                        <div id="loading" class="flex justify-center h-96 ">
-                            <x-loading class="loading-infinity loading-xl" />
+                            <div class="flex gap-2 justify-center items-center mt-4">
+                                <x-button label="refresh QR" wire:click="findSesion"
+                                    class="btn btn-error btn-sm" spinner />
+                                <x-button label="Ganti Metode" wire:click="resetMetode"
+                                    class="btn btn-ghost btn-sm" />
+                            </div>
+                        @else
+                            <div id="loading" class="flex justify-center h-96 ">
+                                <x-loading class="loading-infinity loading-xl" />
+                            </div>
+                        @endif
+                    @endif
+
+                    {{-- State 3: mode Pairing --}}
+                    @if (!$sesion && $metode === 'pairing')
+                        <div class="mt-6 space-y-3">
+                            <x-input label="Nomor WhatsApp" wire:model="phoneInput"
+                                wire:keydown.enter="generatePairing"
+                                placeholder="08xxxxxxxxxx"
+                                hint="Format: 08xxx / 62xxx / +62xxx" />
+
+                            @if ($phoneError)
+                                <p class="text-error text-sm">{{ $phoneError }}</p>
+                            @endif
+
+                            @if ($pairingCode)
+                                <div class="alert alert-info flex-col items-start">
+                                    <span class="text-sm">Masukkan kode ini di WhatsApp HP Anda
+                                        (Perangkat Tertaut &rarr; Tautkan dengan nomor telepon):</span>
+                                </div>
+                                <div class="text-3xl font-mono font-bold tracking-widest text-center mt-2">
+                                    {{ implode('-', str_split($pairingCode, 4)) }}
+                                </div>
+                            @endif
+
+                            <div class="flex gap-2">
+                                <x-button label="Generate Pairing" wire:click="generatePairing"
+                                    class="btn btn-primary" spinner />
+                                <x-button label="Ganti Metode" wire:click="resetMetode"
+                                    class="btn btn-ghost" />
+                            </div>
                         </div>
                     @endif
 

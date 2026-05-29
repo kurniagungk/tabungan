@@ -29,7 +29,11 @@ class Index extends Component
 
     public array $selected = [];
 
-
+    // Pilihan metode koneksi WhatsApp: null = belum pilih, 'qr', atau 'pairing'
+    public ?string $metode = null;
+    public string $phoneInput = '';
+    public ?string $pairingCode = null;
+    public string $phoneError = '';
 
 
     public function mount()
@@ -94,6 +98,12 @@ class Index extends Component
         $this->whatsappSession = $settingSesion ? $settingSesion->isi : null;
         $this->whatsappHook = $hook->isi == 1 ? true : false;
         $this->status = $setting->isi == 1 ? true : false;
+
+        // Reset state pemilihan metode supaya tidak terbawa antar lembaga
+        $this->metode = null;
+        $this->pairingCode = null;
+        $this->phoneInput = '';
+        $this->phoneError = '';
 
         $this->dispatch('qr');
     }
@@ -163,7 +173,12 @@ class Index extends Component
 
 
             if (isset($sesion->json()['error'])) {
-                $this->createSession();
+                // Session belum ada di server. Jangan langsung create — biarkan
+                // user memilih metode (QR / Pairing) terlebih dahulu.
+                $this->sesion = false;
+                if ($this->metode === null) {
+                    $this->qr = null;
+                }
             } else {
                 $this->statusSession();
             }
@@ -219,19 +234,109 @@ class Index extends Component
                 $this->qr = asset('images/whatsapp.png');
                 $this->sesion = true;
             } else {
-                $this->deleteSession();
-                $this->createSession();
+                // Session ada tapi belum connected — jangan auto-recreate.
+                // Biarkan user pilih ulang metode (QR / Pairing).
+                $this->sesion = false;
             }
         } else {
-            $this->deleteSession();
-            $this->createSession();
+            $this->sesion = false;
         }
+    }
+
+
+    public function pilihQr()
+    {
+        $this->metode = 'qr';
+        $this->phoneError = '';
+        $this->pairingCode = null;
+        // Bersihkan session lama (jika ada tapi belum connected) agar API
+        // tidak menolak /sessions/add dan QR pasti dihasilkan.
+        $this->deleteSession();
+        $this->createSession();
+    }
+
+    public function pilihPairing()
+    {
+        $this->metode = 'pairing';
+        $this->phoneError = '';
+        $this->pairingCode = null;
+        $this->qr = null;
+    }
+
+    public function generatePairing()
+    {
+        $this->phoneError = '';
+        $phone = $this->formatPhoneNumber($this->phoneInput);
+
+        if (!preg_match('/^62[0-9]{8,13}$/', $phone)) {
+            $this->phoneError = 'Format nomor tidak valid. Gunakan 08xxx, +62xxx, atau 62xxx (10-15 digit).';
+            return;
+        }
+
+        $whatsapp = $this->whatsapp();
+        $appUrl   = config('app.url');
+
+        try {
+            // Bersihkan session lama agar API tidak menolak karena session sudah ada
+            $this->deleteSession();
+
+            $create = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'x-api-key'    => $whatsapp['whatsappKey'],
+            ])->post($whatsapp['whatsappUrl'] . '/sessions/add', [
+                'sessionId'   => $this->whatsappSession,
+                'webhookUrl'  => $appUrl . '/api/webhooks/whatsapp',
+                'pairingCode' => true,
+                'phoneNumber' => $phone,
+            ]);
+
+            $this->server = true;
+
+            if (isset($create->json()['pairingCode'])) {
+                $this->pairingCode = $create->json()['pairingCode'];
+            } else {
+                $this->phoneError = 'Gagal mendapatkan kode pairing dari server. Coba lagi atau hubungi pengembang.';
+            }
+        } catch (\Exception $ex) {
+            $this->phoneError = 'Server WhatsApp API tidak dapat dihubungi.';
+            $this->server = false;
+        }
+    }
+
+    public function resetMetode()
+    {
+        if (!$this->sesion) {
+            $this->deleteSession();
+        }
+        $this->metode = null;
+        $this->pairingCode = null;
+        $this->phoneInput = '';
+        $this->phoneError = '';
+        $this->qr = null;
+    }
+
+    private function formatPhoneNumber(string $phone): string
+    {
+        $phone = preg_replace('/\D/', '', $phone);
+        if ($phone === '') {
+            return '';
+        }
+        if (str_starts_with($phone, '0')) {
+            return '62' . substr($phone, 1);
+        }
+        return $phone;
     }
 
 
     public function dc()
     {
         $this->deleteSession();
+        // Inline reset (hindari resetMetode() yang akan men-delete sekali lagi)
+        $this->metode = null;
+        $this->pairingCode = null;
+        $this->phoneInput = '';
+        $this->phoneError = '';
+        $this->qr = null;
         $this->findSesion();
     }
 
