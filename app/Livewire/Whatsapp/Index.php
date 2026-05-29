@@ -249,6 +249,9 @@ class Index extends Component
         $this->metode = 'qr';
         $this->phoneError = '';
         $this->pairingCode = null;
+        // Bersihkan session lama (jika ada tapi belum connected) agar API
+        // tidak menolak /sessions/add dan QR pasti dihasilkan.
+        $this->deleteSession();
         $this->createSession();
     }
 
