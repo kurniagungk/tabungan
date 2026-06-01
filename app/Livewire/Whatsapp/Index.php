@@ -11,6 +11,7 @@ use App\Models\Whatsapp;
 use Livewire\WithPagination;
 use App\Jobs\KirimPesanWhatsappJob;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class Index extends Component
 {
@@ -34,6 +35,7 @@ class Index extends Component
     public string $phoneInput = '';
     public ?string $pairingCode = null;
     public string $phoneError = '';
+    public ?string $phoneNumber = null;
 
 
     public function mount()
@@ -233,13 +235,16 @@ class Index extends Component
             if ($status->json()['status'] == "connected") {
                 $this->qr = asset('images/whatsapp.png');
                 $this->sesion = true;
+                $this->phoneNumber = $status->json()['phoneNumber'] ?? null;
             } else {
                 // Session ada tapi belum connected — jangan auto-recreate.
                 // Biarkan user pilih ulang metode (QR / Pairing).
                 $this->sesion = false;
+                $this->phoneNumber = null;
             }
         } else {
             $this->sesion = false;
+            $this->phoneNumber = null;
         }
     }
 
@@ -313,6 +318,7 @@ class Index extends Component
         $this->phoneInput = '';
         $this->phoneError = '';
         $this->qr = null;
+        $this->phoneNumber = null;
     }
 
     private function formatPhoneNumber(string $phone): string
@@ -327,6 +333,23 @@ class Index extends Component
         return $phone;
     }
 
+    public function getDisplayPhoneNumberProperty(): ?string
+    {
+        if (!$this->phoneNumber) {
+            return null;
+        }
+
+        $phone = Str::before($this->phoneNumber, ':');
+
+        // Format: +62 878-4600-4626
+        $phone = preg_replace('/\D/', '', $phone);
+        if (str_starts_with($phone, '62') && strlen($phone) >= 5) {
+            return '+62 ' . substr($phone, 2, 3) . '-' . substr($phone, 5, 4) . '-' . substr($phone, 9);
+        }
+
+        return $phone;
+    }
+
 
     public function dc()
     {
@@ -337,6 +360,7 @@ class Index extends Component
         $this->phoneInput = '';
         $this->phoneError = '';
         $this->qr = null;
+        $this->phoneNumber = null;
         $this->findSesion();
     }
 

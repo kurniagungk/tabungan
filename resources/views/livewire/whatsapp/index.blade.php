@@ -46,21 +46,23 @@
 
 
                 @if ($status)
-                    <div class="mt-6 space-y-3">
-                        <h4 class="text-lg font-semibold">Untuk menggunakan WhatsApp di komputer Anda:</h4>
-                        <ul class="list-disc pl-5 text-sm space-y-1">
-                            <li>Buka WhatsApp di telepon Anda</li>
-                            <li>
-                                Ketuk <strong>Menu</strong> atau <strong>Setelan</strong> dan pilih <strong>Perangkat
-                                    Tertaut</strong>
-                            </li>
-                            <li>Arahkan telepon Anda ke layar ini untuk memindai kode</li>
-                        </ul>
-                        <p class="text-sm">Jika Error! Coba lagi jam 00, 03, 09, 12, 15, 18, atau 21 lewat 1 menit. Jika
-                            masih
-                            error,
-                            hubungi Pengembang Aplikasi.</p>
-                    </div>
+                    @if (!$sesion)
+                        <div class="mt-6 space-y-3">
+                            <h4 class="text-lg font-semibold">Untuk menggunakan WhatsApp di komputer Anda:</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>Buka WhatsApp di telepon Anda</li>
+                                <li>
+                                    Ketuk <strong>Menu</strong> atau <strong>Setelan</strong> dan pilih <strong>Perangkat
+                                        Tertaut</strong>
+                                </li>
+                                <li>Arahkan telepon Anda ke layar ini untuk memindai kode</li>
+                            </ul>
+                            <p class="text-sm">Jika Error! Coba lagi jam 00, 03, 09, 12, 15, 18, atau 21 lewat 1 menit. Jika
+                                masih
+                                error,
+                                hubungi Pengembang Aplikasi.</p>
+                        </div>
+                    @endif
 
 
 
@@ -130,10 +132,17 @@
                     @endif
 
                     @if ($sesion)
-                        <div class="flex  items-center">
-                            <x-button label="Ganti Nomor" wire:click="dc" class="btn btn-error btn-sm mt-4 mx-auto"
+                        <div class="flex flex-col items-center mt-4 gap-2">
+                            <img src="{{ asset('images/whatsapp.png') }}" alt="WhatsApp Connected"
+                                class="w-48 h-48">
+                            @if ($phoneNumber)
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-500">Terhubung ke:</span>
+                                    <span class="badge badge-success">{{ $this->displayPhoneNumber }}</span>
+                                </div>
+                            @endif
+                            <x-button label="Ganti Nomor" wire:click="dc" class="btn btn-error btn-sm"
                                 spinner />
-
                         </div>
                     @endif
                 @endif
